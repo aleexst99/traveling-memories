@@ -1,30 +1,57 @@
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-  <!-- Alejandro -->
-  <p-card header="Alejandro">
-    <img src="assets/alex.png" alt="Tu Foto" class="w-full h-64 object-cover rounded-xl mb-3" />
-    <p>Acerca de
-      Soy un desarrollador de software apasionado por el mundo de la tecnología, experto en la resolución de problemas y el trabajo colaborativo. Desde joven, supe que quería seguir este camino, lo que me llevó a estudiar desarrollo web y desarrollo multiplataforma. Disfruto infundiendo creatividad en cada aplicación en la que trabajo, a la vez que aseguro una sólida base lógica en el software. Me apasiona afrontar los retos con decisión, invirtiendo mucha motivación y energía en superarlos. Además, siempre estoy abierto a escuchar y aprender de mis compañeros en cualquier ámbito. Actualmente busco un puesto que no solo me permita impulsar mi crecimiento profesional, sino que también facilite mi desarrollo personal en mi carrera como informático.</p>
-    <div class="mt-3">
-      <a href="https://github.com/aleexst99" target="_blank">
-        <img src="assets/github-logo.png" alt="GitHub" width="24" class="inline-block mr-2" />
-      </a>
-      <a href="https://www.linkedin.com/in/alejandrosanchezteruel/" target="_blank">
-        <img src="assets/linkedin-logo.png" alt="LinkedIn" width="24" class="inline-block" />
-      </a>
-    </div>
-  </p-card>
+<section class="users">
+  <div class="cards">
+    <!-- Alejandro -->
+    <div class="card">
+      <p-card>
+        <ng-template pTemplate="header">
+          <h2>Alejandro</h2>
+        </ng-template>
 
-  <!-- Arturo -->
-  <p-card header="Arturo">
-    <img src="assets/arturo.png" alt="Foto Compañero/a" class="w-full h-64 object-cover rounded-xl mb-3" />
-    <p> ¡Hola! Soy Arturo, un apasionado por la tecnología y el desarrollo de software. Estoy titulado en Desarrollo de Aplicaciones Multiplataforma (DAM), y me encanta estar en constante aprendizaje para mejorar mis habilidades y conocimientos. Disfruto trabajar en equipo, compartiendo ideas y colaborando para lograr soluciones eficientes. La eficiencia es uno de mis principales valores en el trabajo, siempre buscando formas de optimizar procesos y mejorar resultados. Estoy emocionado por las oportunidades que me permitan crecer y aportar en el mundo tecnológico.</p>
-    <div class="mt-3">
-      <a href="https://github.com/Turidevelop" target="_blank">
-        <img src="assets/github-logo.png" alt="GitHub" width="24" class="inline-block mr-2" />
-      </a>
-      <a href="https://linkedin.com/in/compa" target="_blank">
-        <img src="assets/linkedin-logo.png" alt="LinkedIn" width="24" class="inline-block" />
-      </a>
+        <div class="photo">
+          <img src="assets/alex.png" alt="Foto Alejandro">
+        </div>
+
+        <p>
+          Soy un desarrollador de software apasionado por la tecnología, experto en la resolución
+          de problemas y el trabajo colaborativo...
+        </p>
+
+        <div class="social">
+          <a href="https://github.com/aleexst99" target="_blank">
+            <i class="pi pi-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/alejandrosanchezteruel/" target="_blank">
+            <i class="pi pi-linkedin"></i>
+          </a>
+        </div>
+      </p-card>
     </div>
-  </p-card>
-</div>
+
+    <!-- Arturo -->
+    <div class="card">
+      <p-card>
+        <ng-template pTemplate="header">
+          <h2>Arturo</h2>
+        </ng-template>
+
+        <div class="photo">
+          <img src="assets/arturo.png" alt="Foto Arturo">
+        </div>
+
+        <p>
+          ¡Hola! Soy Arturo, un apasionado por la tecnología y el desarrollo de software.
+          Estoy titulado en Desarrollo de Aplicaciones...
+        </p>
+
+        <div class="social">
+          <a href="https://github.com/Turidevelop" target="_blank">
+            <i class="pi pi-github"></i>
+          </a>
+          <a href="https://linkedin.com/in/compa" target="_blank">
+            <i class="pi pi-linkedin"></i>
+          </a>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</section>
