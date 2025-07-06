@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CardModule],
+  imports: [],
   templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {}
