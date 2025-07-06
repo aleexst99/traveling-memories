@@ -30,7 +30,7 @@
               "src/assets"
             ],
             "styles": [
-
+              "src/styles.css"
             ]
           },
           "configurations": {
@@ -89,6 +89,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/styles.css"
             ],
             "scripts": []
           }
