@@ -1,8 +1,22 @@
 .landing {
+  position: relative;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #ffffff, #f0f8ff); // suave fondo claro
+  background: url("/assets/fondo.png") no-repeat center center/cover;
+}
+
+.landing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* capa oscura */
+  z-index: 0;
+}
+
+.landing > * {
+  position: relative;
+  z-index: 1; /* el contenido queda por encima del overlay */
 }
 
 .main-content {
