@@ -1,0 +1,43 @@
+.navbar {
+  background: rgba(20, 20, 20, 0.6); /* negro translúcido */
+  backdrop-filter: blur(6px);        /* efecto vidrio esmerilado */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.8rem 1.5rem;
+
+  .navbar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+  }
+
+  .logo {
+    height: 60px;
+    object-fit: contain;
+  }
+
+  .menu {
+    display: flex;
+    gap: 1.5rem;
+
+    a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #f5f5f5; /* texto claro para contrastar */
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #87cefa; /* azul cielo en hover */
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar .menu {
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}

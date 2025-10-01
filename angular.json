@@ -29,9 +29,9 @@
               "src/favicon.ico",
               "src/assets"
             ],
-
             "styles": [
-              "src/styles.scss"
+              "node_modules/leaflet/dist/leaflet.css",
+              "src/styles.css"
             ]
           },
           "configurations": {
@@ -90,7 +90,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "node_modules/leaflet/dist/leaflet.css",
+              "src/styles.css"
             ],
             "scripts": []
           }
