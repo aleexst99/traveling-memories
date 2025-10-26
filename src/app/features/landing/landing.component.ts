@@ -12,5 +12,4 @@ import {LeafletMapComponent } from '../../leaflet-map/leaflet-map.component'
   styleUrl: './landing.component.scss'
 })
 export class LandingComponent {
-
 }
