@@ -1,0 +1,96 @@
+[
+  {
+    "id": 1,
+    "name": "Alejandro",
+    "photo": "assets/alex.png",
+    "bio": "Desarrollador de software apasionado por la tecnología, la innovación y la resolución de problemas. Me encanta viajar y capturar recuerdos únicos.",
+    "social": {
+      "github": "https://github.com/aleexst99",
+      "linkedin": "https://www.linkedin.com/in/alejandrosanchezteruel/"
+    },
+    "trips": [
+      {
+        "id": 101,
+        "title": "Viena en Invierno",
+        "continent": "Europa",
+        "image": "assets/viena.png",
+        "description": "Una escapada mágica entre nieve, cafés y la arquitectura imperial."
+      },
+      {
+        "id": 102,
+        "title": "Tokio Futurista",
+        "continent": "Asia",
+        "image": "assets/tokio.png",
+        "description": "Luces de neón, templos antiguos y una gastronomía inolvidable."
+      },
+      {
+        "id": 103,
+        "title": "Marrakech y el Desierto",
+        "continent": "África",
+        "image": "assets/marrakech.png",
+        "description": "Paseos por zocos, colores vibrantes y noches bajo las estrellas en el Sáhara."
+      }
+    ],
+    "wishlist": [
+      {
+        "id": 201,
+        "title": "Nueva York",
+        "continent": "América",
+        "image": "assets/ny.png"
+      },
+      {
+        "id": 202,
+        "title": "Islas Feroe",
+        "continent": "Europa",
+        "image": "assets/feroe.png"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Arturo",
+    "photo": "assets/arturo.png",
+    "bio": "Apasionado por la tecnología, el desarrollo y las aventuras al aire libre. Disfruto conocer nuevas culturas y su historia.",
+    "social": {
+      "github": "https://github.com/Turidevelop",
+      "linkedin": "https://linkedin.com/in/compa"
+    },
+    "trips": [
+      {
+        "id": 104,
+        "title": "París en Primavera",
+        "continent": "Europa",
+        "image": "assets/paris.png",
+        "description": "Paseos por el Sena, croissants al amanecer y arte en cada esquina."
+      },
+      {
+        "id": 105,
+        "title": "Seúl Tradicional",
+        "continent": "Asia",
+        "image": "assets/seul.png",
+        "description": "Entre templos, mercados callejeros y modernidad tecnológica."
+      },
+      {
+        "id": 106,
+        "title": "Costa Rica Salvaje",
+        "continent": "América",
+        "image": "assets/costarica.png",
+        "description": "Selvas, volcanes y playas paradisíacas llenas de vida."
+      }
+    ],
+    "wishlist": [
+      {
+        "id": 203,
+        "title": "Islandia",
+        "continent": "Europa",
+        "image": "assets/iceland.png"
+      },
+      {
+        "id": 204,
+        "title": "Australia",
+        "continent": "Oceanía",
+        "image": "assets/australia.png"
+      }
+    ]
+  }
+]
