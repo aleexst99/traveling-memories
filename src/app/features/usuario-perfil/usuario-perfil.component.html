@@ -1,1 +1,52 @@
-<p>usuario-perfil works!</p>
+@if (user) {
+  <section class="profile">
+    <div class="header">
+      <img [src]="user.photo" [alt]="user.name" class="avatar" />
+      <div class="info">
+        <h1>{{ user.name }}</h1>
+        <p>{{ user.bio }}</p>
+        <div class="social">
+          <a [href]="user.social.github" target="_blank">
+            <i class="pi pi-github"></i>
+          </a>
+          <a [href]="user.social.linkedin" target="_blank">
+            <i class="pi pi-linkedin"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="trips">
+      <h2>🌍 Viajes Realizados</h2>
+      <div class="cards">
+        @for (trip of user.trips; track trip.id) {
+          <div class="card">
+            <img [src]="trip.image" [alt]="trip.title" />
+            <div class="content">
+              <h3>{{ trip.title }}</h3>
+              <p>{{ trip.description }}</p>
+              <span class="continent">{{ trip.continent }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="wishlist">
+      <h2>🧭 Wishlist</h2>
+      <div class="cards">
+        @for (wish of user.wishlist; track wish.id) {
+          <div class="card">
+            <img [src]="wish.image" [alt]="wish.title" />
+            <div class="content">
+              <h3>{{ wish.title }}</h3>
+              <span class="continent">{{ wish.continent }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+} @else {
+  <p class="loading">Cargando usuario...</p>
+}
