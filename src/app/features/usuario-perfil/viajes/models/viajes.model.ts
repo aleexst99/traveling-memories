@@ -1,7 +1,9 @@
 export interface Viaje {
   id: number;
   title: string;
-  date: Date;
-  cover_photo_url: string;
-  summary: string;
+  continent: string;
+  image: string;
+  description?: string; // opcional para wishlist
+  lat?: number;
+  lng?: number;
 }
