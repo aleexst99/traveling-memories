@@ -1,0 +1,24 @@
+.viajes-lista {
+  margin-top: 2rem;
+
+  h2 {
+    color: #fff;
+    font-size: 1.4rem;
+    margin: 1rem 0;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.4rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .empty {
+    text-align: center;
+    color: #aaa;
+    margin: 1rem 0 2rem 0;
+    font-style: italic;
+  }
+}

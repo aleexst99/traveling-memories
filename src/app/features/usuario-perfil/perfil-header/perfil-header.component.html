@@ -1,0 +1,23 @@
+<section class="perfil-header" [class.dark]="modoOscuro()">
+  <div class="avatar">
+    <img [src]="user().photo" [alt]="user().name" />
+  </div>
+
+  <div class="info">
+    <h1>{{ displayName() }}</h1>
+    <p>{{ user().bio }}</p>
+
+    <div class="social">
+      <a [href]="user().social.github" target="_blank" aria-label="GitHub">
+        <i class="pi pi-github"></i>
+      </a>
+      <a [href]="user().social.linkedin" target="_blank" aria-label="LinkedIn">
+        <i class="pi pi-linkedin"></i>
+      </a>
+    </div>
+
+    <button class="modo" (click)="toggleModoOscuro()">
+      {{ modoOscuro() ? '☀️ Modo claro' : '🌙 Modo oscuro' }}
+    </button>
+  </div>
+</section>
