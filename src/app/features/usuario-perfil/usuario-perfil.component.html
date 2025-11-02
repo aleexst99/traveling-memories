@@ -1,52 +1,34 @@
-@if (user) {
-  <section class="profile">
-    <div class="header">
-      <img [src]="user.photo" [alt]="user.name" class="avatar" />
-      <div class="info">
-        <h1>{{ user.name }}</h1>
-        <p>{{ user.bio }}</p>
-        <div class="social">
-          <a [href]="user.social.github" target="_blank">
-            <i class="pi pi-github"></i>
-          </a>
-          <a [href]="user.social.linkedin" target="_blank">
-            <i class="pi pi-linkedin"></i>
-          </a>
-        </div>
-      </div>
+<section class="perfil-container">
+  @if (user(); as u) {
+    <!-- 🧑 Header -->
+    <app-perfil-header [user]="u" />
+
+    <!-- ⚙️ Acciones -->
+    <div class="perfil-actions">
+      <button class="btn-primary" (click)="abrirModal()">➕ Añadir viaje</button>
+
+      <select (change)="filtrarPorContinente($any($event.target).value)">
+        @for (c of continentes(); track c) {
+          <option [selected]="c === filtroContinente()" [value]="c">{{ c }}</option>
+        }
+      </select>
     </div>
 
-    <div class="trips">
-      <h2>🌍 Viajes Realizados</h2>
-      <div class="cards">
-        @for (trip of user.trips; track trip.id) {
-          <div class="card">
-            <img [src]="trip.image" [alt]="trip.title" />
-            <div class="content">
-              <h3>{{ trip.title }}</h3>
-              <p>{{ trip.description }}</p>
-              <span class="continent">{{ trip.continent }}</span>
-            </div>
-          </div>
-        }
-      </div>
+    <!-- 📊 Dashboard -->
+    <div class="perfil-stats">
+      <p><strong>{{ viajesRealizados() }}</strong> viajes realizados</p>
+      <p><strong>{{ viajesWishlist() }}</strong> en wishlist</p>
+      <p><strong>{{ porcentajeContinentes() }}%</strong> continentes visitados</p>
     </div>
 
-    <div class="wishlist">
-      <h2>🧭 Wishlist</h2>
-      <div class="cards">
-        @for (wish of user.wishlist; track wish.id) {
-          <div class="card">
-            <img [src]="wish.image" [alt]="wish.title" />
-            <div class="content">
-              <h3>{{ wish.title }}</h3>
-              <span class="continent">{{ wish.continent }}</span>
-            </div>
-          </div>
-        }
-      </div>
+    <!-- 🗺️ Mapa -->
+    <app-perfil-mapa [user]="u" />
+
+    <!-- ✈️ Lista de viajes -->
+    <app-viajes-lista-dos [viajes]="viajesFiltrados()" [wishlist]="u.wishlist" />
+  } @else {
+    <div class="loading">
+      <p>Cargando usuario...</p>
     </div>
-  </section>
-} @else {
-  <p class="loading">Cargando usuario...</p>
-}
+  }
+</section>

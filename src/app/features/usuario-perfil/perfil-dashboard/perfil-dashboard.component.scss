@@ -1,0 +1,61 @@
+.dashboard {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+
+  .stat {
+    h3 {
+      font-size: 1.8rem;
+      color: #fff;
+      margin: 0;
+    }
+
+    p {
+      color: #ccc;
+      margin: 0.3rem 0 0;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #0056b3;
+    }
+  }
+
+  select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    outline: none;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,10 @@
+<article class="viaje-card" [class.wishlist]="wishlist()">
+  <img [src]="viaje().image" [alt]="viaje().title" />
+  <div class="info">
+    <h3>{{ viaje().title }}</h3>
+    @if (viaje().description) {
+      <p>{{ viaje().description }}</p>
+    }
+    <small>{{ viaje().continent }}</small>
+  </div>
+</article>

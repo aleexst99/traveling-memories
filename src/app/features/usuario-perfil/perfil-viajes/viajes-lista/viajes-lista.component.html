@@ -1,0 +1,25 @@
+<section class="viajes-lista">
+  <h2>🌍 Viajes Realizados ({{ totalViajes() }})</h2>
+
+  @if (viajes().length > 0) {
+    <div class="grid">
+      @for (v of viajes(); track v.id) {
+        <app-viaje-card [viaje]="v" />
+      }
+    </div>
+  } @else {
+    <p class="empty">Aún no has registrado ningún viaje.</p>
+  }
+
+  <h2>⭐ Wishlist ({{ totalWishlist() }})</h2>
+
+  @if (wishlist().length > 0) {
+    <div class="grid">
+      @for (w of wishlist(); track w.id) {
+        <app-viaje-card [viaje]="w"/>
+      }
+    </div>
+  } @else {
+    <p class="empty">Tu lista de deseos está vacía.</p>
+  }
+</section>
