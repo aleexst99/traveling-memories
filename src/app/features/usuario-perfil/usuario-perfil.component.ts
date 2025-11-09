@@ -4,10 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { User } from './models/user.model';
-import { PerfilDashboardComponent } from './perfil-dashboard/perfil-dashboard.component';
 import { PerfilHeaderComponent } from './perfil-header/perfil-header.component';
 import { PerfilMapaComponent } from './perfil-mapa/perfil-mapa.component';
-import { ViajesListaComponent } from './viajes/viajes-lista/viajes-lista.component';
 import { Viaje } from './viajes/models/viajes.model';
 import { ViajesListaComponentDos } from './perfil-viajes/viajes-lista/viajes-lista.component';
 
@@ -15,8 +13,6 @@ import { ViajesListaComponentDos } from './perfil-viajes/viajes-lista/viajes-lis
   selector: 'app-usuario-perfil',
   standalone: true,
   imports: [CommonModule, FormsModule, PerfilHeaderComponent,
-    PerfilDashboardComponent,
-    ViajesListaComponent,
     PerfilMapaComponent,
     CommonModule, ViajesListaComponentDos],
   templateUrl: './usuario-perfil.component.html',
