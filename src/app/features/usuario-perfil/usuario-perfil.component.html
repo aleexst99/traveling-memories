@@ -1,0 +1,34 @@
+<section class="perfil-container">
+  @if (user(); as u) {
+    <!-- 🧑 Header -->
+    <app-perfil-header [user]="u" />
+
+    <!-- ⚙️ Acciones -->
+    <div class="perfil-actions">
+      <button class="btn-primary" (click)="abrirModal()">➕ Añadir viaje</button>
+
+      <select (change)="filtrarPorContinente($any($event.target).value)">
+        @for (c of continentes(); track c) {
+          <option [selected]="c === filtroContinente()" [value]="c">{{ c }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- 📊 Dashboard -->
+    <div class="perfil-stats">
+      <p><strong>{{ viajesRealizados() }}</strong> viajes realizados</p>
+      <p><strong>{{ viajesWishlist() }}</strong> en wishlist</p>
+      <p><strong>{{ porcentajeContinentes() }}%</strong> continentes visitados</p>
+    </div>
+
+    <!-- 🗺️ Mapa -->
+    <app-perfil-mapa [user]="u" />
+
+    <!-- ✈️ Lista de viajes -->
+    <app-viajes-lista-dos [viajes]="viajesFiltrados()" [wishlist]="u.wishlist" />
+  } @else {
+    <div class="loading">
+      <p>Cargando usuario...</p>
+    </div>
+  }
+</section>
