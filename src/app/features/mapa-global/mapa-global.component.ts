@@ -28,12 +28,13 @@ export class MapaGlobalComponent implements OnInit {
     const contFilter = this.filtroContinente();
 
     return this.allTrips().filter(v => {
-      //const matchUser = userFilter === 'Todos' || v.userName === userFilter;
-      // return matchUser && matchCont;
       const matchCont = contFilter === 'Todos' || v.continent === contFilter;
-      return matchCont;
+      const matchUser = userFilter === 'Todos' || v.id_user === Number(userFilter);
+      return matchCont && matchUser;
     });
   });
+
+
 
   constructor(private http: HttpClient, private el: ElementRef) {}
 
@@ -46,7 +47,9 @@ export class MapaGlobalComponent implements OnInit {
       next: (users) => {
         this.users.set(users);
         const trips = users.flatMap(u =>
-          u.trips.map(t => ({ ...t, userName: u.name }))
+          u.trips.map(t => ({ ...t,    id_user: u.id,     // ← AÑADIR esto
+            userName: u.name,
+            userPhoto: u.photo }))
         );
         this.allTrips.set(trips);
         this.initMap(trips);
@@ -69,6 +72,8 @@ export class MapaGlobalComponent implements OnInit {
 
   refrescarMarcadores() {
     if (!this.map) return;
+
+    // Limpiar marcadores previos
     (this.map as any)._layers &&
       Object.values((this.map as any)._layers).forEach((layer: any) => {
         if (layer instanceof L.Marker) this.map.removeLayer(layer);
@@ -76,12 +81,27 @@ export class MapaGlobalComponent implements OnInit {
 
     this.filteredTrips().forEach(v => {
       if (v.lat && v.lng) {
-        L.marker([v.lat, v.lng])
+        const user = this.users().find(u => u.id === v.id_user);
+        const icon = L.icon({
+          iconUrl: 'assets/marker-icon.png', // marcador por defecto
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [0, -35],
+          shadowUrl: 'assets/marker-shadow.png'
+        });
+
+        L.marker([v.lat, v.lng], { icon })
           .addTo(this.map)
-          .bindPopup(`<b>${v.title}</b><br>${v.id_user} - ${v.continent}`);
+          .bindPopup(`
+            <b>${v.title}</b><br>
+            ${v.continent}<br>
+            <img src="${user?.photo}" style="width:30px;border-radius:50%;" /><br>
+            <small>${user?.name}</small>
+          `);
       }
     });
   }
+
 
   onFilterChange() {
     this.refrescarMarcadores();
