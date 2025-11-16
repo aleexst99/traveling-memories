@@ -3,15 +3,16 @@
 
   <div class="filtros">
     <label>Usuario:</label>
-    <select [(ngModel)]="filtroUsuario" (change)="onFilterChange()">
+    <select [value]="filtroUsuario()" (change)="filtroUsuario.set($any($event.target).value); onFilterChange()">
       <option value="Todos">Todos</option>
       @for (u of users(); track u.id) {
-        <option [value]="u.name">{{ u.name }}</option>
+        <option [value]="u.id">{{ u.name }}</option>
       }
     </select>
 
     <label>Continente:</label>
-    <select [(ngModel)]="filtroContinente" (change)="onFilterChange()">
+    <select [value]="filtroContinente()"
+            (change)="filtroContinente.set($any($event.target).value); onFilterChange()">
       @for (c of continentes; track c) {
         <option [value]="c">{{ c }}</option>
       }
