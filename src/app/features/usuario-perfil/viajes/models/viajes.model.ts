@@ -1,5 +1,6 @@
 export interface Viaje {
   id: number;
+  id_user: number;
   title: string;
   continent: string;
   image: string;
