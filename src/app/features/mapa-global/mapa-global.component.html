@@ -1,1 +1,22 @@
-<p>mapa-global works!</p>
+<section class="mapa-global">
+  <h2>🌍 Mapa Global de Viajes</h2>
+
+  <div class="filtros">
+    <label>Usuario:</label>
+    <select [(ngModel)]="filtroUsuario" (change)="onFilterChange()">
+      <option value="Todos">Todos</option>
+      @for (u of users(); track u.id) {
+        <option [value]="u.name">{{ u.name }}</option>
+      }
+    </select>
+
+    <label>Continente:</label>
+    <select [(ngModel)]="filtroContinente" (change)="onFilterChange()">
+      @for (c of continentes; track c) {
+        <option [value]="c">{{ c }}</option>
+      }
+    </select>
+  </div>
+
+  <div id="map"></div>
+</section>
