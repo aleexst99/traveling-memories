@@ -1,22 +1,288 @@
-<section class="mapa-global">
-  <h2>🌍 Mapa Global de Viajes</h2>
+<section class="mapa-global" [class.tema-oscuro]="temaOscuro()">
+  <!-- 🆕 Header mejorado con estadísticas -->
+  <div class="header-section">
+    <div class="title-group">
+      <h2>
+        <span class="icon">🌍</span>
+        <span class="title-text">Mapa Global de Viajes</span>
+      </h2>
+      <p class="subtitle">Explora los destinos visitados y soñados</p>
+    </div>
 
-  <div class="filtros">
-    <label>Usuario:</label>
-    <select [(ngModel)]="filtroUsuario" (change)="onFilterChange()">
-      <option value="Todos">Todos</option>
-      @for (u of usuarios(); track u.id) {
-        <option [value]="u.name">{{ u.name }}</option>
-      }
-    </select>
+    <!-- 🆕 Estadísticas rápidas (colapsables) -->
+    @if (mostrarEstadisticas()) {
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-icon">✈️</span>
+          <div class="stat-info">
+            <span class="stat-number">{{ viajesRealizados() }}</span>
+            <span class="stat-label">Viajes realizados</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">⭐</span>
+          <div class="stat-info">
+            <span class="stat-number">{{ viajesWishlist() }}</span>
+            <span class="stat-label">En wishlist</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">📍</span>
+          <div class="stat-info">
+            <span class="stat-number">{{ continentesUnicos() }}</span>
+            <span class="stat-label">Continentes</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">👥</span>
+          <div class="stat-info">
+            <span class="stat-number">{{ usuarios().length }}</span>
+            <span class="stat-label">Viajeros</span>
+          </div>
+        </div>
+      </div>
+    }
 
-    <label>Continente:</label>
-    <select [(ngModel)]="filtroContinente" (change)="onFilterChange()">
-      @for (c of continentes; track c) {
-        <option [value]="c">{{ c }}</option>
-      }
-    </select>
+    <!-- 🆕 Botones de acción rápida -->
+    <div class="quick-actions">
+      <button class="action-icon-btn" (click)="toggleEstadisticas()" [title]="mostrarEstadisticas() ? 'Ocultar estadísticas' : 'Mostrar estadísticas'">
+        {{ mostrarEstadisticas() ? '📊' : '📈' }}
+      </button>
+      <button class="action-icon-btn" (click)="toggleTema()" [title]="temaOscuro() ? 'Tema claro' : 'Tema oscuro'">
+        {{ temaOscuro() ? '☀️' : '🌙' }}
+      </button>
+      <button class="action-icon-btn" (click)="compartirMapa()" title="Compartir mapa">
+        🔗
+      </button>
+      <button class="action-icon-btn" (click)="capturarPantalla()" title="Capturar pantalla">
+        📸
+      </button>
+      <button class="action-icon-btn" (click)="exportarDatos()" title="Exportar datos">
+        💾
+      </button>
+    </div>
   </div>
 
-  <div id="map"></div>
+  <!-- 🆕 Controles mejorados con iconos y diseño moderno -->
+  <div class="controls-section">
+    <div class="filters-group">
+      <!-- Búsqueda por texto -->
+      <div class="filter-item search-box">
+        <label>
+          <span class="filter-icon">🔍</span>
+          Buscar
+        </label>
+        <input
+          type="text"
+          [(ngModel)]="busquedaTexto"
+          (ngModelChange)="onFilterChange()"
+          placeholder="Buscar destino..."
+          class="search-input"
+        >
+      </div>
+
+      <div class="filter-item">
+        <label>
+          <span class="filter-icon">👤</span>
+          Usuario
+        </label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="filtroUsuario" (change)="onFilterChange()">
+            <option value="Todos">Todos los usuarios</option>
+            @for (u of usuarios(); track u.id) {
+              <option [value]="u.name">{{ u.name }} ({{ getViajesPorUsuario(u.name) }})</option>
+            }
+          </select>
+          <span class="select-arrow">▼</span>
+        </div>
+      </div>
+
+      <div class="filter-item">
+        <label>
+          <span class="filter-icon">🌏</span>
+          Continente
+        </label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="filtroContinente" (change)="onFilterChange()">
+            @for (c of continentes; track c) {
+              <option [value]="c">{{ c }}</option>
+            }
+          </select>
+          <span class="select-arrow">▼</span>
+        </div>
+      </div>
+
+      <div class="filter-item">
+        <label>
+          <span class="filter-icon">🎯</span>
+          Tipo
+        </label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="filtroTipo" (change)="onFilterChange()">
+            <option value="Todos">Todos</option>
+            <option value="realizado">Realizados ({{ contarViajesPorTipo('realizado') }})</option>
+            <option value="wishlist">Wishlist ({{ contarViajesPorTipo('wishlist') }})</option>
+          </select>
+          <span class="select-arrow">▼</span>
+        </div>
+      </div>
+
+      <button class="reset-btn" (click)="resetearFiltros()" type="button">
+        <span class="reset-icon">🔄</span>
+        Resetear
+      </button>
+    </div>
+
+    <!-- 🆕 Leyenda de colores e iconos -->
+    <div class="legend">
+      <h3 class="legend-title">Leyenda</h3>
+      <div class="legend-items">
+        <div class="legend-item">
+          <span class="legend-symbol plane">✈️</span>
+          <span class="legend-text">Viaje realizado</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-symbol star">⭐</span>
+          <span class="legend-text">Wishlist</span>
+        </div>
+        @for (u of usuarios(); track u.id; let idx = $index) {
+          <div class="legend-item clickable" (click)="filtroUsuario.set(u.name); onFilterChange()">
+            <span class="legend-color" [style.background-color]="getColorHex(u.name)"></span>
+            <img [src]="u.photo" [alt]="u.name" class="legend-avatar">
+            <span class="legend-text">{{ u.name }}</span>
+            <span class="legend-count">({{ getViajesPorUsuario(u.name) }})</span>
+          </div>
+        }
+      </div>
+
+      <!-- 🆕 Acceso rápido a continentes -->
+      <div class="continent-quick-access">
+        <h4 class="quick-access-title">Ir a continente:</h4>
+        <div class="continent-buttons">
+          @for (c of continentes.slice(1); track c) {
+            <button
+              class="continent-btn"
+              (click)="enfocarContinente(c)"
+              [class.active]="filtroContinente() === c"
+            >
+              {{ c }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🆕 Contenedor del globo con overlay de carga -->
+  <div class="globe-wrapper">
+    @if (!globeReady()) {
+      <div class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Cargando el mundo...</p>
+      </div>
+    }
+
+    <div #rendererContainer class="map-container"></div>
+
+    <!-- 🆕 Controles de cámara -->
+    <div class="camera-controls">
+      <button class="cam-btn" (click)="resetearCamara()" title="Vista inicial">
+        🎯
+      </button>
+      <button class="cam-btn" (click)="toggleRotacion()" [title]="rotacionActiva() ? 'Pausar rotación' : 'Activar rotación'">
+        {{ rotacionActiva() ? '⏸️' : '▶️' }}
+      </button>
+
+      <!-- Velocidad rotación -->
+      <div class="cam-speed-menu">
+        <button class="cam-btn" title="Velocidad">⚙️</button>
+        <div class="speed-options">
+          <button (click)="cambiarVelocidadRotacion('lenta')">🐢 Lenta</button>
+          <button (click)="cambiarVelocidadRotacion('normal')">🚶 Normal</button>
+          <button (click)="cambiarVelocidadRotacion('rapida')">🏃 Rápida</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🆕 Contador de viajes visibles -->
+    <div class="trip-counter">
+      <span class="counter-number">{{ filteredTrips().length }}</span>
+      <span class="counter-label">{{ filteredTrips().length === 1 ? 'viaje' : 'viajes' }}</span>
+    </div>
+  </div>
+
+  <!-- 🆕 TOOLTIP/TARJETA mejorada -->
+  @if (tooltipVisible()) {
+    <div
+      class="tooltip-card"
+      [style.left.px]="tooltipPosition().x + 15"
+      [style.top.px]="tooltipPosition().y + 15"
+      (click)="$event.stopPropagation()"
+    >
+      @if (tooltipData(); as viaje) {
+        <div class="tooltip-header" [class.wishlist-header]="viaje.tipo === 'wishlist'">
+          <img [src]="viaje.userPhoto" [alt]="viaje.userName" class="user-avatar">
+          <div class="tooltip-title">
+            <h3>{{ viaje.title }}</h3>
+            <p class="user-name">
+              <span class="user-badge">{{ viaje.userName }}</span>
+            </p>
+          </div>
+          <button class="close-btn" (click)="cerrarTooltip()" type="button">
+            ✕
+          </button>
+        </div>
+
+        <div class="tooltip-body">
+          <div class="info-row">
+            <span class="info-icon">📍</span>
+            <div class="info-content">
+              <span class="info-label">Ubicación</span>
+              <span class="info-value">{{ viaje.continent }}</span>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <span class="info-icon">📅</span>
+            <div class="info-content">
+              <span class="info-label">Fecha</span>
+              <span class="info-value">{{ viaje.userName }}</span>
+            </div>
+          </div>
+
+          @if (viaje.lat && viaje.lng) {
+            <div class="info-row">
+              <span class="info-icon">🗺️</span>
+              <div class="info-content">
+                <span class="info-label">Coordenadas</span>
+                <span class="info-value coordinates">{{ viaje.lat.toFixed(4) }}, {{ viaje.lng.toFixed(4) }}</span>
+              </div>
+            </div>
+          }
+
+          @if (viaje.description) {
+            <div class="description-box">
+              <p class="description-text">{{ viaje.description }}</p>
+            </div>
+          }
+
+          <div class="badge-container">
+            <span class="badge" [class.realizado]="viaje.tipo === 'realizado'" [class.wishlist]="viaje.tipo === 'wishlist'">
+              <span class="badge-icon">{{ viaje.tipo === 'realizado' ? '✈️' : '⭐' }}</span>
+              {{ viaje.tipo === 'realizado' ? 'Viaje Realizado' : 'En Wishlist' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="tooltip-footer">
+          <button class="action-btn secondary" (click)="cerrarTooltip()" type="button">
+            Cerrar
+          </button>
+          <button class="action-btn primary" (click)="verDetalles(viaje)" type="button">
+            Ver más
+          </button>
+        </div>
+      }
+    </div>
+  }
 </section>
