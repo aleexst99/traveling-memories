@@ -25,7 +25,11 @@ export const appConfig = {
             loadComponent: () =>
               import('./features/usuario-perfil/viajes/viaje-detalle/viaje-detalle.component')
                 .then(m => m.ViajeDetalleComponent)
-          }
+          },
+          {
+            path: 'viajes/:id/entradas',
+            loadComponent: () => import('./features/usuario-perfil/viajes/viaje-entrada/viaje-entrada.component').then(m => m.ViajeEntradaComponent )
+          },
         ]
       },
 

@@ -1,0 +1,95 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 9998; // subirlo mucho
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 420px;
+  transform: translate(-50%, -50%);
+  background: #1c1c1e;
+  border-radius: 14px;
+  padding: 1.5rem;
+  z-index: 9999;
+  color: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+
+
+
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    margin: 0.4rem 0 1rem;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background: #111;
+    color: #fff;
+  }
+
+  .pais-lista {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: #111;
+
+    li {
+      padding: 0.5rem;
+      cursor: pointer;
+      border-bottom: 1px solid #222;
+
+      &:hover {
+        background: #222;
+      }
+    }
+  }
+
+  .acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    button {
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cancelar {
+      background: #333;
+      color: #ddd;
+
+      &:hover {
+        background: #444;
+      }
+    }
+
+    .guardar {
+      background: #007bff;
+      color: white;
+
+      &:hover {
+        background: #0056b3;
+      }
+    }
+  }
+}

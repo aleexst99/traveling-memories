@@ -32,3 +32,10 @@
     </div>
   }
 </section>
+
+<app-viaje-form
+*ngIf="mostrarModal"
+[idUser]="user()?.id ?? 0"
+  (guardar)="onViajeGuardado($event)"
+  (cerrar)="cerrarModal()"
+  />

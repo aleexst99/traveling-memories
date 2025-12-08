@@ -8,13 +8,14 @@ import { PerfilHeaderComponent } from './perfil-header/perfil-header.component';
 import { PerfilMapaComponent } from './perfil-mapa/perfil-mapa.component';
 import { Viaje } from './viajes/models/viajes.model';
 import { ViajesListaComponentDos } from './perfil-viajes/viajes-lista/viajes-lista.component';
+import { ViajeFormComponent } from './viaje-form/viaje-form.component';
 
 @Component({
   selector: 'app-usuario-perfil',
   standalone: true,
   imports: [CommonModule, FormsModule, PerfilHeaderComponent,
     PerfilMapaComponent,
-    CommonModule, ViajesListaComponentDos],
+    CommonModule, ViajesListaComponentDos, ViajeFormComponent],
   templateUrl: './usuario-perfil.component.html',
   styleUrls: ['./usuario-perfil.component.scss']
 })
@@ -31,6 +32,8 @@ export class UsuarioPerfilComponent {
   // --- Datos derivados con computed()
   viajesRealizados = computed(() => this.user()?.trips.length ?? 0);
   viajesWishlist = computed(() => this.user()?.wishlist.length ?? 0);
+
+  mostrarModal = false;
 
   porcentajeContinentes = computed(() => {
     const u = this.user();
@@ -68,7 +71,20 @@ export class UsuarioPerfilComponent {
   }
 
   // --- Acciones de usuario
-  abrirModal = () => alert('Aquí se abriría el modal para añadir un viaje');
+  abrirModal() {
+    this.mostrarModal = true;
+  }
+
+  cerrarModal() {
+    this.mostrarModal = false;
+  }
+
+  onViajeGuardado(viaje: Viaje) {
+    console.log('Nuevo viaje guardado:', viaje);
+    // aquí ya lo insertas a Firestore, array, API, etc.
+    this.cerrarModal();
+  }
+
 
   filtrarPorContinente = (continent: string) => this.filtroContinente.set(continent);
 }

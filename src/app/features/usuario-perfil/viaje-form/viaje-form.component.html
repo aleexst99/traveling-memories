@@ -1,0 +1,41 @@
+<div class="modal-backdrop" (click)="cerrar.emit()"></div>
+
+<div class="modal">
+  <h2>Nuevo viaje</h2>
+
+  <!-- País -->
+  <label>País</label>
+  <input
+    type="text"
+    placeholder="Buscar país..."
+    (input)="filtrar($any($event.target).value)"
+  />
+
+  <ul class="pais-lista">
+    @for (p of filtrados(); track p.ccn3) {
+      <li (click)="seleccionarPais(p)">
+        {{ p.name.common }}
+      </li>
+    }
+  </ul>
+
+  <!-- Tipo -->
+  <label>Tipo de viaje</label>
+  <select [formControl]="form.controls.tipo">
+    <option value="realizado">Realizado</option>
+    <option value="wishlist">Wishlist</option>
+  </select>
+
+  <!-- Imagen -->
+  <label>Imagen (URL)</label>
+  <input type="text" placeholder="https://miimagen.jpg" [formControl]="form.controls.image" />
+
+  <!-- Descripción -->
+  <label>Descripción</label>
+  <textarea rows="3" [formControl]="form.controls.description"></textarea>
+
+  <div class="acciones">
+    <button class="cancelar" (click)="cerrar.emit()">Cancelar</button>
+    <button class="guardar" (click)="guardarViaje()">Guardar</button>
+  </div>
+</div>
