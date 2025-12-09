@@ -4,7 +4,9 @@
   @if (viajes().length > 0) {
     <div class="grid">
       @for (v of viajes(); track v.id) {
-        <app-viaje-card [viaje]="v" />
+        <app-viaje-card
+          [viaje]="v"
+          (viajeClick)="onViajeSelected($event)" />
       }
     </div>
   } @else {
@@ -16,7 +18,9 @@
   @if (wishlist().length > 0) {
     <div class="grid">
       @for (w of wishlist(); track w.id) {
-        <app-viaje-card [viaje]="w"/>
+        <app-viaje-card
+          [viaje]="w"
+          (viajeClick)="onViajeSelected($event)" />
       }
     </div>
   } @else {

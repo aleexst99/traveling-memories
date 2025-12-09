@@ -1,4 +1,11 @@
-<article class="viaje-card" [class.wishlist]="wishlist()">
+<article
+  class="viaje-card"
+  [class.wishlist]="wishlist()"
+  (click)="onCardClick()"
+  role="button"
+  tabindex="0"
+  (keydown.enter)="onCardClick()"
+  (keydown.space)="onCardClick()">
   <img [src]="viaje().image" [alt]="viaje().title" />
   <div class="info">
     <h3>{{ viaje().title }}</h3>

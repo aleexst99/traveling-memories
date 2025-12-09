@@ -1,4 +1,4 @@
-import { Component, input, Input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Viaje } from '../../viajes/models/viajes.model';
 
 @Component({
@@ -12,4 +12,10 @@ export class ViajeCardComponent {
   viaje = input.required<Viaje>();
   wishlist = input(false);
 
+  // Output usando la nueva API de signals
+  viajeClick = output<string>();
+
+  onCardClick() {
+    this.viajeClick.emit(this.viaje().id.toString());
+  }
 }

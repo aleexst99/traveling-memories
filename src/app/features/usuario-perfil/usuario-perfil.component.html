@@ -25,7 +25,7 @@
     <app-perfil-mapa [user]="u" />
 
     <!-- ✈️ Lista de viajes -->
-    <app-viajes-lista-dos [viajes]="viajesFiltrados()" [wishlist]="u.wishlist" />
+    <app-viajes-lista [viajes]="viajesFiltrados()" [wishlist]="u.wishlist" />
   } @else {
     <div class="loading">
       <p>Cargando usuario...</p>
