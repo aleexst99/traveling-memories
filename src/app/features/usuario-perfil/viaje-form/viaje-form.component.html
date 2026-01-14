@@ -3,24 +3,41 @@
 <div class="modal">
   <h2>Nuevo viaje</h2>
 
-  <!-- País -->
-  <label>País</label>
-  <input
-    type="text"
-    placeholder="Buscar país..."
-    (input)="filtrar($any($event.target).value)"
-  />
+  <!-- País con Selector Custom -->
+  <label>País *</label>
+  <div class="selector-container">
+    <input
+      type="text"
+      placeholder="Buscar país..."
+      [value]="searchText()"
+      (input)="filtrar($any($event.target).value)"
+      (focus)="mostrarLista.set(true)"
+      class="input-selector"
+    />
 
-  <ul class="pais-lista">
-    @for (p of filtrados(); track p.ccn3) {
-      <li (click)="seleccionarPais(p)">
-        {{ p.name.common }}
-      </li>
+    @if (cargandoPaises()) {
+      <div class="cargando">Cargando países...</div>
     }
-  </ul>
+
+    @if (mostrarLista() && filtrados().length > 0 && !cargandoPaises()) {
+      <ul class="pais-lista">
+        @for (p of filtrados(); track p.ccn3) {
+          <li (click)="seleccionarPais(p)">
+            <span class="pais-nombre">{{ p.name.common }}</span>
+          </li>
+        }
+      </ul>
+    }
+
+    @if (mostrarLista() && filtrados().length === 0 && searchText() && !cargandoPaises()) {
+      <div class="sin-resultados">No se encontraron países</div>
+    }
+  </div>
+
+
 
   <!-- Tipo -->
-  <label>Tipo de viaje</label>
+  <label>Tipo de viaje *</label>
   <select [formControl]="form.controls.tipo">
     <option value="realizado">Realizado</option>
     <option value="wishlist">Wishlist</option>
@@ -28,14 +45,22 @@
 
   <!-- Imagen -->
   <label>Imagen (URL)</label>
-  <input type="text" placeholder="https://miimagen.jpg" [formControl]="form.controls.image" />
+  <input
+    type="text"
+    placeholder="https://miimagen.jpg"
+    [formControl]="form.controls.image"
+  />
 
   <!-- Descripción -->
   <label>Descripción</label>
-  <textarea rows="3" [formControl]="form.controls.description"></textarea>
+  <textarea
+    rows="3"
+    placeholder="Cuéntanos sobre este viaje..."
+    [formControl]="form.controls.description"
+  ></textarea>
 
   <div class="acciones">
-    <button class="cancelar" (click)="cerrar.emit()">Cancelar</button>
-    <button class="guardar" (click)="guardarViaje()">Guardar</button>
+    <button type="button" class="cancelar" (click)="cerrar.emit()">Cancelar</button>
+    <button type="button" class="guardar" (click)="guardarViaje()">Guardar</button>
   </div>
 </div>
