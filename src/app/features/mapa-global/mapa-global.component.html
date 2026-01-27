@@ -1,5 +1,5 @@
 <section class="mapa-global" [class.tema-oscuro]="temaOscuro()">
-  <!-- 🆕 Header mejorado con estadísticas -->
+  <!-- Header mejorado con estadísticas -->
   <div class="header-section">
     <div class="title-group">
       <h2>
@@ -9,7 +9,7 @@
       <p class="subtitle">Explora los destinos visitados y soñados</p>
     </div>
 
-    <!-- 🆕 Estadísticas rápidas (colapsables) -->
+    <!-- Estadísticas rápidas (colapsables) -->
     @if (mostrarEstadisticas()) {
       <div class="stats-grid">
         <div class="stat-card">
@@ -43,7 +43,7 @@
       </div>
     }
 
-    <!-- 🆕 Botones de acción rápida -->
+    <!-- Botones de acción rápida -->
     <div class="quick-actions">
       <button class="action-icon-btn" (click)="toggleEstadisticas()" [title]="mostrarEstadisticas() ? 'Ocultar estadísticas' : 'Mostrar estadísticas'">
         {{ mostrarEstadisticas() ? '📊' : '📈' }}
@@ -63,7 +63,7 @@
     </div>
   </div>
 
-  <!-- 🆕 Controles mejorados con iconos y diseño moderno -->
+  <!-- Controles mejorados con iconos y diseño moderno -->
   <div class="controls-section">
     <div class="filters-group">
       <!-- Búsqueda por texto -->
@@ -133,18 +133,31 @@
       </button>
     </div>
 
-    <!-- 🆕 Leyenda de colores e iconos -->
+    <!-- Leyenda de colores e iconos -->
     <div class="legend">
       <h3 class="legend-title">Leyenda</h3>
       <div class="legend-items">
+        <!-- Explicación de iconos -->
+        <div class="legend-item">
+          <span class="legend-symbol plane">🚀</span>
+          <span class="legend-text">Viaje realizado (Alejandro)</span>
+        </div>
         <div class="legend-item">
           <span class="legend-symbol plane">✈️</span>
-          <span class="legend-text">Viaje realizado</span>
+          <span class="legend-text">Viaje realizado (Arturo)</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-symbol star">💫</span>
+          <span class="legend-text">Wishlist (Alejandro)</span>
         </div>
         <div class="legend-item">
           <span class="legend-symbol star">⭐</span>
-          <span class="legend-text">Wishlist</span>
+          <span class="legend-text">Wishlist (Arturo)</span>
         </div>
+
+        <div class="legend-divider"></div>
+
+        <!-- Usuarios con sus colores -->
         @for (u of usuarios(); track u.id; let idx = $index) {
           <div class="legend-item clickable" (click)="filtroUsuario.set(u.name); onFilterChange()">
             <span class="legend-color" [style.background-color]="getColorHex(u.name)"></span>
@@ -155,7 +168,7 @@
         }
       </div>
 
-      <!-- 🆕 Acceso rápido a continentes -->
+      <!-- Acceso rápido a continentes -->
       <div class="continent-quick-access">
         <h4 class="quick-access-title">Ir a continente:</h4>
         <div class="continent-buttons">
@@ -173,7 +186,7 @@
     </div>
   </div>
 
-  <!-- 🆕 Contenedor del globo con overlay de carga -->
+  <!-- Contenedor del globo con overlay de carga -->
   <div class="globe-wrapper">
     @if (!globeReady()) {
       <div class="loading-overlay">
@@ -184,7 +197,7 @@
 
     <div #rendererContainer class="map-container"></div>
 
-    <!-- 🆕 Controles de cámara -->
+    <!-- Controles de cámara -->
     <div class="camera-controls">
       <button class="cam-btn" (click)="resetearCamara()" title="Vista inicial">
         🎯
@@ -204,14 +217,14 @@
       </div>
     </div>
 
-    <!-- 🆕 Contador de viajes visibles -->
+    <!-- Contador de viajes visibles -->
     <div class="trip-counter">
       <span class="counter-number">{{ filteredTrips().length }}</span>
       <span class="counter-label">{{ filteredTrips().length === 1 ? 'viaje' : 'viajes' }}</span>
     </div>
   </div>
 
-  <!-- 🆕 TOOLTIP/TARJETA mejorada -->
+  <!-- TOOLTIP/TARJETA mejorada -->
   @if (tooltipVisible()) {
     <div
       class="tooltip-card"
@@ -245,7 +258,7 @@
           <div class="info-row">
             <span class="info-icon">📅</span>
             <div class="info-content">
-              <span class="info-label">Fecha</span>
+              <span class="info-label">Viajero</span>
               <span class="info-value">{{ viaje.userName }}</span>
             </div>
           </div>

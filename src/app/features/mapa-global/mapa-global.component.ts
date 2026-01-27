@@ -38,15 +38,13 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
   private mouse = new THREE.Vector2();
   private animationFrameId?: number;
 
-  // Texturas
-  private planeIconUrl = '../../../assets/icons/plane.png';
-  private starIconUrl = '../../../assets/icons/star.png';
-  private planeTexture!: THREE.Texture;
-  private starTexture!: THREE.Texture;
 
   // Colores por usuario
   private userColorMap: Record<string, number> = {};
-  private availableColors = [0x1976d2, 0x000000, 0xe91e63, 0x4caf50, 0xff9800, 0x9c27b0];
+  private availableColors = [
+    0x000000,  // Negro (Alejandro)
+    0x1976d2,  // Azul (Arturo)
+  ];
 
   // Datos
   usuarios = signal<User[]>([]);
@@ -73,7 +71,6 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
   // Configuración
   private velocidadRotacion = 0.001;
   private dataLoaded = false;
-  private hoveredMarker: THREE.Object3D | null = null;
 
   // Viajes filtrados
   filteredTrips = computed(() => {
@@ -209,10 +206,6 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.globe = new THREE.Mesh(geo, mat);
     this.scene.add(this.globe);
 
-    // Texturas de iconos
-    const loader = new THREE.TextureLoader();
-    this.planeTexture = loader.load(this.planeIconUrl);
-    this.starTexture = loader.load(this.starIconUrl);
 
     // Cargar fronteras
     this.cargarFronteras();
@@ -316,37 +309,181 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
   refrescarMarcadores() {
     if (!this.globe) return;
 
-    this.markers.forEach((m) => this.scene.remove(m));
+    this.markers.forEach((m) => this.globe.remove(m));
     this.markers = [];
 
     this.filteredTrips().forEach((v) => {
       if (v.lat == null || v.lng == null) return;
 
-      const texture = v.tipo === 'wishlist' ? this.starTexture : this.planeTexture;
       const userColor = this.getColorForUser(v.userName);
+      const emoji = v.tipo === 'wishlist' ? '⭐' : '✈️';
+
+      // 🆕 Pasar userName para personalización
+      const texture = this.createSimpleMarkerTexture(emoji, userColor, v.userName);
 
       const material = new THREE.SpriteMaterial({
         map: texture,
-        color: new THREE.Color(userColor),
         transparent: true,
+        depthTest: true,
+        sizeAttenuation: true,
       });
 
       const sprite = new THREE.Sprite(material);
-      sprite.scale.set(5, 5, 1);
+      sprite.scale.set(11, 11, 1); // 🆕 Más grande para mejor visibilidad
 
-      const pos = this.latLngTo3D(v.lat, v.lng, 202);
+      const pos = this.latLngTo3D(v.lat, v.lng, 203);
       sprite.position.copy(pos);
 
       sprite.userData = { viaje: v };
 
-      this.scene.add(sprite);
+      this.globe.add(sprite);
       this.markers.push(sprite);
     });
+  }
+  // MÉTODO AUXILIAR para crear texturas circulares
+  private createSimpleMarkerTexture(
+    emoji: string,
+    userColor: number,
+    userName: string
+  ): THREE.CanvasTexture {
+    const size = 128;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d')!;
+
+    ctx.clearRect(0, 0, size, size);
+
+    const centerX = size / 2;
+    const centerY = size / 2;
+    const colorHex = '#' + userColor.toString(16).padStart(6, '0');
+
+    const isAlejandro = userName === 'Alejandro';
+    const isWishlist = emoji === '⭐';
+
+    // Sombra exterior pronunciada
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+    ctx.shadowBlur = 18;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 6;
+
+    // ALEJANDRO: Cuadrado redondeado | ARTURO: Círculo perfecto
+    if (isAlejandro) {
+      // Cuadrado con bordes redondeados
+      const cornerRadius = 12;
+      this.roundRect(ctx, centerX - 52, centerY - 52, 104, 104, cornerRadius);
+
+      // Gradiente más oscuro para Alejandro (negro intenso)
+      const gradient = ctx.createRadialGradient(centerX, centerY - 10, 10, centerX, centerY, 52);
+      gradient.addColorStop(0, '#333333'); // Gris oscuro en el centro
+      gradient.addColorStop(1, '#000000'); // Negro puro en los bordes
+      ctx.fillStyle = gradient;
+      ctx.fill();
+    } else {
+      // Círculo perfecto para Arturo
+      const gradient = ctx.createRadialGradient(centerX, centerY - 10, 10, centerX, centerY, 52);
+      gradient.addColorStop(0, this.lightenColorHex(colorHex, 40)); // Más claro
+      gradient.addColorStop(1, colorHex);
+      ctx.fillStyle = gradient;
+
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, 52, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Borde blanco MÁS GRUESO
+    ctx.shadowColor = 'transparent';
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 8;
+    ctx.stroke();
+
+    // Anillo interior diferente según usuario
+    if (isAlejandro) {
+      // Anillo dorado/amarillo para Alejandro (contrasta con negro)
+      ctx.strokeStyle = '#FFD700';
+      ctx.lineWidth = 3;
+      const cornerRadius = 8;
+      this.roundRect(ctx, centerX - 44, centerY - 44, 88, 88, cornerRadius);
+      ctx.stroke();
+    } else {
+      // Anillo azul oscuro para Arturo
+      ctx.strokeStyle = this.darkenColorHex(colorHex, 40);
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, 44, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    let displayEmoji = emoji;
+    let emojiSize = 70;
+
+    if (isWishlist) {
+        displayEmoji = '⭐';
+        emojiSize = 70;
+    } else {
+        displayEmoji = '✈️';
+        emojiSize = 70;
+    }
+
+    ctx.font = `bold ${emojiSize}px Arial`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'white';
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+    ctx.shadowBlur = 8;
+    ctx.fillText(displayEmoji, centerX, centerY);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  }
+
+  // Método auxiliar para cuadrado redondeado
+  private roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number) {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+  }
+
+  // Métodos auxiliares para manipular colores hexadecimales
+  private lightenColorHex(hex: string, percent: number): string {
+    const num = parseInt(hex.replace('#', ''), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = Math.min(255, (num >> 16) + amt);
+    const G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
+    const B = Math.min(255, (num & 0x0000FF) + amt);
+    return '#' + (0x1000000 + (R << 16) + (G << 8) + B).toString(16).slice(1);
+  }
+
+  private darkenColorHex(hex: string, percent: number): string {
+    const num = parseInt(hex.replace('#', ''), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = Math.max(0, (num >> 16) - amt);
+    const G = Math.max(0, ((num >> 8) & 0x00FF) - amt);
+    const B = Math.max(0, (num & 0x0000FF) - amt);
+    return '#' + (0x1000000 + (R << 16) + (G << 8) + B).toString(16).slice(1);
   }
 
   private getColorForUser(userName: string): number {
     if (this.userColorMap[userName]) return this.userColorMap[userName];
 
+    if (userName === 'Alejandro') {
+      this.userColorMap[userName] = 0x000000; // Negro
+      return 0x000000;
+    } else if (userName === 'Arturo') {
+      this.userColorMap[userName] = 0x1976d2; // Azul
+      return 0x1976d2;
+    }
+
+    // Para otros usuarios (si los hay)
     const used = Object.keys(this.userColorMap).length;
     const color = this.availableColors[used % this.availableColors.length];
     this.userColorMap[userName] = color;
@@ -372,10 +509,30 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!viaje) return;
 
       this.tooltipData.set(viaje);
-      this.tooltipPosition.set({
-        x: event.clientX,
-        y: event.clientY
-      });
+
+      // Ajustar posición del tooltip según espacio disponible
+      const tooltipWidth = 320; // Ancho mínimo del tooltip
+      const tooltipHeight = 400; // Alto aproximado del tooltip
+      const padding = 20;
+
+      let x = event.clientX + 15;
+      let y = event.clientY + 15;
+
+      // Si se sale por la derecha, colocar a la izquierda del cursor
+      if (x + tooltipWidth > window.innerWidth - padding) {
+        x = event.clientX - tooltipWidth - 15;
+      }
+
+      // Si se sale por abajo, colocar arriba del cursor
+      if (y + tooltipHeight > window.innerHeight - padding) {
+        y = event.clientY - tooltipHeight - 15;
+      }
+
+      // Asegurar que no se salga por arriba o izquierda
+      x = Math.max(padding, x);
+      y = Math.max(padding, y);
+
+      this.tooltipPosition.set({ x, y });
       this.tooltipVisible.set(true);
     } else {
       this.tooltipVisible.set(false);
@@ -390,29 +547,10 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
     this.raycaster.setFromCamera(this.mouse, this.camera);
-    const intersects = this.raycaster.intersectObjects(this.markers, true);
+    const intersects = this.raycaster.intersectObjects(this.markers, false);
 
-    if (intersects.length > 0) {
-      const marker = intersects[0].object;
-
-      if (this.hoveredMarker !== marker) {
-        // Restaurar escala del anterior
-        if (this.hoveredMarker) {
-          this.hoveredMarker.scale.set(5, 5, 1);
-        }
-
-        // Agrandar el actual
-        marker.scale.set(7, 7, 1);
-        this.hoveredMarker = marker;
-        this.renderer.domElement.style.cursor = 'pointer';
-      }
-    } else {
-      if (this.hoveredMarker) {
-        this.hoveredMarker.scale.set(5, 5, 1);
-        this.hoveredMarker = null;
-      }
-      this.renderer.domElement.style.cursor = 'default';
-    }
+    // Solo cambiar cursor
+    this.renderer.domElement.style.cursor = intersects.length > 0 ? 'pointer' : 'default';
   }
 
   cerrarTooltip() {
