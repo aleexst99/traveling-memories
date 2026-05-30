@@ -1,4 +1,4 @@
-import { Component, computed, input, inject } from '@angular/core';
+import { Component, computed, input, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ViajeCardComponent } from '../viaje-card/viaje-card.component';
@@ -14,13 +14,73 @@ import { Viaje } from '../../viajes/models/viajes.model';
 export class ViajesListaComponentDos {
   private router = inject(Router);
 
+  userId = input<number>(0);
   viajes = input<Viaje[]>([]);
   wishlist = input<Viaje[]>([]);
 
   totalViajes = computed(() => this.viajes().length);
   totalWishlist = computed(() => this.wishlist().length);
 
+  // Carrusel
+  currentSlideViajes = signal(0);
+  currentSlideWishlist = signal(0);
+  itemsPorPagina = signal(3); // Mostrar 3 cards a la vez
+  
+  // Para los indicadores
+  Array = Array;
+  Math = Math;
+
+  constructor() {
+    // Ajustar items por página según tamaño de pantalla
+    this.adjustItemsPerPage();
+    window.addEventListener('resize', () => this.adjustItemsPerPage());
+  }
+
+  private adjustItemsPerPage() {
+    if (window.innerWidth < 768) {
+      this.itemsPorPagina.set(1); // Móvil: 1 card
+    } else if (window.innerWidth < 1024) {
+      this.itemsPorPagina.set(2); // Tablet: 2 cards
+    } else {
+      this.itemsPorPagina.set(3); // Desktop: 3 cards
+    }
+  }
+
+  nextSlide(tipo: 'viajes' | 'wishlist') {
+    if (tipo === 'viajes') {
+      const max = this.viajes().length - this.itemsPorPagina();
+      if (this.currentSlideViajes() < max) {
+        this.currentSlideViajes.update(v => v + 1);
+      }
+    } else {
+      const max = this.wishlist().length - this.itemsPorPagina();
+      if (this.currentSlideWishlist() < max) {
+        this.currentSlideWishlist.update(v => v + 1);
+      }
+    }
+  }
+
+  prevSlide(tipo: 'viajes' | 'wishlist') {
+    if (tipo === 'viajes') {
+      if (this.currentSlideViajes() > 0) {
+        this.currentSlideViajes.update(v => v - 1);
+      }
+    } else {
+      if (this.currentSlideWishlist() > 0) {
+        this.currentSlideWishlist.update(v => v - 1);
+      }
+    }
+  }
+
+  goToSlide(tipo: 'viajes' | 'wishlist', index: number) {
+    if (tipo === 'viajes') {
+      this.currentSlideViajes.set(index);
+    } else {
+      this.currentSlideWishlist.set(index);
+    }
+  }
+
   onViajeSelected(viajeId: string) {
-    this.router.navigate(['/viajes', viajeId, 'entradas']);
+    this.router.navigate(['/user', this.userId(), 'viaje', viajeId]);
   }
 }

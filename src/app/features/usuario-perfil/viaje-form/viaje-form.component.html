@@ -44,12 +44,12 @@
   </select>
 
   <!-- Imagen -->
-  <label>Imagen (URL)</label>
+  <label>Imagen</label>
   <input
-    type="text"
-    placeholder="https://miimagen.jpg"
-    [formControl]="form.controls.image"
-  />
+  type="file"
+  accept="image/*"
+  (change)="onImageSelected($event)"
+/>
 
   <!-- Descripción -->
   <label>Descripción</label>

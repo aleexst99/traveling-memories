@@ -1,0 +1,266 @@
+:host {
+  display: block;
+  background: linear-gradient(180deg, #111 0%, #1c1c1e 100%);
+  min-height: 100vh;
+  color: #fff;
+}
+
+.detalle-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+// ── Topbar ────────────────────────────────────────────────
+.detalle-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+  transition: color 0.2s;
+
+  &:hover { color: #fff; }
+}
+
+.btn-edit {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid #444;
+  color: #ccc;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+
+  &:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
+}
+
+// ── Panel edición ─────────────────────────────────────────
+.edit-panel {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  h3 { margin: 0 0 0.75rem; font-size: 1rem; color: #fff; }
+
+  label { font-size: 0.82rem; font-weight: 600; color: #aaa; margin-top: 0.25rem; }
+
+  select, textarea {
+    background: #1c1c1e;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:focus { border-color: #007bff; }
+  }
+
+  textarea { resize: vertical; }
+}
+
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.btn-cancel {
+  background: none;
+  border: 1px solid #444;
+  color: #aaa;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+
+  &:hover { background: rgba(255,255,255,0.06); color: #fff; }
+}
+
+// ── Header viaje ──────────────────────────────────────────
+.detalle-header {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #2d2d30;
+  border-radius: 20px;
+  padding: 1.5rem;
+
+  .viaje-img {
+    width: 200px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+
+  .detalle-info {
+    h1 { font-size: 1.8rem; margin: 0 0 0.5rem; color: #fff; }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+
+      &.realizado { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid #065f46; }
+      &.wishlist  { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid #3730a3; }
+    }
+
+    .continent { color: #888; font-size: 0.9rem; margin: 0.25rem 0; }
+
+    .description { color: #ccc; margin-top: 0.5rem; line-height: 1.6; }
+  }
+}
+
+.btn-realizado {
+  margin-top: 0.75rem;
+  background: rgba(16, 185, 129, 0.12);
+  color: #6ee7b7;
+  border: 1px solid #065f46;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 0.2s;
+
+  &:hover { background: rgba(16, 185, 129, 0.22); }
+}
+
+// ── Entradas ──────────────────────────────────────────────
+.entradas-section {
+  .entradas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h2 { font-size: 1.2rem; margin: 0; color: #fff; }
+  }
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s;
+
+  &:hover { background: #0056b3; }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #666;
+
+  p { margin-bottom: 1rem; }
+}
+
+.entradas-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.entrada-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #2d2d30;
+  border-radius: 14px;
+  padding: 1rem;
+
+  .entrada-img {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .entrada-body {
+    flex: 1;
+
+    h3 { margin: 0 0 0.4rem; font-size: 1rem; color: #fff; }
+
+    .entrada-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 0.4rem;
+    }
+
+    p { font-size: 0.9rem; color: #ccc; margin: 0; }
+  }
+
+  .entrada-acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-self: flex-start;
+  }
+
+  .btn-edit-entrada {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 0.25rem;
+    transition: color 0.2s;
+
+    &:hover { color: #007bff; }
+  }
+
+  .btn-delete {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.25rem;
+    transition: color 0.2s;
+
+    &:hover { color: #ef4444; }
+  }
+}
+
+// ── Not found ─────────────────────────────────────────────
+.loading {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: #666;
+}

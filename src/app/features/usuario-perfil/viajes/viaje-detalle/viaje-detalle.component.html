@@ -1,1 +1,103 @@
-<p>viaje-detalle works!</p>
+@if (viaje(); as v) {
+  <div class="detalle-container">
+
+    <div class="detalle-topbar">
+      <button class="btn-back" (click)="volverAlPerfil()">← Volver al perfil</button>
+      @if (auth.canEditUser(viaje()!.id_user)) {
+        <button class="btn-edit" (click)="abrirEdicion()">✏️ Editar viaje</button>
+      }
+    </div>
+
+    @if (editando()) {
+      <div class="edit-panel" [formGroup]="editForm">
+        <h3>Editar viaje</h3>
+
+        <label>Tipo</label>
+        <select formControlName="tipo">
+          <option value="realizado">Realizado</option>
+          <option value="wishlist">Wishlist</option>
+        </select>
+
+        <label>Descripción</label>
+        <textarea rows="3" formControlName="description" placeholder="Descripción del viaje..."></textarea>
+
+        <label>Imagen</label>
+        <input type="file" accept="image/*" (change)="onImageEditSelected($event)" />
+
+        <div class="edit-actions">
+          <button class="btn-cancel" (click)="editando.set(false)">Cancelar</button>
+          <button class="btn-primary" (click)="guardarEdicion()">Guardar cambios</button>
+        </div>
+      </div>
+    }
+
+    <div class="detalle-header">
+      @if (v.image) {
+        <img [src]="v.image" [alt]="v.title" class="viaje-img" />
+      }
+      <div class="detalle-info">
+        <h1>{{ v.title }}</h1>
+        <span class="badge" [class.realizado]="v.tipo === 'realizado'" [class.wishlist]="v.tipo === 'wishlist'">
+          {{ v.tipo === 'realizado' ? 'Realizado' : 'Wishlist' }}
+        </span>
+        <p class="continent">{{ v.continent }}</p>
+        @if (v.description) {
+          <p class="description">{{ v.description }}</p>
+        }
+        @if (v.tipo === 'wishlist') {
+          <button class="btn-realizado" (click)="marcarComoRealizado()">✓ Marcar como realizado</button>
+        }
+      </div>
+    </div>
+
+    <div class="entradas-section">
+      <div class="entradas-header">
+        <h2>Entradas ({{ entradas().length }})</h2>
+        @if (auth.canEditUser(viaje()!.id_user)) {
+          <button class="btn-primary" (click)="agregarEntrada()">+ Añadir entrada</button>
+        }
+      </div>
+
+      @if (entradas().length === 0) {
+        <div class="empty-state">
+          <p>Aún no hay entradas para este viaje.</p>
+          @if (auth.canEditUser(viaje()!.id_user)) {
+            <button class="btn-primary" (click)="agregarEntrada()">Añadir primera entrada</button>
+          }
+        </div>
+      } @else {
+        <ul class="entradas-lista">
+          @for (entrada of entradas(); track entrada.id) {
+            <li class="entrada-card">
+              @if (entrada.image) {
+                <img [src]="entrada.image" [alt]="entrada.title" class="entrada-img" />
+              }
+              <div class="entrada-body">
+                <h3>{{ entrada.title }}</h3>
+                <div class="entrada-meta">
+                  @if (entrada.fecha) { <span>📅 {{ entrada.fecha }}</span> }
+                  @if (entrada.dias) { <span>🕐 {{ entrada.dias }} día{{ entrada.dias > 1 ? 's' : '' }}</span> }
+                </div>
+                @if (entrada.description) {
+                  <p>{{ entrada.description }}</p>
+                }
+              </div>
+              @if (auth.canEditUser(viaje()!.id_user)) {
+                <div class="entrada-acciones">
+                  <button class="btn-edit-entrada" (click)="editarEntrada(entrada.id)" title="Editar entrada">✏️</button>
+                  <button class="btn-delete" (click)="eliminarEntrada(entrada.id)" title="Eliminar entrada">✕</button>
+                </div>
+              }
+            </li>
+          }
+        </ul>
+      }
+    </div>
+
+  </div>
+} @else {
+  <div class="loading">
+    <p>Viaje no encontrado.</p>
+    <button class="btn-back" (click)="volverAlPerfil()">← Volver</button>
+  </div>
+}

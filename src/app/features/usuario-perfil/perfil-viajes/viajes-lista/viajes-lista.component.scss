@@ -1,24 +1,116 @@
 .viajes-lista {
-  margin-top: 2rem;
+  padding: 2rem;
 
   h2 {
-    color: #fff;
-    font-size: 1.4rem;
-    margin: 1rem 0;
-    border-bottom: 1px solid #333;
-    padding-bottom: 0.4rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #333;
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1.2rem;
+  .carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .carousel-wrapper {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .carousel-slide {
+    min-width: 33.333%; // 3 items por vista en desktop
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+
+    @media (max-width: 1024px) {
+      min-width: 50%; // 2 items en tablet
+    }
+
+    @media (max-width: 768px) {
+      min-width: 100%; // 1 item en móvil
+    }
+  }
+
+  .carousel-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: 300;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+
+    &:hover:not(:disabled) {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    &.prev {
+      order: -1;
+    }
+
+    &.next {
+      order: 1;
+    }
+  }
+
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+
+    .indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid #667eea;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0;
+
+      &.active {
+        background: #667eea;
+        transform: scale(1.3);
+      }
+
+      &:hover {
+        background: rgba(102, 126, 234, 0.5);
+      }
+    }
   }
 
   .empty {
     text-align: center;
-    color: #aaa;
-    margin: 1rem 0 2rem 0;
+    padding: 3rem;
+    color: #999;
     font-style: italic;
   }
 }

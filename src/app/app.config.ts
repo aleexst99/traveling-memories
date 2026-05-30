@@ -7,30 +7,28 @@ export const appConfig = {
     provideRouter([
       { path: '', component: LandingComponent },
 
-      // Perfil de usuario (lazy)
+      // Perfil de usuario
       {
         path: 'user/:id',
         loadComponent: () =>
           import('./features/usuario-perfil/usuario-perfil.component')
-            .then(m => m.UsuarioPerfilComponent),
-        children: [
-          {
-            path: 'viajes',
-            loadComponent: () =>
-              import('./features/usuario-perfil/viajes/viajes-lista/viajes-lista.component')
-                .then(m => m.ViajesListaComponent)
-          },
-          {
-            path: 'viaje/:viajeId',
-            loadComponent: () =>
-              import('./features/usuario-perfil/viajes/viaje-detalle/viaje-detalle.component')
-                .then(m => m.ViajeDetalleComponent)
-          },
-          {
-            path: 'viajes/:id/entradas',
-            loadComponent: () => import('./features/usuario-perfil/viajes/viaje-entrada/viaje-entrada.component').then(m => m.ViajeEntradaComponent )
-          },
-        ]
+            .then(m => m.UsuarioPerfilComponent)
+      },
+
+      // Detalle de viaje
+      {
+        path: 'user/:id/viaje/:viajeId',
+        loadComponent: () =>
+          import('./features/usuario-perfil/viajes/viaje-detalle/viaje-detalle.component')
+            .then(m => m.ViajeDetalleComponent)
+      },
+
+      // Nueva entrada de viaje
+      {
+        path: 'user/:id/viajes/:viajeId/entradas',
+        loadComponent: () =>
+          import('./features/usuario-perfil/viajes/viaje-entrada/viaje-entrada.component')
+            .then(m => m.ViajeEntradaComponent)
       },
 
       // Mapa global (lazy)
@@ -39,6 +37,13 @@ export const appConfig = {
         loadComponent: () =>
           import('./features/mapa-global/mapa-global.component')
             .then(m => m.MapaGlobalComponent)
+      },
+
+      // Login
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./features/login/login.component').then(m => m.LoginComponent)
       },
 
       { path: '**', redirectTo: '' }

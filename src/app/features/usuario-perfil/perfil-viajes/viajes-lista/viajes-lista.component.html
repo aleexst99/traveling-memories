@@ -2,11 +2,44 @@
   <h2>🌍 Viajes Realizados ({{ totalViajes() }})</h2>
 
   @if (viajes().length > 0) {
-    <div class="grid">
-      @for (v of viajes(); track v.id) {
-        <app-viaje-card
-          [viaje]="v"
-          (viajeClick)="onViajeSelected($event)" />
+    <div class="carousel-container">
+      <button 
+        class="carousel-btn prev" 
+        (click)="prevSlide('viajes')"
+        [disabled]="currentSlideViajes() === 0">
+        ‹
+      </button>
+      
+      <div class="carousel-wrapper">
+        <div 
+          class="carousel-track" 
+          [style.transform]="'translateX(-' + (currentSlideViajes() * 100) + '%)'">
+          @for (v of viajes(); track v.id) {
+            <div class="carousel-slide">
+              <app-viaje-card
+                [viaje]="v"
+                (viajeClick)="onViajeSelected($event)" />
+            </div>
+          }
+        </div>
+      </div>
+      
+      <button 
+        class="carousel-btn next" 
+        (click)="nextSlide('viajes')"
+        [disabled]="currentSlideViajes() >= viajes().length - itemsPorPagina()">
+        ›
+      </button>
+    </div>
+
+    <!-- Indicadores -->
+    <div class="carousel-indicators">
+      @for (dot of Array(Math.ceil(viajes().length / itemsPorPagina())); track $index) {
+        <button 
+          class="indicator" 
+          [class.active]="currentSlideViajes() === $index * itemsPorPagina()"
+          (click)="goToSlide('viajes', $index * itemsPorPagina())">
+        </button>
       }
     </div>
   } @else {
@@ -16,11 +49,44 @@
   <h2>⭐ Wishlist ({{ totalWishlist() }})</h2>
 
   @if (wishlist().length > 0) {
-    <div class="grid">
-      @for (w of wishlist(); track w.id) {
-        <app-viaje-card
-          [viaje]="w"
-          (viajeClick)="onViajeSelected($event)" />
+    <div class="carousel-container">
+      <button 
+        class="carousel-btn prev" 
+        (click)="prevSlide('wishlist')"
+        [disabled]="currentSlideWishlist() === 0">
+        ‹
+      </button>
+      
+      <div class="carousel-wrapper">
+        <div 
+          class="carousel-track" 
+          [style.transform]="'translateX(-' + (currentSlideWishlist() * 100) + '%)'">
+          @for (w of wishlist(); track w.id) {
+            <div class="carousel-slide">
+              <app-viaje-card
+                [viaje]="w"
+                (viajeClick)="onViajeSelected($event)" />
+            </div>
+          }
+        </div>
+      </div>
+      
+      <button 
+        class="carousel-btn next" 
+        (click)="nextSlide('wishlist')"
+        [disabled]="currentSlideWishlist() >= wishlist().length - itemsPorPagina()">
+        ›
+      </button>
+    </div>
+
+    <!-- Indicadores -->
+    <div class="carousel-indicators">
+      @for (dot of Array(Math.ceil(wishlist().length / itemsPorPagina())); track $index) {
+        <button 
+          class="indicator" 
+          [class.active]="currentSlideWishlist() === $index * itemsPorPagina()"
+          (click)="goToSlide('wishlist', $index * itemsPorPagina())">
+        </button>
       }
     </div>
   } @else {

@@ -1,13 +1,24 @@
+export interface Entrada {
+  id: number;
+  id_viaje: number;
+  title: string;
+  fecha?: string;
+  dias?: number;
+  description?: string;
+  image?: string;
+}
+
 export interface Viaje {
   id: number;
   id_user: number;
   title: string;
   continent: string;
   image: string;
-  description?: string; // opcional para wishlist
+  description?: string;
   lat?: number;
   lng?: number;
   tipo?: 'wishlist' | 'realizado';
+  entradas?: Entrada[];
 }
 
 // INTERFAZ

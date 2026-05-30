@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnInit, signal, computed } from '@angular/core';
+import { Component, ElementRef, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import * as L from 'leaflet';
 import { User } from '../usuario-perfil/models/user.model';
 import { ViajeConUsuario } from '../usuario-perfil/viajes/models/viajes.model';
 import { FormsModule } from '@angular/forms';
+import { StorageService } from '../../core/storage.service';
 
 @Component({
   selector: 'app-mapa-global',
@@ -33,6 +34,8 @@ export class MapaGlobalComponent implements OnInit {
     });
   });
 
+  private storage = inject(StorageService);
+
   constructor(private http: HttpClient, private el: ElementRef) {}
 
   ngOnInit(): void {
@@ -43,16 +46,20 @@ export class MapaGlobalComponent implements OnInit {
     this.http.get<User[]>('assets/data/users.json').subscribe({
       next: users => {
         this.usuarios.set(users);
-
         const trips: ViajeConUsuario[] = [];
 
         users.forEach(u => {
-          u.trips.forEach(t => trips.push({ ...t, userName: u.name, userPhoto: u.photo, tipo: 'realizado' }));
-          u.wishlist.forEach(w => trips.push({ ...w, userName: u.name, userPhoto: u.photo, tipo: 'wishlist' }));
+          // Viajes desde localStorage si el usuario fue seeded, si no desde JSON
+          if (this.storage.isUserSeeded(u.id)) {
+            const viajesStorage = this.storage.getViajesByUser(u.id);
+            viajesStorage.forEach(v => trips.push({ ...v, userName: u.name, userPhoto: u.photo, tipo: v.tipo ?? 'realizado' }));
+          } else {
+            u.trips.forEach(t => trips.push({ ...t, id_user: u.id, userName: u.name, userPhoto: u.photo, tipo: 'realizado' }));
+            u.wishlist.forEach(w => trips.push({ ...w, id_user: u.id, userName: u.name, userPhoto: u.photo, tipo: 'wishlist' }));
+          }
         });
 
         this.allTrips.set(trips);
-
         setTimeout(() => this.initMap(), 0);
       },
       error: err => console.error('Error cargando usuarios', err)

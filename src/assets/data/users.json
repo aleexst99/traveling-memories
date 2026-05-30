@@ -35,6 +35,15 @@
         "description": "Paseos por zocos, colores vibrantes y noches bajo las estrellas en el Sáhara.",
         "lat": 31.6295,
         "lng": -7.9811
+      },
+      {
+        "id": 104,
+        "title": "Test carrusel",
+        "continent": "África",
+        "image": "assets/marrakech.png",
+        "description": "Paseos por zocos, colores vibrantes y noches bajo las estrellas en el Sáhara.",
+        "lat": 31.6295,
+        "lng": -7.9811
       }
     ],
     "wishlist": [
@@ -87,6 +96,15 @@
       {
         "id": 106,
         "title": "Costa Rica Salvaje",
+        "continent": "América",
+        "image": "assets/costarica.png",
+        "description": "Selvas, volcanes y playas paradisíacas llenas de vida.",
+        "lat": 9.7489,
+        "lng": -83.7534
+      },
+      {
+        "id": 107,
+        "title": "Test",
         "continent": "América",
         "image": "assets/costarica.png",
         "description": "Selvas, volcanes y playas paradisíacas llenas de vida.",
