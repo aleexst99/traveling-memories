@@ -6,12 +6,30 @@
   tabindex="0"
   (keydown.enter)="onCardClick()"
   (keydown.space)="onCardClick()">
-  <img [src]="viaje().image" [alt]="viaje().title" />
+
+  <div class="card-image">
+    <img [src]="viaje().image" [alt]="viaje().title" />
+    @if (entradas().length > 0) {
+      <span class="entradas-badge">{{ entradas().length }} {{ entradas().length === 1 ? 'entrada' : 'entradas' }}</span>
+    }
+  </div>
+
   <div class="info">
     <h3>{{ viaje().title }}</h3>
-    @if (viaje().description) {
+
+    @if (ultimaEntrada()) {
+      <p class="ultima-entrada">
+        <span class="dot"></span>
+        {{ ultimaEntrada()!.title }}
+        @if (ultimaEntrada()!.fecha) {
+          · {{ ultimaEntrada()!.fecha | date:'MMM yyyy' }}
+        }
+      </p>
+    } @else if (viaje().description) {
       <p>{{ viaje().description }}</p>
     }
+
     <small>{{ viaje().continent }}</small>
   </div>
+
 </article>

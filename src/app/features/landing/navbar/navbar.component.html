@@ -1,9 +1,16 @@
 <header class="navbar">
   <div class="navbar-content">
-    <img src="assets/logo.png" alt="Logo" class="logo" />
+    <img src="assets/logo.png" alt="Logo" class="logo" routerLink="/" style="cursor:pointer" />
     <nav class="menu">
       <a routerLink="/">Inicio</a>
       <a routerLink="/mapa-global">Mapa Global</a>
+
+      @if (auth.isLoggedIn()) {
+        <span class="user-badge">👤 {{ auth.currentUser()?.username }}</span>
+        <button class="btn-logout" (click)="logout()">Salir</button>
+      } @else {
+        <a routerLink="/login" class="btn-login">Acceder</a>
+      }
     </nav>
   </div>
 </header>

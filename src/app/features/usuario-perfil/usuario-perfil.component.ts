@@ -1,6 +1,6 @@
 import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { User } from './models/user.model';
@@ -9,6 +9,8 @@ import { PerfilMapaComponent } from './perfil-mapa/perfil-mapa.component';
 import { Viaje } from './viajes/models/viajes.model';
 import { ViajesListaComponentDos } from './perfil-viajes/viajes-lista/viajes-lista.component';
 import { ViajeFormComponent } from './viaje-form/viaje-form.component';
+import { StorageService } from '../../core/storage.service';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-usuario-perfil',
@@ -22,7 +24,10 @@ import { ViajeFormComponent } from './viaje-form/viaje-form.component';
 export class UsuarioPerfilComponent {
   // --- Dependencias
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private http = inject(HttpClient);
+  private storage = inject(StorageService);
+  auth = inject(AuthService);
 
   // --- Signals base
   user = signal<User | null>(null);
@@ -59,12 +64,22 @@ export class UsuarioPerfilComponent {
     });
   }
 
-  // --- Cargar datos desde JSON
+  // --- Cargar datos: JSON como fuente inicial, localStorage como fuente de verdad
   private cargarUsuario(id: number) {
     this.http.get<User[]>('assets/data/users.json').subscribe({
       next: (users) => {
-        const found = users.find((u) => u.id === id) ?? null;
-        this.user.set(found);
+        const found = users.find((u) => u.id === id);
+        if (!found) { this.user.set(null); return; }
+
+        if (!this.storage.isUserSeeded(id)) {
+          this.storage.seedUser(id, found.trips ?? [], found.wishlist ?? []);
+        }
+
+        const viajes = this.storage.getViajesByUser(id);
+        const trips = viajes.filter(v => v.tipo === 'realizado');
+        const wishlist = viajes.filter(v => v.tipo === 'wishlist');
+
+        this.user.set({ ...found, trips, wishlist });
       },
       error: (err) => console.error('Error cargando usuario:', err),
     });
@@ -80,9 +95,18 @@ export class UsuarioPerfilComponent {
   }
 
   onViajeGuardado(viaje: Viaje) {
-    console.log('Nuevo viaje guardado:', viaje);
-    // aquí ya lo insertas a Firestore, array, API, etc.
+    this.storage.saveViaje(viaje);
     this.cerrarModal();
+    const userId = this.user()?.id;
+    if (userId) {
+      const viajes = this.storage.getViajesByUser(userId);
+      this.user.update(u => u ? {
+        ...u,
+        trips: viajes.filter(v => v.tipo === 'realizado'),
+        wishlist: viajes.filter(v => v.tipo === 'wishlist'),
+      } : null);
+    }
+    this.router.navigate(['/user', viaje.id_user, 'viaje', viaje.id]);
   }
 
 

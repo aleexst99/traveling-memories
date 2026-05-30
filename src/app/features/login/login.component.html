@@ -1,0 +1,21 @@
+<div class="login-page">
+  <div class="login-card">
+    <img src="assets/logo.png" alt="Logo" class="logo" />
+    <h2>Acceso privado</h2>
+    <p class="subtitle">Solo para los viajeros del equipo</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <label>Usuario</label>
+      <input type="text" formControlName="username" placeholder="Tu nombre de usuario" autocomplete="username" />
+
+      <label>Contraseña</label>
+      <input type="password" formControlName="password" placeholder="••••••••" autocomplete="current-password" />
+
+      @if (error) {
+        <p class="error">Usuario o contraseña incorrectos</p>
+      }
+
+      <button type="submit" [disabled]="form.invalid">Entrar</button>
+    </form>
+  </div>
+</div>
