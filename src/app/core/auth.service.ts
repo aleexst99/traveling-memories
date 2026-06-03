@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 interface AuthUser {
   username: string;
@@ -21,7 +22,12 @@ export class AuthService {
     return raw ? JSON.parse(raw) : null;
   }
 
+  get apiUrl(): string {
+    return environment.apiUrl;
+  }
+
   login(username: string, password: string): boolean {
+    // TODO: en producción sustituir por llamada a environment.apiUrl + '/auth/login'
     const match = USERS.find(u => u.username === username.toLowerCase() && u.password === password);
     if (!match) return false;
     const user: AuthUser = { username: match.username, userId: match.userId };
