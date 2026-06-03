@@ -1,6 +1,7 @@
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { LandingComponent } from './features/landing/landing.component';
+import { apiKeyInterceptor } from './core/api-key.interceptor';
 
 export const appConfig = {
   providers: [
@@ -48,6 +49,6 @@ export const appConfig = {
 
       { path: '**', redirectTo: '' }
     ]),
-    provideHttpClient()
+    provideHttpClient(withInterceptors([apiKeyInterceptor]))
   ]
 };

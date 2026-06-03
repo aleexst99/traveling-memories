@@ -11,6 +11,8 @@ import { ViajesListaComponentDos } from './perfil-viajes/viajes-lista/viajes-lis
 import { ViajeFormComponent } from './viaje-form/viaje-form.component';
 import { StorageService } from '../../core/storage.service';
 import { AuthService } from '../../core/auth.service';
+import { ApiService } from '../../core/api.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-usuario-perfil',
@@ -27,6 +29,7 @@ export class UsuarioPerfilComponent {
   private router = inject(Router);
   private http = inject(HttpClient);
   private storage = inject(StorageService);
+  private api = inject(ApiService);
   auth = inject(AuthService);
 
   // --- Signals base
@@ -64,8 +67,19 @@ export class UsuarioPerfilComponent {
     });
   }
 
-  // --- Cargar datos: JSON como fuente inicial, localStorage como fuente de verdad
+  // --- Cargar datos: API en producción, JSON + localStorage en desarrollo
   private cargarUsuario(id: number) {
+    if (!environment.useLocalStorage) {
+      this.api.getUser(id).subscribe({
+        next: (user) => {
+          // TODO: cuando el backend exponga GET /users/{id}/trips, cargar aquí
+          this.user.set(user);
+        },
+        error: (err) => console.error('Error cargando usuario desde API:', err),
+      });
+      return;
+    }
+
     this.http.get<User[]>('assets/data/users.json').subscribe({
       next: (users) => {
         const found = users.find((u) => u.id === id);
@@ -95,6 +109,17 @@ export class UsuarioPerfilComponent {
   }
 
   onViajeGuardado(viaje: Viaje) {
+    if (!environment.useLocalStorage) {
+      this.api.createTrip(viaje).subscribe({
+        next: (viajeCreado) => {
+          this.cerrarModal();
+          this.router.navigate(['/user', viajeCreado.id_user, 'viaje', viajeCreado.id]);
+        },
+        error: (err) => console.error('Error creando viaje en API:', err),
+      });
+      return;
+    }
+
     this.storage.saveViaje(viaje);
     this.cerrarModal();
     const userId = this.user()?.id;

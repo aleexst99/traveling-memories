@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from '../../../../core/storage.service';
+import { ApiService } from '../../../../core/api.service';
+import { environment } from '../../../../../environments/environment';
 import { Entrada } from '../models/viajes.model';
 
 @Component({
@@ -16,6 +18,7 @@ export class ViajeEntradaComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private storage = inject(StorageService);
+  private api = inject(ApiService);
   private fb = inject(FormBuilder);
 
   viajeId!: number;
@@ -73,6 +76,14 @@ export class ViajeEntradaComponent implements OnInit {
       description: raw.description || undefined,
       image: raw.image || this.entradaExistente?.image || undefined,
     };
+
+    if (!environment.useLocalStorage) {
+      this.api.createEntry(entrada).subscribe({
+        next: () => this.router.navigate(['/user', this.userId, 'viaje', this.viajeId]),
+        error: (err) => console.error('Error guardando entrada en API:', err),
+      });
+      return;
+    }
 
     this.storage.saveEntrada(this.viajeId, entrada);
     this.router.navigate(['/user', this.userId, 'viaje', this.viajeId]);
