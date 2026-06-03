@@ -2,7 +2,8 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { StorageService } from '../../../../core/storage.service';
+import { ApiService } from '../../../../core/api.service';
+import { TripStoreService } from '../../../../core/trip-store.service';
 import { AuthService } from '../../../../core/auth.service';
 import { Viaje, Entrada } from '../models/viajes.model';
 
@@ -16,13 +17,15 @@ import { Viaje, Entrada } from '../models/viajes.model';
 export class ViajeDetalleComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private storage = inject(StorageService);
+  private api = inject(ApiService);
+  private store = inject(TripStoreService);
   private fb = inject(FormBuilder);
   auth = inject(AuthService);
 
   viaje = signal<Viaje | null>(null);
   entradas = signal<Entrada[]>([]);
   editando = signal(false);
+  cargando = signal(true);
 
   editForm = this.fb.group({
     description: [''],
@@ -32,16 +35,30 @@ export class ViajeDetalleComponent implements OnInit {
 
   ngOnInit() {
     const viajeId = Number(this.route.snapshot.paramMap.get('viajeId'));
-    const viaje = this.storage.getViaje(viajeId);
-    if (viaje) {
-      this.viaje.set(viaje);
-      this.entradas.set(viaje.entradas ?? []);
+
+    // Primero intenta desde el store (si viene de crear)
+    const enStore = this.store.getTrip(viajeId);
+    if (enStore) {
+      this.viaje.set(enStore);
+      this.entradas.set(this.store.getEntriesByTrip(viajeId));
+      this.cargando.set(false);
+      return;
     }
+
+    // Si no está en store, lo pide a la API
+    this.api.getTrip(viajeId).subscribe({
+      next: (viaje) => {
+        this.viaje.set(viaje);
+        this.store.addOrUpdateTrip(viaje);
+        this.entradas.set(this.store.getEntriesByTrip(viajeId));
+        this.cargando.set(false);
+      },
+      error: () => this.cargando.set(false),
+    });
   }
 
   volverAlPerfil() {
-    const userId = this.viaje()?.id_user;
-    this.router.navigate(['/user', userId]);
+    this.router.navigate(['/user', this.viaje()?.id_user]);
   }
 
   abrirEdicion() {
@@ -69,7 +86,8 @@ export class ViajeDetalleComponent implements OnInit {
       image: raw.image || viaje.image,
       tipo: raw.tipo as 'wishlist' | 'realizado',
     };
-    this.storage.saveViaje(actualizado);
+    // TODO: llamar a PUT /trips/{id} cuando el backend lo exponga
+    this.store.addOrUpdateTrip(actualizado);
     this.viaje.set(actualizado);
     this.editando.set(false);
   }
@@ -78,7 +96,8 @@ export class ViajeDetalleComponent implements OnInit {
     const viaje = this.viaje();
     if (!viaje) return;
     const actualizado: Viaje = { ...viaje, tipo: 'realizado' };
-    this.storage.saveViaje(actualizado);
+    // TODO: llamar a PUT /trips/{id} cuando el backend lo exponga
+    this.store.addOrUpdateTrip(actualizado);
     this.viaje.set(actualizado);
   }
 
@@ -94,18 +113,10 @@ export class ViajeDetalleComponent implements OnInit {
     this.router.navigate(['/user', viaje.id_user, 'viajes', viaje.id, 'entradas'], { queryParams: { entradaId } });
   }
 
-  refreshEntradas() {
-    const viaje = this.viaje();
-    if (!viaje) return;
-    const actualizado = this.storage.getViaje(viaje.id);
-    if (actualizado) this.entradas.set(actualizado.entradas ?? []);
-  }
-
   eliminarEntrada(entradaId: number) {
     if (!confirm('¿Seguro que quieres eliminar esta entrada?')) return;
-    const viaje = this.viaje();
-    if (!viaje) return;
-    this.storage.deleteEntrada(viaje.id, entradaId);
-    this.entradas.set(this.storage.getEntradas(viaje.id));
+    // TODO: llamar a DELETE /trip-entries/{id} cuando el backend lo exponga
+    this.store.removeEntry(entradaId);
+    this.entradas.set(this.store.getEntriesByTrip(this.viaje()!.id));
   }
 }

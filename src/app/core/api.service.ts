@@ -18,8 +18,8 @@ export class ApiService {
   // ── Usuarios ──────────────────────────────────────────────
 
   getUsers(): Observable<User[]> {
-    return this.http.get<{ users: ApiUser[] }>(`${this.base}/users`).pipe(
-      map(res => res.users.map(u => this.mapUser(u)))
+    return this.http.get<{ response: ApiUser[] }>(`${this.base}/users`).pipe(
+      map(res => res.response.map(u => this.mapUser(u)))
     );
   }
 
@@ -76,11 +76,11 @@ export class ApiService {
 
   // ── Mappers frontend ↔ backend ────────────────────────────
 
-  private mapUser(u: ApiUser): User {
+  mapUser(u: ApiUser): User {
     return {
       id: u.id,
       name: u.name,
-      photo: u.avatar_url ?? '',
+      photo: u.avatar_url ?? 'assets/default-avatar.png',
       bio: u.bio ?? '',
       social: { github: '', linkedin: '' },
       trips: [],

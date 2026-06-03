@@ -2,9 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StorageService } from '../../../../core/storage.service';
 import { ApiService } from '../../../../core/api.service';
-import { environment } from '../../../../../environments/environment';
+import { TripStoreService } from '../../../../core/trip-store.service';
 import { Entrada } from '../models/viajes.model';
 
 @Component({
@@ -17,14 +16,15 @@ import { Entrada } from '../models/viajes.model';
 export class ViajeEntradaComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private storage = inject(StorageService);
   private api = inject(ApiService);
+  private store = inject(TripStoreService);
   private fb = inject(FormBuilder);
 
   viajeId!: number;
   userId!: number;
   entradaExistente: Entrada | null = null;
   esEdicion = false;
+  guardando = false;
 
   form = this.fb.group({
     title: ['', Validators.required],
@@ -40,7 +40,7 @@ export class ViajeEntradaComponent implements OnInit {
 
     const entradaId = Number(this.route.snapshot.queryParamMap.get('entradaId'));
     if (entradaId) {
-      const entrada = this.storage.getEntradas(this.viajeId).find(e => e.id === entradaId) ?? null;
+      const entrada = this.store.getEntriesByTrip(this.viajeId).find(e => e.id === entradaId) ?? null;
       if (entrada) {
         this.entradaExistente = entrada;
         this.esEdicion = true;
@@ -64,7 +64,7 @@ export class ViajeEntradaComponent implements OnInit {
   }
 
   guardar() {
-    if (this.form.invalid) return;
+    if (this.form.invalid || this.guardando) return;
     const raw = this.form.value;
 
     const entrada: Entrada = {
@@ -77,16 +77,24 @@ export class ViajeEntradaComponent implements OnInit {
       image: raw.image || this.entradaExistente?.image || undefined,
     };
 
-    if (!environment.useLocalStorage) {
-      this.api.createEntry(entrada).subscribe({
-        next: () => this.router.navigate(['/user', this.userId, 'viaje', this.viajeId]),
-        error: (err) => console.error('Error guardando entrada en API:', err),
-      });
+    if (this.esEdicion) {
+      // TODO: llamar a PUT /trip-entries/{id} cuando el backend lo exponga
+      this.store.addOrUpdateEntry(entrada);
+      this.router.navigate(['/user', this.userId, 'viaje', this.viajeId]);
       return;
     }
 
-    this.storage.saveEntrada(this.viajeId, entrada);
-    this.router.navigate(['/user', this.userId, 'viaje', this.viajeId]);
+    this.guardando = true;
+    this.api.createEntry(entrada).subscribe({
+      next: (entradaCreada) => {
+        this.store.addOrUpdateEntry(entradaCreada);
+        this.router.navigate(['/user', this.userId, 'viaje', this.viajeId]);
+      },
+      error: (err) => {
+        console.error('Error guardando entrada:', err);
+        this.guardando = false;
+      },
+    });
   }
 
   cancelar() {
