@@ -28,9 +28,15 @@
 
     <!-- ✈️ Lista de viajes -->
     <app-viajes-lista [userId]="u.id" [viajes]="viajesFiltrados()" [wishlist]="u.wishlist" />
-  } @else {
+  } @else if (cargando()) {
     <div class="loading">
-      <p>Cargando usuario...</p>
+      <div class="spinner"></div>
+      <p>Cargando perfil...</p>
+    </div>
+  } @else if (errorCarga()) {
+    <div class="loading">
+      <p>No se pudo cargar el perfil. Inténtalo de nuevo.</p>
+      <button class="btn-primary" (click)="reintentarCarga()">Reintentar</button>
     </div>
   }
 </section>
