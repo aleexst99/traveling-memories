@@ -17,6 +17,7 @@ import { ViajeConUsuario } from '../usuario-perfil/viajes/models/viajes.model';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../core/api.service';
 import { TripStoreService } from '../../core/trip-store.service';
+import { ToastService } from '../../core/toast.service';
 
 @Component({
   selector: 'app-mapa-global',
@@ -108,6 +109,7 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private api = inject(ApiService);
   private store = inject(TripStoreService);
+  private toastSvc = inject(ToastService);
 
   ngOnInit(): void {
     this.cargarDatos();
@@ -718,7 +720,7 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       // Fallback: copiar al portapapeles
       navigator.clipboard.writeText(url).then(() => {
-        alert('¡URL copiada al portapapeles!');
+        this.toastSvc.success('¡URL copiada al portapapeles!');
       });
     }
   }

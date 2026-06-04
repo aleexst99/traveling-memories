@@ -44,12 +44,13 @@
   </select>
 
   <!-- Imagen -->
-  <label>Imagen</label>
+  <label>Imagen <span class="label-hint">(disponible próximamente)</span></label>
   <input
-  type="file"
-  accept="image/*"
-  (change)="onImageSelected($event)"
-/>
+    type="file"
+    accept="image/*"
+    (change)="onImageSelected($event)"
+    disabled
+  />
 
   <!-- Descripción -->
   <label>Descripción</label>
@@ -58,6 +59,10 @@
     placeholder="Cuéntanos sobre este viaje..."
     [formControl]="form.controls.description"
   ></textarea>
+
+  @if (errorValidacion()) {
+    <p class="error-msg">⚠ {{ errorValidacion() }}</p>
+  }
 
   <div class="acciones">
     <button type="button" class="cancelar" (click)="cerrar.emit()">Cancelar</button>

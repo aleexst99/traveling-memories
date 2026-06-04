@@ -17,6 +17,7 @@ export class ViajeFormComponent implements OnInit {
   @Output() guardar = new EventEmitter<Viaje>();
   @Output() cerrar = new EventEmitter<void>();
 
+  errorValidacion = signal('');
   paises = signal<Country[]>([]);
   filtrados = signal<Country[]>([]);
   paisSeleccionado = signal<Country | null>(null);
@@ -117,9 +118,10 @@ export class ViajeFormComponent implements OnInit {
 
   guardarViaje() {
     if (this.form.invalid || !this.paisSeleccionado()) {
-      alert('Por favor, selecciona un país y completa los campos obligatorios');
+      this.errorValidacion.set('Selecciona un país antes de guardar.');
       return;
     }
+    this.errorValidacion.set('');
 
     const raw = this.form.value;
 
