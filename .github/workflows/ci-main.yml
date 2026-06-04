@@ -1,0 +1,99 @@
+name: CI — Main (Producción)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    name: Test & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: traveling-memories/package-lock.json
+
+      - name: Install dependencies
+        working-directory: traveling-memories
+        run: npm ci
+
+      - name: Create environment files
+        working-directory: traveling-memories
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          API_URL: ${{ secrets.PROD_API_URL }}
+        run: |
+          cat > src/environments/environment.ts << EOF
+          export const environment = {
+            production: false,
+            apiUrl: '${API_URL}',
+            apiKey: '${API_KEY}',
+            useLocalStorage: false,
+          };
+          EOF
+          cat > src/environments/environment.prod.ts << EOF
+          export const environment = {
+            production: true,
+            apiUrl: '${API_URL}',
+            apiKey: '${API_KEY}',
+            useLocalStorage: false,
+          };
+          EOF
+
+      - name: Run tests
+        working-directory: traveling-memories
+        run: npm test -- --watch=false --browsers=ChromeHeadless --no-progress
+
+      - name: Build (producción)
+        working-directory: traveling-memories
+        run: npm run build -- --configuration production
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-build
+          path: traveling-memories/dist/travel-blog/
+          retention-days: 30
+
+  # ──────────────────────────────────────────────────────────
+  # DEPLOY PRODUCCIÓN — descomentar cuando se elija plataforma
+  # ──────────────────────────────────────────────────────────
+  # deploy-production:
+  #   name: Deploy to Production
+  #   needs: ci
+  #   runs-on: ubuntu-latest
+  #   if: github.event_name == 'push'   # solo en push, no en PR
+  #   environment: production           # requiere aprobación manual en GitHub
+  #
+  #   steps:
+  #     - name: Download build artifact
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: production-build
+  #         path: dist/
+  #
+  #     ## NETLIFY
+  #     # - uses: netlify/actions/cli@master
+  #     #   with:
+  #     #     args: deploy --dir=dist --prod --site=${{ secrets.NETLIFY_SITE_ID }}
+  #     #   env:
+  #     #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+  #
+  #     ## VERCEL
+  #     # - run: npx vercel --token=${{ secrets.VERCEL_TOKEN }} --prod dist/
+  #
+  #     ## FIREBASE
+  #     # - uses: FirebaseExtended/action-hosting-deploy@v0
+  #     #   with:
+  #     #     repoToken: ${{ secrets.GITHUB_TOKEN }}
+  #     #     firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+  #     #     channelId: live
