@@ -7,7 +7,7 @@
       "^/api": ""
     },
     "headers": {
-      "X-API-KEY": "yO9wxzGnHubdV-I_1o3n0KA3K-FFMbY75j4trYmFnJI"
+      "X-API-KEY": "YOUR_API_KEY_HERE"
     },
     "logLevel": "debug"
   }
