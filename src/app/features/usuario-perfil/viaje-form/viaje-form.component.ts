@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, signal, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ViajesService } from '../viajes/services/viaje.service';
 import { Viaje, Country } from '../viajes/models/viajes.model';
+import { ApiService } from '../../../core/api.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -37,7 +37,7 @@ export class ViajeFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private viajesSrv: ViajesService
+    private api: ApiService
   ) {}
 
   ngOnInit() {
@@ -56,21 +56,15 @@ export class ViajeFormComponent implements OnInit {
   cargarPaises() {
     this.cargandoPaises.set(true);
 
-    this.viajesSrv.getPaises().subscribe({
+    this.api.getPaises().subscribe({
       next: (data: Country[]) => {
-        // Ordenar alfabéticamente
-        const paisesOrdenados = data.sort((a, b) =>
-          a.name.common.localeCompare(b.name.common)
-        );
-
-        this.paises.set(paisesOrdenados);
-        this.filtrados.set(paisesOrdenados);
+        this.paises.set(data);
+        this.filtrados.set(data);
         this.cargandoPaises.set(false);
       },
       error: (error) => {
         console.error('Error al cargar países:', error);
         this.cargandoPaises.set(false);
-        alert('Error al cargar la lista de países. Por favor, intenta de nuevo.');
       }
     });
   }

@@ -7,7 +7,7 @@ import {
   ApiTripEntryCreate, ApiTripEntryOut,
   ApiCountryOut, ApiCityOut
 } from './models/api.models';
-import { Viaje, Entrada } from '../features/usuario-perfil/viajes/models/viajes.model';
+import { Viaje, Entrada, Country } from '../features/usuario-perfil/viajes/models/viajes.model';
 import { User } from '../features/usuario-perfil/models/user.model';
 
 @Injectable({ providedIn: 'root' })
@@ -64,14 +64,21 @@ export class ApiService {
     );
   }
 
-  // ── Países y Ciudades ─────────────────────────────────────
+  // ── Países (RestCountries) ────────────────────────────────
 
-  getCountries(): Observable<ApiCountryOut[]> {
-    return this.http.get<ApiCountryOut[]>(`${this.base}/countries`);
-  }
+  getPaises(): Observable<Country[]> {
+    const url = environment.production
+      ? 'https://restcountries.com/v3.1/all?fields=name,region,latlng,ccn3,cca3'
+      : '/restcountries/v3.1/all?fields=name,region,latlng,ccn3,cca3';
 
-  getCities(): Observable<ApiCityOut[]> {
-    return this.http.get<ApiCityOut[]>(`${this.base}/cities`);
+    return this.http.get<any[]>(url).pipe(
+      map(paises => paises.map(p => ({
+        name: { common: p.name?.common || 'Desconocido' },
+        ccn3: p.ccn3 || p.cca3 || 'XXX',
+        region: p.region || 'Unknown',
+        latlng: p.latlng || [0, 0],
+      } as Country)).sort((a, b) => a.name.common.localeCompare(b.name.common)))
+    );
   }
 
   // ── Mappers frontend ↔ backend ────────────────────────────
