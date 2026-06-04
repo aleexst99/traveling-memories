@@ -23,6 +23,8 @@
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
     "rxjs": "~7.8.0",
+    "three": "^0.181.2",
+    "three-globe": "^2.45.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.1"
   },
@@ -32,6 +34,7 @@
     "@angular/compiler-cli": "^19.2.14",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/jasmine": "~5.1.0",
+    "@types/three": "^0.181.0",
     "autoprefixer": "^10.4.21",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
