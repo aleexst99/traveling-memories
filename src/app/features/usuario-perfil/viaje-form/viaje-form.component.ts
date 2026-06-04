@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, signal, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ViajesService } from '../viajes/services/viaje.service';
-import { Viaje, Country } from './models/viaje.model';
+import { Viaje, Country } from '../viajes/models/viajes.model';
 import { CommonModule } from '@angular/common';
 
 @Component({

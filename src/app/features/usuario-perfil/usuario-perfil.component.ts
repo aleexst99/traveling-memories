@@ -28,6 +28,8 @@ export class UsuarioPerfilComponent {
   auth = inject(AuthService);
 
   user = signal<User | null>(null);
+  cargando = signal(true);
+  errorCarga = signal(false);
   continentes = signal(['Todos', 'Europa', 'Asia', 'África', 'América', 'Oceanía']);
   filtroContinente = signal('Todos');
   mostrarModal = false;
@@ -58,6 +60,8 @@ export class UsuarioPerfilComponent {
   }
 
   private cargarUsuario(id: number) {
+    this.cargando.set(true);
+    this.errorCarga.set(false);
     this.api.getUser(id).subscribe({
       next: (userBase) => {
         const viajes = this.store.getTripsByUser(id);
@@ -66,8 +70,13 @@ export class UsuarioPerfilComponent {
           trips: viajes.filter(v => v.tipo === 'realizado'),
           wishlist: viajes.filter(v => v.tipo === 'wishlist'),
         });
+        this.cargando.set(false);
       },
-      error: (err) => console.error('Error cargando usuario:', err),
+      error: (err) => {
+        console.error('Error cargando usuario:', err);
+        this.cargando.set(false);
+        this.errorCarga.set(true);
+      },
     });
   }
 
@@ -92,6 +101,11 @@ export class UsuarioPerfilComponent {
       },
       error: (err) => console.error('Error creando viaje:', err),
     });
+  }
+
+  reintentarCarga() {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (id) this.cargarUsuario(id);
   }
 
   filtrarPorContinente = (continent: string) => this.filtroContinente.set(continent);

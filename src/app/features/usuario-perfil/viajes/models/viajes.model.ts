@@ -1,3 +1,13 @@
+export interface Country {
+  name: {
+    common: string;
+    official?: string;
+  };
+  ccn3: string;
+  region: string;
+  latlng: [number, number];
+}
+
 export interface Entrada {
   id: number;
   id_viaje: number;
