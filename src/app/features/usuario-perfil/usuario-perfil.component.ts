@@ -11,6 +11,7 @@ import { ViajeFormComponent } from './viaje-form/viaje-form.component';
 import { ApiService } from '../../core/api.service';
 import { TripStoreService } from '../../core/trip-store.service';
 import { AuthService } from '../../core/auth.service';
+import { ToastService } from '../../core/toast.service';
 
 @Component({
   selector: 'app-usuario-perfil',
@@ -25,6 +26,7 @@ export class UsuarioPerfilComponent {
   private router = inject(Router);
   private api = inject(ApiService);
   private store = inject(TripStoreService);
+  private toast = inject(ToastService);
   auth = inject(AuthService);
 
   user = signal<User | null>(null);
@@ -73,7 +75,7 @@ export class UsuarioPerfilComponent {
         this.cargando.set(false);
       },
       error: (err) => {
-        console.error('Error cargando usuario:', err);
+        this.toast.error('No se pudo cargar el perfil. Inténtalo de nuevo.');
         this.cargando.set(false);
         this.errorCarga.set(true);
       },
@@ -99,7 +101,7 @@ export class UsuarioPerfilComponent {
         }
         this.router.navigate(['/user', viajeCreado.id_user, 'viaje', viajeCreado.id]);
       },
-      error: (err) => console.error('Error creando viaje:', err),
+      error: () => this.toast.error('Error al crear el viaje. Inténtalo de nuevo.'),
     });
   }
 

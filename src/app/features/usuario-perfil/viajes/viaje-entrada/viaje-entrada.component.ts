@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../../../core/api.service';
 import { TripStoreService } from '../../../../core/trip-store.service';
+import { ToastService } from '../../../../core/toast.service';
 import { Entrada } from '../models/viajes.model';
 
 @Component({
@@ -18,6 +19,7 @@ export class ViajeEntradaComponent implements OnInit {
   private router = inject(Router);
   private api = inject(ApiService);
   private store = inject(TripStoreService);
+  private toast = inject(ToastService);
   private fb = inject(FormBuilder);
 
   viajeId!: number;
@@ -91,7 +93,7 @@ export class ViajeEntradaComponent implements OnInit {
         this.router.navigate(['/user', this.userId, 'viaje', this.viajeId]);
       },
       error: (err) => {
-        console.error('Error guardando entrada:', err);
+        this.toast.error('Error al guardar la entrada. Inténtalo de nuevo.');
         this.guardando = false;
       },
     });

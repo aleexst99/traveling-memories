@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../core/api.service';
 import { TripStoreService } from '../../core/trip-store.service';
 import { ToastService } from '../../core/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mapa-global',
@@ -110,6 +111,7 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
   private api = inject(ApiService);
   private store = inject(TripStoreService);
   private toastSvc = inject(ToastService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.cargarDatos();
@@ -680,8 +682,8 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   verDetalles(viaje: ViajeConUsuario): void {
-    console.log('Ver detalles de:', viaje);
-    // Implementar navegación o modal
+    this.store.addOrUpdateTrip(viaje);
+    this.router.navigate(['/user', viaje.id_user, 'viaje', viaje.id]);
   }
 
   exportarDatos(): void {
@@ -716,7 +718,7 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
         title: 'Mapa Global de Viajes',
         text: `¡Mira nuestro mapa de viajes! ${this.allTrips().length} destinos explorados.`,
         url: url
-      }).catch(err => console.log('Error compartiendo:', err));
+      }).catch(() => this.toastSvc.error('Error al compartir el mapa'));
     } else {
       // Fallback: copiar al portapapeles
       navigator.clipboard.writeText(url).then(() => {

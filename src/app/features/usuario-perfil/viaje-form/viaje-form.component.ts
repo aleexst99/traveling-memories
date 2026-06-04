@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, signal, OnInit, HostListener } 
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Viaje, Country } from '../viajes/models/viajes.model';
 import { ApiService } from '../../../core/api.service';
+import { ToastService } from '../../../core/toast.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -38,7 +39,8 @@ export class ViajeFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private api: ApiService
+    private api: ApiService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -64,7 +66,7 @@ export class ViajeFormComponent implements OnInit {
         this.cargandoPaises.set(false);
       },
       error: (error) => {
-        console.error('Error al cargar países:', error);
+        this.toast.error('No se pudo cargar la lista de países.');
         this.cargandoPaises.set(false);
       }
     });
