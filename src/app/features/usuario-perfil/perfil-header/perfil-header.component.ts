@@ -1,4 +1,4 @@
-import { Component, computed, input, Input, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { User } from '../models/user.model';
 
 @Component({
@@ -15,11 +15,13 @@ export class PerfilHeaderComponent {
    // ✅ Señal derivada: nombre en mayúsculas para mostrar bonito
    displayName = computed(() => this.user().name.toUpperCase());
 
-   // ✅ Señal para controlar modo visual (por ejemplo, más adelante)
-   modoOscuro = signal(false);
+   modoOscuro = signal(localStorage.getItem('tm_modo_oscuro') === 'true');
 
    toggleModoOscuro() {
-     this.modoOscuro.update(v => !v);
+     this.modoOscuro.update(v => {
+       localStorage.setItem('tm_modo_oscuro', String(!v));
+       return !v;
+     });
    }
 
 }

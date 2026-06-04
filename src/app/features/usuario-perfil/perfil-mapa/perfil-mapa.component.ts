@@ -1,7 +1,8 @@
-import { Component, OnInit, ElementRef, input, effect } from '@angular/core';
+import { Component, OnInit, ElementRef, input, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
 import { User } from '../models/user.model';
+import { TripStoreService } from '../../../core/trip-store.service';
 
 @Component({
   selector: 'app-perfil-mapa',
@@ -12,12 +13,13 @@ import { User } from '../models/user.model';
 })
 export class PerfilMapaComponent implements OnInit {
   user = input.required<User>();
+  private store = inject(TripStoreService);
   private map!: L.Map;
 
   constructor(private el: ElementRef) {
     effect(() => {
       const u = this.user();
-      if (this.map && u) this.refrescarMarcadores(u);
+      if (this.map && u) this.refrescarMarcadores(u.id);
     });
   }
 
@@ -32,14 +34,14 @@ export class PerfilMapaComponent implements OnInit {
       maxZoom: 18,
       attribution: '© OpenStreetMap contributors',
     }).addTo(this.map);
-    this.refrescarMarcadores(this.user());
+    this.refrescarMarcadores(this.user().id);
   }
 
-  private refrescarMarcadores(user: User) {
+  private refrescarMarcadores(userId: number) {
     this.map.eachLayer(layer => {
       if (layer instanceof L.Marker) this.map.removeLayer(layer);
     });
-    user.trips.forEach(trip => {
+    this.store.getTripsByUser(userId).forEach(trip => {
       if (trip.lat && trip.lng) {
         L.marker([trip.lat, trip.lng])
           .addTo(this.map)

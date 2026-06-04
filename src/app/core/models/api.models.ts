@@ -44,15 +44,3 @@ export interface ApiTripEntryOut {
   entry_date: string;
 }
 
-export interface ApiCountryOut {
-  id: number;
-  name: string;
-}
-
-export interface ApiCityOut {
-  id: number;
-  name: string;
-  lat: number;
-  lng: number;
-  country_id: number;
-}

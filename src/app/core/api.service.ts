@@ -5,7 +5,6 @@ import { environment } from '../../environments/environment';
 import {
   ApiUser, ApiTripCreate, ApiTripOut,
   ApiTripEntryCreate, ApiTripEntryOut,
-  ApiCountryOut, ApiCityOut
 } from './models/api.models';
 import { Viaje, Entrada, Country } from '../features/usuario-perfil/viajes/models/viajes.model';
 import { User } from '../features/usuario-perfil/models/user.model';
