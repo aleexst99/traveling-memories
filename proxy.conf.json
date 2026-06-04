@@ -1,0 +1,14 @@
+{
+  "/api": {
+    "target": "https://traveling-memories-backend.onrender.com",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "headers": {
+      "X-API-KEY": "yO9wxzGnHubdV-I_1o3n0KA3K-FFMbY75j4trYmFnJI"
+    },
+    "logLevel": "debug"
+  }
+}
