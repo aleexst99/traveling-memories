@@ -86,12 +86,34 @@ export class ApiService {
     return {
       id: u.id,
       name: u.name,
-      photo: u.avatar_url ?? 'assets/default-avatar.png',
+      photo: u.avatar_url ?? this.generateInitialsAvatar(u.name),
       bio: u.bio ?? '',
       social: { github: '', linkedin: '' },
       trips: [],
       wishlist: [],
     };
+  }
+
+  private generateInitialsAvatar(name: string): string {
+    const initials = name
+      .split(' ')
+      .map(w => w[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
+
+    const colors = ['#007bff', '#6366f1', '#10b981', '#f59e0b', '#ef4444'];
+    const color = colors[name.charCodeAt(0) % colors.length];
+
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+        <circle cx="50" cy="50" r="50" fill="${color}"/>
+        <text x="50" y="56" font-family="Arial" font-size="36"
+          font-weight="bold" fill="white" text-anchor="middle"
+          dominant-baseline="middle">${initials}</text>
+      </svg>`.trim();
+
+    return `data:image/svg+xml;base64,${btoa(svg)}`;
   }
 
   mapTrip(t: ApiTripOut): Viaje {

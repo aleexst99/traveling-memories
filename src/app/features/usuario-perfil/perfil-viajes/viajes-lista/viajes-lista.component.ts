@@ -1,4 +1,4 @@
-import { Component, computed, input, inject, signal, effect } from '@angular/core';
+import { Component, computed, input, inject, signal, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ViajeCardComponent } from '../viaje-card/viaje-card.component';
@@ -11,8 +11,9 @@ import { Viaje } from '../../viajes/models/viajes.model';
   templateUrl: './viajes-lista.component.html',
   styleUrls: ['./viajes-lista.component.scss']
 })
-export class ViajesListaComponentDos {
+export class ViajesListaComponentDos implements OnDestroy {
   private router = inject(Router);
+  private resizeHandler = () => this.adjustItemsPerPage();
 
   userId = input<number>(0);
   viajes = input<Viaje[]>([]);
@@ -33,7 +34,7 @@ export class ViajesListaComponentDos {
   constructor() {
     // Ajustar items por página según tamaño de pantalla
     this.adjustItemsPerPage();
-    window.addEventListener('resize', () => this.adjustItemsPerPage());
+    window.addEventListener('resize', this.resizeHandler);
   }
 
   private adjustItemsPerPage() {
@@ -82,5 +83,9 @@ export class ViajesListaComponentDos {
 
   onViajeSelected(viajeId: string) {
     this.router.navigate(['/user', this.userId(), 'viaje', viajeId]);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeHandler);
   }
 }
