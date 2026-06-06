@@ -44,7 +44,9 @@ jobs:
 
       - name: Run tests
         working-directory: traveling-memories
-        run: npm test -- --watch=false --browsers=ChromeHeadless --no-progress
+        run: npm test -- --watch=false --browsers=ChromeHeadlessCI --no-progress
+        env:
+          CHROME_FLAGS: "--no-sandbox --disable-gpu"
 
       - name: Build (staging)
         working-directory: traveling-memories
