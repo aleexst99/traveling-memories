@@ -1,23 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { UsuarioPerfilComponent } from './usuario-perfil.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('UsuarioPerfilComponent', () => {
-  let component: UsuarioPerfilComponent;
-  let fixture: ComponentFixture<UsuarioPerfilComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UsuarioPerfilComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(UsuarioPerfilComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      imports: [UsuarioPerfilComponent, RouterTestingModule, HttpClientTestingModule],
+    }).compileComponents();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(UsuarioPerfilComponent);
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

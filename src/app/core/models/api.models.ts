@@ -3,8 +3,8 @@
 export interface ApiUser {
   id: number;
   name: string;
-  avatar_url?: string;
-  bio?: string;
+  avatar_url?: string | null;  // la API devuelve null cuando no hay foto
+  bio?: string | null;
 }
 
 export interface ApiTripCreate {

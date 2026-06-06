@@ -1,23 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { MapaGlobalComponent } from './mapa-global.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MapaGlobalComponent', () => {
-  let component: MapaGlobalComponent;
-  let fixture: ComponentFixture<MapaGlobalComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MapaGlobalComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(MapaGlobalComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      imports: [MapaGlobalComponent, HttpClientTestingModule, RouterTestingModule],
+    }).compileComponents();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(MapaGlobalComponent);
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });
