@@ -1,14 +1,16 @@
 {
   "/api": {
-    "target": "https://traveling-memories-backend.onrender.com",
+    "target": "URL_DEL_BACKEND",
     "secure": true,
     "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": ""
-    },
-    "headers": {
-      "X-API-KEY": "YOUR_API_KEY_HERE"
-    },
+    "pathRewrite": { "^/api": "" },
+    "headers": { "X-API-KEY": "TU_API_KEY" },
     "logLevel": "debug"
+  },
+  "/restcountries": {
+    "target": "https://restcountries.com",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": { "^/restcountries": "" }
   }
 }
