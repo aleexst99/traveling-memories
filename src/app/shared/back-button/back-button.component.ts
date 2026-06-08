@@ -4,8 +4,8 @@ import { Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-// Rutas en las que el botón NO aparece (puntos de entrada)
-const HIDDEN_ROUTES = ['/', '/login', '/mapa-global'];
+// Rutas en las que el botón NO aparece
+const HIDDEN_ROUTES = ['/'];
 
 @Component({
   selector: 'app-back-button',
