@@ -23,8 +23,10 @@ export interface Viaje {
   id_user: number;
   title: string;
   continent: string;
-  image: string;
-  description?: string;
+  image: string;           // alias local de cover_photo_url
+  description?: string;    // alias local de summary
+  start_date?: string;     // fecha inicio (YYYY-MM-DD)
+  end_date?: string;       // fecha fin   (YYYY-MM-DD)
   lat?: number;
   lng?: number;
   tipo?: 'wishlist' | 'realizado';

@@ -30,9 +30,11 @@ export class ViajeFormComponent implements OnInit {
   form = this.fb.group({
     title: ['', Validators.required],
     continent: [''],
-    image: [''],
+    cover_photo_url: [''],
     description: [''],
     tipo: ['wishlist', Validators.required],
+    start_date: [''],
+    end_date: [''],
     lat: [null as number | null],
     lng: [null as number | null],
   });
@@ -132,8 +134,10 @@ export class ViajeFormComponent implements OnInit {
       id_user: this.idUser,
       title: raw.title!,
       continent: raw.continent!,
-      image: raw.image ?? '',
+      image: raw.cover_photo_url ?? '',
       description: raw.description ?? '',
+      start_date: raw.start_date || undefined,
+      end_date: raw.end_date || undefined,
       lat: raw.lat ?? undefined,
       lng: raw.lng ?? undefined,
       tipo: raw.tipo as 'wishlist' | 'realizado'
@@ -141,22 +145,6 @@ export class ViajeFormComponent implements OnInit {
 
     this.guardar.emit(viaje);
     this.limpiarFormulario();
-  }
-
-  onImageSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      
-      // Convertir a base64 y guardar en el form
-      const reader = new FileReader();
-      reader.onload = (e: ProgressEvent<FileReader>) => {
-        const base64 = e.target?.result as string;
-        this.form.controls.image.setValue(base64);
-      };
-      reader.readAsDataURL(file);
-    }
   }
 
   limpiarFormulario() {

@@ -37,6 +37,8 @@ export class ApiService {
       cover_photo_url: viaje.image || undefined,
       summary: viaje.description || undefined,
       is_wishlist: viaje.tipo === 'wishlist',
+      start_date: viaje.start_date || undefined,
+      end_date: viaje.end_date || undefined,
     };
     return this.http.post<ApiTripOut>(`${this.base}/trips`, body).pipe(
       map(t => this.mapTrip(t))
@@ -124,6 +126,8 @@ export class ApiService {
       continent: '',
       image: t.cover_photo_url ?? '',
       description: t.summary,
+      start_date: t.start_date,
+      end_date: t.end_date,
       tipo: t.is_wishlist ? 'wishlist' : 'realizado',
     };
   }

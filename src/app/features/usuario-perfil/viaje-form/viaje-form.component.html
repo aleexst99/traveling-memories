@@ -43,13 +43,27 @@
     <option value="wishlist">Wishlist</option>
   </select>
 
-  <!-- Imagen -->
-  <label>Imagen <span class="label-hint">(disponible próximamente)</span></label>
+  <!-- Fechas -->
+  <div class="fechas-row">
+    <div class="field">
+      <label>Fecha inicio</label>
+      <input type="date" [formControl]="form.controls.start_date" />
+    </div>
+    <div class="field">
+      <label>Fecha fin</label>
+      <input type="date" [formControl]="form.controls.end_date" />
+    </div>
+  </div>
+
+  <!-- Imagen URL -->
+  <label>
+    URL de la imagen
+    <span class="label-hint">(subida de ficheros próximamente)</span>
+  </label>
   <input
-    type="file"
-    accept="image/*"
-    (change)="onImageSelected($event)"
-    disabled
+    type="url"
+    placeholder="https://ejemplo.com/foto.jpg"
+    [formControl]="form.controls.cover_photo_url"
   />
 
   <!-- Descripción -->
