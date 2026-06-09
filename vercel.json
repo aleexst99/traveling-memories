@@ -1,0 +1,7 @@
+{
+  "buildCommand": "npm run build:vercel",
+  "outputDirectory": "dist/travel-blog/browser",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
