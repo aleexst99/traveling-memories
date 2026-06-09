@@ -9,21 +9,21 @@ import {
   OnDestroy,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { User } from '../usuario-perfil/models/user.model';
-import { ViajeConUsuario } from '../usuario-perfil/viajes/models/viajes.model';
+import { forkJoin } from 'rxjs';
+import { User } from '@core/models/user.model';
+import { ViajeConUsuario } from '@core/models/viajes.model';
 import { FormsModule } from '@angular/forms';
-import { ApiService } from '../../core/api.service';
-import { TripStoreService } from '../../core/trip-store.service';
-import { ToastService } from '../../core/toast.service';
+import { ApiService } from '@core/services/api.service';
+import { TripStoreService } from '@core/services/trip-store.service';
+import { ToastService } from '@core/services/toast.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mapa-global',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './mapa-global.component.html',
   styleUrls: ['./mapa-global.component.scss'],
 })
@@ -140,21 +140,37 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.api.getUsers().subscribe({
       next: (users) => {
         this.usuarios.set(users);
-        const trips: ViajeConUsuario[] = [];
 
-        users.forEach(u => {
-          const viajesUsuario = this.store.getTripsByUser(u.id);
-          viajesUsuario.forEach(v => trips.push({
-            ...v,
-            userName: u.name,
-            userPhoto: u.photo,
-            tipo: v.tipo ?? 'realizado',
-          }));
+        // Pedir los viajes de cada usuario a la API en paralelo
+        forkJoin(users.map(u => this.api.getTripsByUser(u.id))).subscribe({
+          next: (viajesPorUsuario) => {
+            const trips: ViajeConUsuario[] = [];
+
+            viajesPorUsuario.forEach((viajes, i) => {
+              const u = users[i];
+              viajes.forEach(v => {
+                // Merge con datos en store por si tiene lat/lng de la sesión actual
+                const enStore = this.store.getTrip(v.id);
+                const conMetadata = enStore ?? v;
+                this.store.addOrUpdateTrip(conMetadata);
+                trips.push({
+                  ...conMetadata,
+                  userName: u.name,
+                  userPhoto: u.photo,
+                  tipo: conMetadata.tipo ?? 'realizado',
+                });
+              });
+            });
+
+            this.allTrips.set(trips);
+            this.dataLoaded = true;
+            this.tryInitGlobe();
+          },
+          error: (err) => {
+            this.toastSvc.error('No se pudieron cargar los viajes del mapa.');
+            console.error('Error cargando viajes', err);
+          },
         });
-
-        this.allTrips.set(trips);
-        this.dataLoaded = true;
-        this.tryInitGlobe();
       },
       error: (err) => console.error('Error cargando usuarios', err),
     });

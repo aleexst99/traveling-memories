@@ -1,25 +1,22 @@
-import { Component, OnInit, ElementRef, input, inject, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ElementRef, input, effect } from '@angular/core';
 import * as L from 'leaflet';
-import { User } from '../models/user.model';
-import { TripStoreService } from '../../../core/trip-store.service';
+import { User } from '@core/models/user.model';
 
 @Component({
   selector: 'app-perfil-mapa',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './perfil-mapa.component.html',
   styleUrls: ['./perfil-mapa.component.scss']
 })
 export class PerfilMapaComponent implements OnInit {
   user = input.required<User>();
-  private store = inject(TripStoreService);
   private map!: L.Map;
 
   constructor(private el: ElementRef) {
     effect(() => {
       const u = this.user();
-      if (this.map && u) this.refrescarMarcadores(u.id);
+      if (this.map && u) this.refrescarMarcadores();
     });
   }
 
@@ -34,18 +31,32 @@ export class PerfilMapaComponent implements OnInit {
       maxZoom: 18,
       attribution: '© OpenStreetMap contributors',
     }).addTo(this.map);
-    this.refrescarMarcadores(this.user().id);
+    this.refrescarMarcadores();
   }
 
-  private refrescarMarcadores(userId: number) {
+  private refrescarMarcadores() {
     this.map.eachLayer(layer => {
       if (layer instanceof L.Marker) this.map.removeLayer(layer);
     });
-    this.store.getTripsByUser(userId).forEach(trip => {
+
+    const u = this.user();
+    const todos = [...u.trips, ...u.wishlist];
+
+    todos.forEach(trip => {
       if (trip.lat && trip.lng) {
-        L.marker([trip.lat, trip.lng])
+        const color = trip.tipo === 'wishlist' ? '#6366f1' : '#10b981';
+        const icon = L.divIcon({
+          className: '',
+          html: `<div style="
+            width:12px;height:12px;border-radius:50%;
+            background:${color};border:2px solid white;
+            box-shadow:0 0 4px rgba(0,0,0,.4)"></div>`,
+          iconSize: [12, 12],
+          iconAnchor: [6, 6],
+        });
+        L.marker([trip.lat, trip.lng], { icon })
           .addTo(this.map)
-          .bindPopup(`<b>${trip.title}</b><br>${trip.continent}`);
+          .bindPopup(`<b>${trip.title}</b><br><small>${trip.continent}</small>`);
       }
     });
   }

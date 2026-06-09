@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, Output, signal, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Viaje, Country } from '../viajes/models/viajes.model';
-import { ApiService } from '../../../core/api.service';
-import { ToastService } from '../../../core/toast.service';
-import { CommonModule } from '@angular/common';
+import { Viaje, Country } from '@core/models/viajes.model';
+import { ApiService } from '@core/services/api.service';
+import { ToastService } from '@core/services/toast.service';
+import { CloudinaryService } from '@core/services/cloudinary.service';
 
 @Component({
   selector: 'app-viaje-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './viaje-form.component.html',
   styleUrls: ['./viaje-form.component.scss']
 })
@@ -19,6 +19,8 @@ export class ViajeFormComponent implements OnInit {
   @Output() cerrar = new EventEmitter<void>();
 
   errorValidacion = signal('');
+  subiendoImagen = signal(false);
+  previewImagen = signal<string | null>(null);
   paises = signal<Country[]>([]);
   filtrados = signal<Country[]>([]);
   paisSeleccionado = signal<Country | null>(null);
@@ -42,7 +44,8 @@ export class ViajeFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    private toast: ToastService
+    private toast: ToastService,
+    private cloudinary: CloudinaryService
   ) {}
 
   ngOnInit() {
@@ -66,8 +69,9 @@ export class ViajeFormComponent implements OnInit {
         this.paises.set(data);
         this.filtrados.set(data);
         this.cargandoPaises.set(false);
+        this.mostrarLista.set(true); // auto-abre la lista al terminar la carga
       },
-      error: (error) => {
+      error: () => {
         this.toast.error('No se pudo cargar la lista de países.');
         this.cargandoPaises.set(false);
       }
@@ -147,10 +151,33 @@ export class ViajeFormComponent implements OnInit {
     this.limpiarFormulario();
   }
 
-  limpiarFormulario() {
-    this.form.reset({
-      tipo: 'wishlist'
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+
+    // Preview local inmediato antes de subir
+    const reader = new FileReader();
+    reader.onload = () => this.previewImagen.set(reader.result as string);
+    reader.readAsDataURL(file);
+
+    this.subiendoImagen.set(true);
+    this.cloudinary.upload(file).subscribe({
+      next: (url) => {
+        this.form.patchValue({ cover_photo_url: url });
+        this.subiendoImagen.set(false);
+      },
+      error: () => {
+        this.toast.error('Error al subir la imagen. Inténtalo de nuevo.');
+        this.previewImagen.set(null);
+        this.subiendoImagen.set(false);
+      }
     });
+  }
+
+  limpiarFormulario() {
+    this.form.reset({ tipo: 'wishlist' });
+    this.previewImagen.set(null);
     this.limpiarSeleccion();
   }
 }

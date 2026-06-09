@@ -55,16 +55,31 @@
     </div>
   </div>
 
-  <!-- Imagen URL -->
-  <label>
-    URL de la imagen
-    <span class="label-hint">(subida de ficheros próximamente)</span>
-  </label>
-  <input
-    type="url"
-    placeholder="https://ejemplo.com/foto.jpg"
-    [formControl]="form.controls.cover_photo_url"
-  />
+  <!-- Imagen -->
+  <label>Foto de portada</label>
+
+  <div class="upload-area" [class.uploading]="subiendoImagen()">
+    @if (previewImagen()) {
+      <img [src]="previewImagen()!" class="preview-img" alt="Preview" />
+    }
+
+    <label class="upload-btn" [class.disabled]="subiendoImagen()">
+      @if (subiendoImagen()) {
+        <span class="spinner"></span> Subiendo...
+      } @else if (previewImagen()) {
+        Cambiar foto
+      } @else {
+        Seleccionar foto
+      }
+      <input
+        type="file"
+        accept="image/*"
+        (change)="onFileSelected($event)"
+        [disabled]="subiendoImagen()"
+        hidden
+      />
+    </label>
+  </div>
 
   <!-- Descripción -->
   <label>Descripción</label>
@@ -80,6 +95,6 @@
 
   <div class="acciones">
     <button type="button" class="cancelar" (click)="cerrar.emit()">Cancelar</button>
-    <button type="button" class="guardar" (click)="guardarViaje()">Guardar</button>
+    <button type="button" class="guardar" (click)="guardarViaje()" [disabled]="subiendoImagen()">Guardar</button>
   </div>
 </div>

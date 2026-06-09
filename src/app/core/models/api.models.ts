@@ -15,6 +15,9 @@ export interface ApiTripCreate {
   is_wishlist: boolean;
   start_date?: string;
   end_date?: string;
+  lat?: number | null;
+  lng?: number | null;
+  continent?: string | null;
 }
 
 export interface ApiTripOut {
@@ -27,6 +30,9 @@ export interface ApiTripOut {
   start_date?: string;
   end_date?: string;
   created_at?: string;
+  lat?: number | null;
+  lng?: number | null;
+  continent?: string | null;
 }
 
 export interface ApiTripEntryCreate {
@@ -34,6 +40,7 @@ export interface ApiTripEntryCreate {
   title: string;
   content: string;
   entry_date: string;
+  image_url?: string;
 }
 
 export interface ApiTripEntryOut {
@@ -42,5 +49,6 @@ export interface ApiTripEntryOut {
   title: string;
   content: string;
   entry_date: string;
+  image_url?: string;
 }
 

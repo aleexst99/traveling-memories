@@ -1,17 +1,16 @@
 import { Component, computed, input, inject, signal, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { ViajeCardComponent } from '../viaje-card/viaje-card.component';
-import { Viaje } from '../../viajes/models/viajes.model';
+import { ViajeCardComponent } from '@features/usuario-perfil/perfil-viajes/viaje-card/viaje-card.component';
+import { Viaje } from '@core/models/viajes.model';
 
 @Component({
   selector: 'app-viajes-lista',
   standalone: true,
-  imports: [CommonModule, ViajeCardComponent],
+  imports: [ViajeCardComponent],
   templateUrl: './viajes-lista.component.html',
   styleUrls: ['./viajes-lista.component.scss']
 })
-export class ViajesListaComponentDos implements OnDestroy {
+export class ViajesListaComponent implements OnDestroy {
   private router = inject(Router);
   private resizeHandler = () => this.adjustItemsPerPage();
 
@@ -25,11 +24,15 @@ export class ViajesListaComponentDos implements OnDestroy {
   // Carrusel
   currentSlideViajes = signal(0);
   currentSlideWishlist = signal(0);
-  itemsPorPagina = signal(3); // Mostrar 3 cards a la vez
-  
-  // Para los indicadores
-  Array = Array;
-  Math = Math;
+  itemsPorPagina = signal(3);
+
+  // Dots de los indicadores como computed signals (evita exponer Array/Math en el template)
+  dotsViajes = computed(() =>
+    Array.from({ length: Math.ceil(this.viajes().length / this.itemsPorPagina()) })
+  );
+  dotsWishlist = computed(() =>
+    Array.from({ length: Math.ceil(this.wishlist().length / this.itemsPorPagina()) })
+  );
 
   constructor() {
     // Ajustar items por página según tamaño de pantalla

@@ -1,14 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { ApiService } from '../../../core/api.service';
-import { ToastService } from '../../../core/toast.service';
-import { User } from '../../usuario-perfil/models/user.model';
+import { ApiService } from '@core/services/api.service';
+import { ToastService } from '@core/services/toast.service';
+import { User } from '@core/models/user.model';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.scss'
 })

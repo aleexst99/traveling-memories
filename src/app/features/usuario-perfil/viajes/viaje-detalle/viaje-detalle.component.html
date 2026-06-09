@@ -21,12 +21,26 @@
         <label>Descripción</label>
         <textarea rows="3" formControlName="description" placeholder="Descripción del viaje..."></textarea>
 
-        <label>Imagen</label>
-        <input type="file" accept="image/*" (change)="onImageEditSelected($event)" />
+        <label>Imagen de portada</label>
+        <div class="upload-area">
+          @if (previewImagenEdit()) {
+            <img [src]="previewImagenEdit()!" class="preview-img" alt="Preview portada" />
+          }
+          <label class="upload-btn" [class.disabled]="subiendoImagen()">
+            @if (subiendoImagen()) {
+              <span class="spinner"></span> Subiendo...
+            } @else if (previewImagenEdit()) {
+              Cambiar portada
+            } @else {
+              Seleccionar portada
+            }
+            <input type="file" accept="image/*" (change)="onImageEditSelected($event)" [disabled]="subiendoImagen()" hidden />
+          </label>
+        </div>
 
         <div class="edit-actions">
           <button class="btn-cancel" (click)="editando.set(false)">Cancelar</button>
-          <button class="btn-primary" (click)="guardarEdicion()">Guardar cambios</button>
+          <button class="btn-primary" (click)="guardarEdicion()" [disabled]="subiendoImagen()">Guardar cambios</button>
         </div>
       </div>
     }

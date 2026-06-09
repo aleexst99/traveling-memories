@@ -34,7 +34,7 @@
 
     <!-- Indicadores -->
     <div class="carousel-indicators">
-      @for (dot of Array(Math.ceil(viajes().length / itemsPorPagina())); track $index) {
+      @for (dot of dotsViajes(); track $index) {
         <button 
           class="indicator" 
           [class.active]="currentSlideViajes() === $index * itemsPorPagina()"
@@ -81,7 +81,7 @@
 
     <!-- Indicadores -->
     <div class="carousel-indicators">
-      @for (dot of Array(Math.ceil(wishlist().length / itemsPorPagina())); track $index) {
+      @for (dot of dotsWishlist(); track $index) {
         <button 
           class="indicator" 
           [class.active]="currentSlideWishlist() === $index * itemsPorPagina()"

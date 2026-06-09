@@ -1,5 +1,5 @@
 import { Component, computed, input, signal } from '@angular/core';
-import { User } from '../models/user.model';
+import { User } from '@core/models/user.model';
 
 @Component({
   selector: 'app-perfil-header',

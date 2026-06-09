@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -10,7 +9,7 @@ const HIDDEN_ROUTES = ['/'];
 @Component({
   selector: 'app-back-button',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './back-button.component.html',
   styleUrl: './back-button.component.scss'
 })

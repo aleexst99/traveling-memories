@@ -1,12 +1,12 @@
 import { Component, input, output, inject, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Viaje } from '../../viajes/models/viajes.model';
-import { TripStoreService } from '../../../../core/trip-store.service';
+import { DatePipe } from '@angular/common';
+import { Viaje } from '@core/models/viajes.model';
+import { TripStoreService } from '@core/services/trip-store.service';
 
 @Component({
   selector: 'app-viaje-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [DatePipe],
   templateUrl: './viaje-card.component.html',
   styleUrl: './viaje-card.component.scss'
 })

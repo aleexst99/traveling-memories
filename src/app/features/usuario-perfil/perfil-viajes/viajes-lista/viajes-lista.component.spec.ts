@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ViajesListaComponentDos } from './viajes-lista.component';
+import { ViajesListaComponent } from './viajes-lista.component';
 
-describe('ViajesListaComponentDos', () => {
-  let component: ViajesListaComponentDos;
-  let fixture: ComponentFixture<ViajesListaComponentDos>;
+describe('ViajesListaComponent', () => {
+  let component: ViajesListaComponent;
+  let fixture: ComponentFixture<ViajesListaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViajesListaComponentDos, RouterTestingModule],
+      imports: [ViajesListaComponent, RouterTestingModule],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ViajesListaComponentDos);
+    fixture = TestBed.createComponent(ViajesListaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

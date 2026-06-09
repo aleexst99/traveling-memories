@@ -1,23 +1,21 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { User } from './models/user.model';
+import { User } from '@core/models/user.model';
 import { PerfilHeaderComponent } from './perfil-header/perfil-header.component';
 import { PerfilMapaComponent } from './perfil-mapa/perfil-mapa.component';
-import { Viaje } from './viajes/models/viajes.model';
-import { ViajesListaComponentDos } from './perfil-viajes/viajes-lista/viajes-lista.component';
+import { Viaje } from '@core/models/viajes.model';
+import { ViajesListaComponent } from './perfil-viajes/viajes-lista/viajes-lista.component';
 import { ViajeFormComponent } from './viaje-form/viaje-form.component';
-import { ApiService } from '../../core/api.service';
-import { TripStoreService } from '../../core/trip-store.service';
-import { AuthService } from '../../core/auth.service';
-import { ToastService } from '../../core/toast.service';
+import { ApiService } from '@core/services/api.service';
+import { TripStoreService } from '@core/services/trip-store.service';
+import { AuthService } from '@core/services/auth.service';
+import { ToastService } from '@core/services/toast.service';
 
 @Component({
   selector: 'app-usuario-perfil',
   standalone: true,
-  imports: [CommonModule, FormsModule, PerfilHeaderComponent,
-    PerfilMapaComponent, ViajesListaComponentDos, ViajeFormComponent],
+  imports: [PerfilHeaderComponent,
+    PerfilMapaComponent, ViajesListaComponent, ViajeFormComponent],
   templateUrl: './usuario-perfil.component.html',
   styleUrls: ['./usuario-perfil.component.scss']
 })
@@ -64,17 +62,27 @@ export class UsuarioPerfilComponent {
   private cargarUsuario(id: number) {
     this.cargando.set(true);
     this.errorCarga.set(false);
+
     this.api.getUser(id).subscribe({
       next: (userBase) => {
-        const viajes = this.store.getTripsByUser(id);
-        this.user.set({
-          ...userBase,
-          trips: viajes.filter(v => v.tipo === 'realizado'),
-          wishlist: viajes.filter(v => v.tipo === 'wishlist'),
+        this.api.getTripsByUser(id).subscribe({
+          next: (viajes) => {
+            viajes.forEach(v => this.store.addOrUpdateTrip(v));
+            this.user.set({
+              ...userBase,
+              trips: viajes.filter(v => v.tipo === 'realizado'),
+              wishlist: viajes.filter(v => v.tipo === 'wishlist'),
+            });
+            this.cargando.set(false);
+          },
+          error: () => {
+            this.toast.error('No se pudieron cargar los viajes.');
+            this.cargando.set(false);
+            this.errorCarga.set(true);
+          }
         });
-        this.cargando.set(false);
       },
-      error: (err) => {
+      error: () => {
         this.toast.error('No se pudo cargar el perfil. Inténtalo de nuevo.');
         this.cargando.set(false);
         this.errorCarga.set(true);
@@ -90,15 +98,15 @@ export class UsuarioPerfilComponent {
       next: (viajeCreado) => {
         this.store.addOrUpdateTrip(viajeCreado);
         this.cerrarModal();
-        const userId = this.user()?.id;
-        if (userId) {
-          const viajes = this.store.getTripsByUser(userId);
-          this.user.update(u => u ? {
+        this.user.update(u => {
+          if (!u) return null;
+          const todos = [...u.trips, ...u.wishlist, viajeCreado];
+          return {
             ...u,
-            trips: viajes.filter(v => v.tipo === 'realizado'),
-            wishlist: viajes.filter(v => v.tipo === 'wishlist'),
-          } : null);
-        }
+            trips: todos.filter(v => v.tipo === 'realizado'),
+            wishlist: todos.filter(v => v.tipo === 'wishlist'),
+          };
+        });
         this.router.navigate(['/user', viajeCreado.id_user, 'viaje', viajeCreado.id]);
       },
       error: () => this.toast.error('Error al crear el viaje. Inténtalo de nuevo.'),

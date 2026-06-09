@@ -23,11 +23,25 @@
     <textarea rows="4" formControlName="description" placeholder="¿Qué hiciste? ¿Qué destacarías?"></textarea>
 
     <label>Imagen</label>
-    <input type="file" accept="image/*" (change)="onImageSelected($event)" />
+    <div class="upload-area">
+      @if (previewImagen()) {
+        <img [src]="previewImagen()!" class="preview-img" alt="Preview" />
+      }
+      <label class="upload-btn" [class.disabled]="subiendoImagen()">
+        @if (subiendoImagen()) {
+          <span class="spinner"></span> Subiendo...
+        } @else if (previewImagen()) {
+          Cambiar imagen
+        } @else {
+          Seleccionar imagen
+        }
+        <input type="file" accept="image/*" (change)="onImageSelected($event)" [disabled]="subiendoImagen()" hidden />
+      </label>
+    </div>
 
     <div class="acciones">
       <button type="button" class="btn-cancel" (click)="cancelar()">Cancelar</button>
-      <button type="submit" class="btn-primary" [disabled]="form.invalid">Guardar entrada</button>
+      <button type="submit" class="btn-primary" [disabled]="form.invalid || subiendoImagen()">Guardar entrada</button>
     </div>
 
   </form>
