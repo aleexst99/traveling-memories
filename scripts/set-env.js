@@ -1,8 +1,9 @@
 /**
  * set-env.js
  *
- * Genera src/environments/environment.prod.ts a partir de las variables
- * de entorno de Vercel (o cualquier CI/CD). Se ejecuta antes de ng build.
+ * Genera los ficheros de entorno necesarios para el build de producción:
+ *   - environment.ts      → base requerida por Angular para resolver imports
+ *   - environment.prod.ts → valores reales inyectados por el fileReplacement
  *
  * Variables requeridas en Vercel:
  *   API_URL                  → URL base del backend (sin trailing slash)
@@ -14,18 +15,17 @@
 const fs   = require('fs');
 const path = require('path');
 
-const target = path.join(__dirname, '..', 'src', 'environments', 'environment.prod.ts');
+const envDir = path.join(__dirname, '..', 'src', 'environments');
 
-const missing = [];
 const required = ['API_URL', 'API_KEY', 'CLOUDINARY_CLOUD_NAME', 'CLOUDINARY_UPLOAD_PRESET'];
-required.forEach(k => { if (!process.env[k]) missing.push(k); });
+const missing  = required.filter(k => !process.env[k]);
 
 if (missing.length) {
   console.error(`\n❌ Variables de entorno que faltan: ${missing.join(', ')}\n`);
   process.exit(1);
 }
 
-const content = `// Auto-generado por scripts/set-env.js — no editar manualmente
+const prodContent = `// Auto-generado por scripts/set-env.js — no editar manualmente
 export const environment = {
   production: true,
   apiUrl: '${process.env.API_URL}',
@@ -35,5 +35,19 @@ export const environment = {
 };
 `;
 
-fs.writeFileSync(target, content, 'utf8');
-console.log('✅ environment.prod.ts generado correctamente');
+// environment.ts debe existir para que Angular resuelva los imports @environments/environment
+// Angular lo sustituirá por environment.prod.ts en el build de producción
+const baseContent = `// Fichero base — sustituido por environment.prod.ts en producción
+export const environment = {
+  production: false,
+  apiUrl: '/api',
+  apiKey: '',
+  cloudinaryCloudName: '',
+  cloudinaryUploadPreset: '',
+};
+`;
+
+fs.writeFileSync(path.join(envDir, 'environment.prod.ts'), prodContent, 'utf8');
+fs.writeFileSync(path.join(envDir, 'environment.ts'),      baseContent, 'utf8');
+
+console.log('✅ environment.ts y environment.prod.ts generados correctamente');
