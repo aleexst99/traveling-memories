@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): boolean {
-    // TODO: en producción sustituir por llamada a environment.apiUrl + '/auth/login'
+    // Login provisional — se sustituirá por POST /auth/login cuando el backend lo exponga
     const match = USERS.find(u => u.username === username.toLowerCase() && u.password === password);
     if (!match) return false;
     const user: AuthUser = { username: match.username, userId: match.userId };

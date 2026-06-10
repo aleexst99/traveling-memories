@@ -2,12 +2,8 @@ import { Injectable, signal } from '@angular/core';
 import { Viaje, Entrada } from '@core/models/viajes.model';
 
 /**
- * Store en memoria para viajes y entradas durante la sesión.
- * Se rellena cuando el usuario crea viajes/entradas vía API.
- *
- * TODO: reemplazar getTripsByUser() y getEntriesByTrip() por llamadas
- * a GET /trips?user_id=X y GET /trip-entries?trip_id=X cuando el
- * backend exponga esos endpoints.
+ * Cache en memoria de viajes y entradas para la sesión actual.
+ * Se sincroniza con el backend a través de ApiService.
  */
 @Injectable({ providedIn: 'root' })
 export class TripStoreService {
