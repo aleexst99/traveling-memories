@@ -1,5 +1,8 @@
 # ✈️ Traveling Memories
 
+[![CI — Main](https://github.com/aleexst99/traveling-memories/actions/workflows/ci-main.yml/badge.svg)](https://github.com/aleexst99/traveling-memories/actions/workflows/ci-main.yml)
+[![CI — Dev](https://github.com/aleexst99/traveling-memories/actions/workflows/ci-dev.yml/badge.svg)](https://github.com/aleexst99/traveling-memories/actions/workflows/ci-dev.yml)
+
 Aplicación web para registrar y compartir recuerdos de viaje. Cada usuario puede añadir los países que ha visitado, crear entradas por cada visita y visualizar todos los destinos en un globo 3D interactivo.
 
 ---
