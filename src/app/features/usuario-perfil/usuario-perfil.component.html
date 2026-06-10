@@ -1,7 +1,7 @@
 <section class="perfil-container">
   @if (user(); as u) {
     <!-- 🧑 Header -->
-    <app-perfil-header [user]="u" />
+    <app-perfil-header [user]="u" (userUpdated)="onUserUpdated($event)" />
 
     <!-- ⚙️ Acciones -->
     <div class="perfil-actions">

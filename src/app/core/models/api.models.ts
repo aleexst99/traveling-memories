@@ -7,6 +7,12 @@ export interface ApiUser {
   bio?: string | null;
 }
 
+export interface ApiUserUpdate {
+  name?: string;
+  avatar_url?: string | null;
+  bio?: string | null;
+}
+
 export interface ApiTripCreate {
   title: string;
   user_id: number;

@@ -1,29 +1,68 @@
 <section class="perfil-header" [class.dark]="modoOscuro()">
+
   <div class="avatar">
-    <img [src]="user().photo" [alt]="user().name" />
+    <img [src]="previewAvatar() ?? user().photo" [alt]="user().name" />
   </div>
 
   <div class="info">
-    <h1>{{ displayName() }}</h1>
-    <p>{{ user().bio }}</p>
+    @if (!editando()) {
+      <h1>{{ displayName() }}</h1>
+      <p>{{ user().bio }}</p>
 
-    @if (user().social.github || user().social.linkedin) {
-      <div class="social">
-        @if (user().social.github) {
-          <a [href]="user().social.github" target="_blank" aria-label="GitHub">
-            <i class="fa-brands fa-github"></i>
-          </a>
-        }
-        @if (user().social.linkedin) {
-          <a [href]="user().social.linkedin" target="_blank" aria-label="LinkedIn">
-            <i class="fa-brands fa-linkedin"></i>
-          </a>
+      @if (user().social.github || user().social.linkedin) {
+        <div class="social">
+          @if (user().social.github) {
+            <a [href]="user().social.github" target="_blank" aria-label="GitHub">
+              <i class="fa-brands fa-github"></i>
+            </a>
+          }
+          @if (user().social.linkedin) {
+            <a [href]="user().social.linkedin" target="_blank" aria-label="LinkedIn">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+          }
+        </div>
+      }
+
+      <div class="acciones">
+        <button class="modo" (click)="toggleModoOscuro()">
+          {{ modoOscuro() ? '☀️ Modo claro' : '🌙 Modo oscuro' }}
+        </button>
+        @if (auth.canEditUser(user().id)) {
+          <button class="btn-edit" (click)="abrirEdicion()">✏️ Editar perfil</button>
         }
       </div>
-    }
 
-    <button class="modo" (click)="toggleModoOscuro()">
-      {{ modoOscuro() ? '☀️ Modo claro' : '🌙 Modo oscuro' }}
-    </button>
+    } @else {
+      <form [formGroup]="editForm" class="edit-form">
+
+        <label>Nombre</label>
+        <input type="text" formControlName="name" placeholder="Tu nombre" />
+
+        <label>Bio</label>
+        <textarea rows="2" formControlName="bio" placeholder="Cuéntanos algo sobre ti..."></textarea>
+
+        <label>Foto de perfil</label>
+        <div class="avatar-upload">
+          <label class="upload-btn" [class.disabled]="subiendoAvatar()">
+            @if (subiendoAvatar()) {
+              <span class="spinner"></span> Subiendo...
+            } @else {
+              Cambiar foto
+            }
+            <input type="file" accept="image/*" (change)="onAvatarSelected($event)"
+                   [disabled]="subiendoAvatar()" hidden />
+          </label>
+        </div>
+
+        <div class="edit-actions">
+          <button type="button" class="btn-cancel" (click)="editando.set(false)">Cancelar</button>
+          <button type="button" class="btn-save" (click)="guardarPerfil()" [disabled]="subiendoAvatar()">
+            Guardar
+          </button>
+        </div>
+
+      </form>
+    }
   </div>
 </section>

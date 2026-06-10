@@ -151,6 +151,19 @@ export class ViajeDetalleComponent implements OnInit {
     this.router.navigate(['/user', viaje.id_user, 'viajes', viaje.id, 'entradas'], { queryParams: { entradaId } });
   }
 
+  eliminarViaje() {
+    const viaje = this.viaje();
+    if (!viaje) return;
+    if (!confirm(`¿Seguro que quieres eliminar el viaje "${viaje.title}"? Esta acción no se puede deshacer.`)) return;
+    this.api.deleteTrip(viaje.id).subscribe({
+      next: () => {
+        this.store.removeTrip(viaje.id);
+        this.router.navigate(['/user', viaje.id_user]);
+      },
+      error: () => this.toast.error('Error al eliminar el viaje.')
+    });
+  }
+
   eliminarEntrada(entradaId: number) {
     if (!confirm('¿Seguro que quieres eliminar esta entrada?')) return;
     this.api.deleteEntry(entradaId).subscribe({

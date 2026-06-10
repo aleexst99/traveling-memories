@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { ComponentFixture } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PerfilHeaderComponent } from './perfil-header.component';
 
 const mockUser = {
@@ -13,7 +14,7 @@ describe('PerfilHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PerfilHeaderComponent],
+      imports: [PerfilHeaderComponent, HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PerfilHeaderComponent);

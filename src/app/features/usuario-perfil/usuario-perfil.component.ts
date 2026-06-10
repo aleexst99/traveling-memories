@@ -118,5 +118,9 @@ export class UsuarioPerfilComponent {
     if (id) this.cargarUsuario(id);
   }
 
+  onUserUpdated(updated: User) {
+    this.user.update(u => u ? { ...u, name: updated.name, bio: updated.bio, photo: updated.photo } : null);
+  }
+
   filtrarPorContinente = (continent: string) => this.filtroContinente.set(continent);
 }

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '@environments/environment';
 import {
-  ApiUser, ApiTripCreate, ApiTripOut,
+  ApiUser, ApiUserUpdate, ApiTripCreate, ApiTripOut,
   ApiTripEntryCreate, ApiTripEntryOut,
 } from '@core/models/api.models';
 import { Viaje, Entrada, Country } from '@core/models/viajes.model';
@@ -24,6 +24,12 @@ export class ApiService {
 
   getUser(userId: number): Observable<User> {
     return this.http.get<ApiUser>(`${this.base}/users/${userId}`).pipe(
+      map(u => this.mapUser(u))
+    );
+  }
+
+  updateUser(userId: number, data: ApiUserUpdate): Observable<User> {
+    return this.http.put<ApiUser>(`${this.base}/users/${userId}`, data).pipe(
       map(u => this.mapUser(u))
     );
   }
@@ -76,6 +82,10 @@ export class ApiService {
     return this.http.put<ApiTripOut>(`${this.base}/trips/${tripId}`, body).pipe(
       map(t => this.mapTrip(t))
     );
+  }
+
+  deleteTrip(tripId: number): Observable<void> {
+    return this.http.delete<void>(`${this.base}/trips/${tripId}`);
   }
 
   // ── Entradas ──────────────────────────────────────────────

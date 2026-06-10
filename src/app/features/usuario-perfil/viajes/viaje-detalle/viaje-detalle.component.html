@@ -4,7 +4,10 @@
     <div class="detalle-topbar">
       <button class="btn-back" (click)="volverAlPerfil()">← Volver al perfil</button>
       @if (auth.canEditUser(viaje()!.id_user)) {
-        <button class="btn-edit" (click)="abrirEdicion()">✏️ Editar viaje</button>
+        <div class="topbar-actions">
+          <button class="btn-edit" (click)="abrirEdicion()">✏️ Editar viaje</button>
+          <button class="btn-delete-trip" (click)="eliminarViaje()">🗑️ Eliminar viaje</button>
+        </div>
       }
     </div>
 

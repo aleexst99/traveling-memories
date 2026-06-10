@@ -47,7 +47,12 @@ export const appConfig = {
           import('./features/login/login.component').then(m => m.LoginComponent)
       },
 
-      { path: '**', redirectTo: '' }
+      // 404
+      {
+        path: '**',
+        loadComponent: () =>
+          import('./features/not-found/not-found.component').then(m => m.NotFoundComponent)
+      }
     ]),
     provideHttpClient(withInterceptors([apiKeyInterceptor]))
   ]

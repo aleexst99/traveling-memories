@@ -44,21 +44,37 @@ export class ViajeEntradaComponent implements OnInit {
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
 
     const entradaId = Number(this.route.snapshot.queryParamMap.get('entradaId'));
-    if (entradaId) {
-      const entrada = this.store.getEntriesByTrip(this.viajeId).find(e => e.id === entradaId) ?? null;
-      if (entrada) {
-        this.entradaExistente = entrada;
-        this.esEdicion = true;
-        this.form.patchValue({
-          title: entrada.title,
-          fecha: entrada.fecha ?? '',
-          dias: entrada.dias ?? null,
-          description: entrada.description ?? '',
-          image: entrada.image ?? '',
-        });
-        if (entrada.image) this.previewImagen.set(entrada.image);
-      }
+    if (!entradaId) return;
+
+    // Primero busca en el store (evita llamada de red)
+    const enStore = this.store.getEntriesByTrip(this.viajeId).find(e => e.id === entradaId) ?? null;
+    if (enStore) {
+      this.cargarEntrada(enStore);
+      return;
     }
+
+    // Si no está en store, lo pide a la API
+    this.api.getEntriesByTrip(this.viajeId).subscribe({
+      next: (entradas) => {
+        entradas.forEach(e => this.store.addOrUpdateEntry(e));
+        const entrada = entradas.find(e => e.id === entradaId) ?? null;
+        if (entrada) this.cargarEntrada(entrada);
+      },
+      error: () => this.toast.error('No se pudo cargar la entrada.')
+    });
+  }
+
+  private cargarEntrada(entrada: import('@core/models/viajes.model').Entrada) {
+    this.entradaExistente = entrada;
+    this.esEdicion = true;
+    this.form.patchValue({
+      title: entrada.title,
+      fecha: entrada.fecha ?? '',
+      dias: entrada.dias ?? null,
+      description: entrada.description ?? '',
+      image: entrada.image ?? '',
+    });
+    if (entrada.image) this.previewImagen.set(entrada.image);
   }
 
   onImageSelected(event: Event) {
