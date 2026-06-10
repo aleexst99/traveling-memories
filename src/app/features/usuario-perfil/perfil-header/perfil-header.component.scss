@@ -180,3 +180,26 @@
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+
+// ── Responsive ────────────────────────────────────────────────
+
+@media (max-width: 640px) {
+  .perfil-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem 1rem;
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+    }
+
+    .info h1 { font-size: 1.4rem; }
+
+    .info p { max-width: 100%; }
+
+    .info .social { justify-content: center; }
+
+    .acciones { justify-content: center; }
+  }
+}
