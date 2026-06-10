@@ -19,14 +19,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache-dependency-path: traveling-memories/package-lock.json
 
       - name: Install dependencies
-        working-directory: traveling-memories
         run: npm ci
 
-      - name: Create environment file (dev — para tests)
-        working-directory: traveling-memories
+      - name: Create environment file
         env:
           API_KEY: ${{ secrets.API_KEY }}
           API_URL: ${{ secrets.API_URL }}
@@ -44,13 +41,9 @@ jobs:
           EOF
 
       - name: Run tests
-        working-directory: traveling-memories
         run: npm test -- --watch=false --browsers=ChromeHeadlessCI --no-progress
-        env:
-          CHROME_FLAGS: "--no-sandbox --disable-gpu"
 
-      - name: Build (producción)
-        working-directory: traveling-memories
+      - name: Build producción
         env:
           API_KEY: ${{ secrets.API_KEY }}
           API_URL: ${{ secrets.API_URL }}
@@ -58,9 +51,9 @@ jobs:
           CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
         run: npm run build:vercel
 
-      - name: Upload build artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: production-build
-          path: traveling-memories/dist/travel-blog/
+          path: dist/travel-blog/
           retention-days: 30
