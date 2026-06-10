@@ -7,23 +7,23 @@ on:
     branches: [dev]
 
 jobs:
-  ci:
-    name: Test & Build
+
+  # ── Job 1: Tests ──────────────────────────────────────────
+  test:
+    name: Tests
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Create environment file (tests usan /api como base)
+      - name: Create environment file
         env:
           API_KEY: ${{ secrets.API_KEY }}
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
@@ -42,7 +42,38 @@ jobs:
       - name: Run tests
         run: npm test -- --watch=false --browsers=ChromeHeadlessCI --no-progress
 
-      - name: Build dev
+  # ── Job 2: Build ──────────────────────────────────────────
+  build:
+    name: Build (staging)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create environment file
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
+        run: |
+          cat > src/environments/environment.ts << EOF
+          export const environment = {
+            production: false,
+            apiUrl: '/api',
+            apiKey: '${API_KEY}',
+            cloudinaryCloudName: '${CLOUDINARY_CLOUD_NAME}',
+            cloudinaryUploadPreset: '${CLOUDINARY_UPLOAD_PRESET}',
+          };
+          EOF
+
+      - name: Build
         run: npm run build -- --configuration development
 
       - name: Upload artifact
