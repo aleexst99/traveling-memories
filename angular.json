@@ -120,7 +120,8 @@
             "scripts": [
               "node_modules/leaflet/dist/leaflet.js",
               "node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"
-            ]
+            ],
+            "karmaConfig": "karma.conf.js"
           }
         }
       }
