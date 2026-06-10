@@ -81,3 +81,8 @@
     }
   }
 }
+
+@media (max-width: 480px) {
+  .users .cards { gap: 1rem; }
+  .users .card { flex: 1 1 100%; }
+}

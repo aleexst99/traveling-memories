@@ -331,3 +331,38 @@
   padding: 4rem 1rem;
   color: var(--color-text-faint);
 }
+
+// ── Responsive ────────────────────────────────────────────────
+
+@media (max-width: 640px) {
+  .detalle-container { padding: 1rem; }
+
+  .detalle-topbar { flex-wrap: wrap; gap: 0.5rem; }
+
+  .topbar-actions { flex-wrap: wrap; }
+
+  .detalle-header {
+    flex-direction: column;
+
+    .viaje-img {
+      width: 100%;
+      height: 180px;
+    }
+
+    .detalle-info h1 { font-size: 1.3rem; }
+  }
+
+  .entrada-card {
+    flex-direction: column;
+
+    .entrada-img {
+      width: 100%;
+      height: 140px;
+    }
+
+    .entrada-acciones {
+      flex-direction: row;
+      align-self: flex-end;
+    }
+  }
+}

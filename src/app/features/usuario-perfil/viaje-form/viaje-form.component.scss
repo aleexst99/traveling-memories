@@ -197,3 +197,11 @@ input[disabled] {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+@media (max-width: 480px) {
+  .modal {
+    width: 95%;
+    padding: 1.25rem;
+  }
+  .fechas-row { grid-template-columns: 1fr; }
+}
