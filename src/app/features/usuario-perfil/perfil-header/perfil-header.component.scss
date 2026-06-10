@@ -4,14 +4,9 @@
   gap: 2rem;
   padding: 2rem;
   border-radius: 20px;
-  background: linear-gradient(135deg, #1c1c1e, #2d2d30);
-  color: #fff;
-  transition: all 0.3s ease;
-
-  &.dark {
-    background: linear-gradient(135deg, #000, #111);
-    color: #eee;
-  }
+  background: var(--gradient-header);
+  color: var(--color-text);
+  transition: background 0.3s ease, color 0.3s ease;
 
   .avatar {
     width: 140px;
@@ -39,7 +34,7 @@
 
     p {
       font-size: 1rem;
-      color: #ccc;
+      color: var(--color-text-muted);
       margin-bottom: 1rem;
       max-width: 600px;
     }
@@ -51,12 +46,10 @@
 
       a {
         font-size: 1.5rem;
-        color: #fff;
+        color: var(--color-text);
         transition: color 0.3s ease;
 
-        &:hover {
-          color: #007bff;
-        }
+        &:hover { color: #007bff; }
       }
     }
 
@@ -79,15 +72,15 @@
     }
 
     .btn-edit {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid #555;
-      color: #ccc;
+      background: var(--bg-hover);
+      border: 1px solid var(--color-border-alt);
+      color: var(--color-text-muted);
       padding: 0.6rem 1.2rem;
       border-radius: 10px;
       cursor: pointer;
       font-weight: 600;
       transition: background 0.2s;
-      &:hover { background: rgba(255,255,255,0.15); color: #fff; }
+      &:hover { background: var(--bg-hover); color: var(--color-text); }
     }
   }
 }
@@ -104,20 +97,20 @@
   label {
     font-size: 0.82rem;
     font-weight: 600;
-    color: #aaa;
+    color: var(--color-text-faint);
     margin-top: 0.4rem;
   }
 
   input, textarea {
-    background: #1c1c1e;
-    color: #fff;
-    border: 1px solid #444;
+    background: var(--bg-input);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-alt);
     border-radius: 8px;
     padding: 0.55rem 0.75rem;
     font-size: 0.9rem;
     outline: none;
     &:focus { border-color: #007bff; }
-    &::placeholder { color: #555; }
+    &::placeholder { color: var(--color-text-faint); }
   }
 
   textarea { resize: vertical; }
@@ -129,14 +122,14 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.45rem 1rem;
-    background: #2a2a2e;
-    border: 1px dashed #555;
+    background: var(--bg-surface-alt);
+    border: 1px dashed var(--color-border-alt);
     border-radius: 8px;
-    color: #ccc;
+    color: var(--color-text-muted);
     font-size: 0.85rem;
     cursor: pointer;
     transition: border-color 0.2s;
-    &:hover:not(.disabled) { border-color: #007bff; color: #fff; }
+    &:hover:not(.disabled) { border-color: #007bff; color: var(--color-text); }
     &.disabled { opacity: 0.5; cursor: not-allowed; }
   }
 }
@@ -149,12 +142,12 @@
 
   .btn-cancel {
     background: none;
-    border: 1px solid #444;
-    color: #aaa;
+    border: 1px solid var(--color-border-alt);
+    color: var(--color-text-muted);
     padding: 0.5rem 1rem;
     border-radius: 8px;
     cursor: pointer;
-    &:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    &:hover { background: var(--bg-hover); color: var(--color-text); }
   }
 
   .btn-save {
@@ -172,7 +165,7 @@
 
 .spinner {
   width: 13px; height: 13px;
-  border: 2px solid #444;
+  border: 2px solid var(--color-border-alt);
   border-top-color: #007bff;
   border-radius: 50%;
   display: inline-block;
@@ -180,3 +173,19 @@
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+
+// ── Responsive ─────────────────────────────────────────────
+
+@media (max-width: 640px) {
+  .perfil-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem 1rem;
+
+    .avatar { width: 100px; height: 100px; }
+    .info h1 { font-size: 1.4rem; }
+    .info p { max-width: 100%; }
+    .info .social { justify-content: center; }
+    .acciones { justify-content: center; }
+  }
+}

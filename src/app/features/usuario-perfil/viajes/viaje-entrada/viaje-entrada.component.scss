@@ -1,8 +1,9 @@
 :host {
   display: block;
-  background: linear-gradient(180deg, #111 0%, #1c1c1e 100%);
+  background: var(--gradient-page);
   min-height: 100vh;
-  color: #fff;
+  color: var(--color-text);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .entrada-container {

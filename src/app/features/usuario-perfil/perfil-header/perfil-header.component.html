@@ -1,4 +1,4 @@
-<section class="perfil-header" [class.dark]="modoOscuro()">
+<section class="perfil-header">
 
   <div class="avatar">
     <img [src]="avatarSrc()" [alt]="user().name" (error)="onAvatarError($event)" />
@@ -25,8 +25,8 @@
       }
 
       <div class="acciones">
-        <button class="modo" (click)="toggleModoOscuro()">
-          {{ modoOscuro() ? '☀️ Modo claro' : '🌙 Modo oscuro' }}
+        <button class="modo" (click)="theme.toggle()">
+          {{ theme.isDark() ? '☀️ Modo claro' : '🌙 Modo oscuro' }}
         </button>
         @if (auth.canEditUser(user().id)) {
           <button class="btn-edit" (click)="abrirEdicion()">✏️ Editar perfil</button>
