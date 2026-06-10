@@ -1,8 +1,9 @@
 :host {
   display: block;
-  background: linear-gradient(180deg, #111 0%, #1c1c1e 100%);
+  background: var(--gradient-page);
   min-height: 100vh;
-  color: #fff;
+  color: var(--color-text);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .detalle-container {
@@ -22,13 +23,13 @@
 .btn-back {
   background: none;
   border: none;
-  color: #aaa;
+  color: var(--color-text-muted);
   cursor: pointer;
   font-size: 0.9rem;
   padding: 0;
   transition: color 0.2s;
 
-  &:hover { color: #fff; }
+  &:hover { color: var(--color-text); }
 }
 
 .topbar-actions {
@@ -38,15 +39,15 @@
 
 .btn-edit {
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid #444;
-  color: #ccc;
+  border: 1px solid var(--color-border-alt);
+  color: var(--color-text-muted);
   padding: 0.4rem 1rem;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.85rem;
   transition: background 0.2s;
 
-  &:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
+  &:hover { background: rgba(255, 255, 255, 0.14); color: var(--color-text); }
 }
 
 .btn-delete-trip {
@@ -63,8 +64,8 @@
 
 // ── Panel edición ─────────────────────────────────────────
 .edit-panel {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid #333;
+  background: var(--bg-hover);
+  border: 1px solid var(--color-border-alt);
   border-radius: 16px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -72,14 +73,14 @@
   flex-direction: column;
   gap: 0.5rem;
 
-  h3 { margin: 0 0 0.75rem; font-size: 1rem; color: #fff; }
+  h3 { margin: 0 0 0.75rem; font-size: 1rem; color: var(--color-text); }
 
-  label { font-size: 0.82rem; font-weight: 600; color: #aaa; margin-top: 0.25rem; }
+  label { font-size: 0.82rem; font-weight: 600; color: var(--color-text-muted); margin-top: 0.25rem; }
 
   select, textarea {
-    background: #1c1c1e;
-    color: #fff;
-    border: 1px solid #444;
+    background: var(--bg-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-alt);
     border-radius: 8px;
     padding: 0.55rem 0.75rem;
     font-size: 0.9rem;
@@ -103,7 +104,7 @@
     max-height: 160px;
     object-fit: cover;
     border-radius: 8px;
-    border: 1px solid #333;
+    border: 1px solid var(--color-border-alt);
   }
 
   .upload-btn {
@@ -112,9 +113,9 @@
     gap: 0.5rem;
     padding: 0.5rem 1.1rem;
     background: #2a2a2e;
-    border: 1px dashed #555;
+    border: 1px dashed var(--color-border-alt);
     border-radius: 8px;
-    color: #ccc;
+    color: var(--color-text-muted);
     font-size: 0.85rem;
     cursor: pointer;
     transition: border-color 0.2s, background 0.2s;
@@ -122,7 +123,7 @@
     &:hover:not(.disabled) {
       border-color: #007bff;
       background: #1a1a2e;
-      color: #fff;
+      color: var(--color-text);
     }
 
     &.disabled { opacity: 0.5; cursor: not-allowed; }
@@ -132,7 +133,7 @@
 .spinner {
   width: 13px;
   height: 13px;
-  border: 2px solid #444;
+  border: 2px solid var(--color-border-alt);
   border-top-color: #007bff;
   border-radius: 50%;
   display: inline-block;
@@ -150,15 +151,15 @@
 
 .btn-cancel {
   background: none;
-  border: 1px solid #444;
-  color: #aaa;
+  border: 1px solid var(--color-border-alt);
+  color: var(--color-text-muted);
   padding: 0.5rem 1rem;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.85rem;
   transition: background 0.2s;
 
-  &:hover { background: rgba(255,255,255,0.06); color: #fff; }
+  &:hover { background: var(--bg-hover); color: var(--color-text); }
 }
 
 // ── Header viaje ──────────────────────────────────────────
@@ -167,8 +168,8 @@
   gap: 1.5rem;
   margin-bottom: 2.5rem;
   align-items: flex-start;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #2d2d30;
+  background: var(--bg-hover);
+  border: 1px solid var(--color-border);
   border-radius: 20px;
   padding: 1.5rem;
 
@@ -181,7 +182,7 @@
   }
 
   .detalle-info {
-    h1 { font-size: 1.8rem; margin: 0 0 0.5rem; color: #fff; }
+    h1 { font-size: 1.8rem; margin: 0 0 0.5rem; color: var(--color-text); }
 
     .badge {
       display: inline-block;
@@ -195,9 +196,9 @@
       &.wishlist  { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid #3730a3; }
     }
 
-    .continent { color: #888; font-size: 0.9rem; margin: 0.25rem 0; }
+    .continent { color: var(--color-text-faint); font-size: 0.9rem; margin: 0.25rem 0; }
 
-    .description { color: #ccc; margin-top: 0.5rem; line-height: 1.6; }
+    .description { color: var(--color-text-muted); margin-top: 0.5rem; line-height: 1.6; }
   }
 }
 
@@ -224,7 +225,7 @@
     align-items: center;
     margin-bottom: 1rem;
 
-    h2 { font-size: 1.2rem; margin: 0; color: #fff; }
+    h2 { font-size: 1.2rem; margin: 0; color: var(--color-text); }
   }
 }
 
@@ -245,7 +246,7 @@
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
-  color: #666;
+  color: var(--color-text-faint);
 
   p { margin-bottom: 1rem; }
 }
@@ -263,8 +264,8 @@
   display: flex;
   gap: 1rem;
   align-items: flex-start;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #2d2d30;
+  background: var(--bg-hover);
+  border: 1px solid var(--color-border);
   border-radius: 14px;
   padding: 1rem;
 
@@ -279,17 +280,17 @@
   .entrada-body {
     flex: 1;
 
-    h3 { margin: 0 0 0.4rem; font-size: 1rem; color: #fff; }
+    h3 { margin: 0 0 0.4rem; font-size: 1rem; color: var(--color-text); }
 
     .entrada-meta {
       display: flex;
       gap: 1rem;
       font-size: 0.8rem;
-      color: #888;
+      color: var(--color-text-faint);
       margin-bottom: 0.4rem;
     }
 
-    p { font-size: 0.9rem; color: #ccc; margin: 0; }
+    p { font-size: 0.9rem; color: var(--color-text-muted); margin: 0; }
   }
 
   .entrada-acciones {
@@ -302,7 +303,7 @@
   .btn-edit-entrada {
     background: none;
     border: none;
-    color: #555;
+    color: var(--color-text-faint);
     cursor: pointer;
     font-size: 0.95rem;
     padding: 0.25rem;
@@ -314,7 +315,7 @@
   .btn-delete {
     background: none;
     border: none;
-    color: #555;
+    color: var(--color-text-faint);
     cursor: pointer;
     font-size: 1rem;
     padding: 0.25rem;
@@ -328,5 +329,40 @@
 .loading {
   text-align: center;
   padding: 4rem 1rem;
-  color: #666;
+  color: var(--color-text-faint);
+}
+
+// ── Responsive ────────────────────────────────────────────────
+
+@media (max-width: 640px) {
+  .detalle-container { padding: 1rem; }
+
+  .detalle-topbar { flex-wrap: wrap; gap: 0.5rem; }
+
+  .topbar-actions { flex-wrap: wrap; }
+
+  .detalle-header {
+    flex-direction: column;
+
+    .viaje-img {
+      width: 100%;
+      height: 180px;
+    }
+
+    .detalle-info h1 { font-size: 1.3rem; }
+  }
+
+  .entrada-card {
+    flex-direction: column;
+
+    .entrada-img {
+      width: 100%;
+      height: 140px;
+    }
+
+    .entrada-acciones {
+      flex-direction: row;
+      align-self: flex-end;
+    }
+  }
 }

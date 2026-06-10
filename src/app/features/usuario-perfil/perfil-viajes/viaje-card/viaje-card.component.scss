@@ -1,5 +1,6 @@
 .viaje-card {
-  background: #1f1f1f;
+  background: var(--bg-card);
+  transition: background 0.3s ease, color 0.3s ease;
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
@@ -47,13 +48,13 @@
   gap: 0.3rem;
 
   h3 {
-    color: #fff;
+    color: var(--color-text);
     font-size: 1.1rem;
     margin: 0;
   }
 
   p {
-    color: #ccc;
+    color: var(--color-text-muted);
     font-size: 0.85rem;
     margin: 0;
     line-height: 1.4;
@@ -69,7 +70,7 @@
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    color: #888;
+    color: var(--color-text-faint);
     font-size: 0.82rem;
 
     .dot {
@@ -82,7 +83,7 @@
   }
 
   small {
-    color: #666;
+    color: var(--color-text-faint);
     font-size: 0.78rem;
     margin-top: auto;
   }

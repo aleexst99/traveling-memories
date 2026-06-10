@@ -1,30 +1,13 @@
-# ✈️ Traveling Memories
+# Traveling Memories
 
 [![CI — Main](https://github.com/aleexst99/traveling-memories/actions/workflows/ci-main.yml/badge.svg)](https://github.com/aleexst99/traveling-memories/actions/workflows/ci-main.yml)
 [![CI — Dev](https://github.com/aleexst99/traveling-memories/actions/workflows/ci-dev.yml/badge.svg)](https://github.com/aleexst99/traveling-memories/actions/workflows/ci-dev.yml)
 
-Aplicación web para registrar y compartir recuerdos de viaje. Cada usuario puede añadir los países que ha visitado, crear entradas por cada visita y visualizar todos los destinos en un globo 3D interactivo.
+Aplicación web para registrar recuerdos de viaje. Los usuarios pueden añadir países visitados, crear entradas por visita y explorar destinos en un globo 3D interactivo.
 
 ---
 
-## 📋 Índice
-
-- [Stack tecnológico](#stack-tecnológico)
-- [Arquitectura](#arquitectura)
-- [Instalación y arranque](#instalación-y-arranque)
-- [Variables de entorno](#variables-de-entorno)
-- [Comandos disponibles](#comandos-disponibles)
-- [Estructura de carpetas](#estructura-de-carpetas)
-- [Flujo de datos](#flujo-de-datos)
-- [Autenticación](#autenticación)
-- [Tests](#tests)
-- [CI/CD](#cicd)
-- [Ramas y flujo de trabajo](#ramas-y-flujo-de-trabajo)
-- [Backend](#backend)
-
----
-
-## Stack tecnológico
+## Stack
 
 | Capa | Tecnología |
 |------|-----------|
@@ -39,60 +22,17 @@ Aplicación web para registrar y compartir recuerdos de viaje. Cada usuario pued
 
 ---
 
-## Arquitectura
+## Instalación
 
-```
-src/app/
-├── core/                        # Servicios globales
-│   ├── api.service.ts           # Todas las llamadas al backend
-│   ├── auth.service.ts          # Autenticación
-│   ├── trip-store.service.ts    # Estado en memoria (viajes y entradas)
-│   ├── toast.service.ts         # Notificaciones globales
-│   ├── api-key.interceptor.ts   # Inyecta X-API-KEY en cada request
-│   └── models/api.models.ts     # Interfaces exactas del backend
-│
-├── shared/
-│   └── toast/                   # Componente de notificaciones
-│
-└── features/
-    ├── landing/                 # Página principal + navbar + lista usuarios
-    ├── login/                   # Formulario de acceso privado
-    ├── mapa-global/             # Globo 3D con todos los viajes
-    └── usuario-perfil/          # Perfil, mapa, carrusel de viajes
-        ├── perfil-header/
-        ├── perfil-mapa/
-        ├── perfil-viajes/       # Cards + carrusel
-        ├── viaje-form/          # Modal para crear viaje
-        └── viajes/
-            ├── viaje-detalle/   # Pantalla de un viaje con sus entradas
-            └── viaje-entrada/   # Formulario de entrada
-```
-
----
-
-## Instalación y arranque
-
-### Requisitos
-
-- Node.js 20+
-- npm 9+
-
-### Pasos
+**Requisitos:** Node.js 20+, npm 9+
 
 ```bash
-# 1. Clonar el repositorio
 git clone https://github.com/aleexst99/traveling-memories.git
 cd traveling-memories/traveling-memories
-
-# 2. Instalar dependencias
 npm install
-
-# 3. Crear los ficheros de entorno (ver sección siguiente)
 cp src/environments/environment.example.ts src/environments/environment.ts
 cp proxy.conf.example.json proxy.conf.json
-# → Edita ambos ficheros con tu API key
-
-# 4. Arrancar
+# Edita ambos ficheros con tu API key
 npm start
 ```
 
@@ -102,81 +42,57 @@ La app estará disponible en `http://localhost:4200`.
 
 ## Variables de entorno
 
-Los ficheros de entorno **no están en el repositorio** (contienen la API key). Usa el fichero de ejemplo como plantilla:
-
-```
-src/environments/
-  environment.example.ts   ← plantilla (en el repo)
-  environment.ts           ← desarrollo, NO subir al repo
-  environment.dev.ts       ← apunta al backend en Render
-  environment.prod.ts      ← producción
-  environment.local.ts     ← backend corriendo en local (localhost:3000)
-```
+Los ficheros de entorno no están en el repositorio. Usa `environment.example.ts` como plantilla:
 
 ```ts
-// environment.ts (ejemplo)
 export const environment = {
   production: false,
-  apiUrl: '/api',           // proxy local → evita CORS en desarrollo
+  apiUrl: '/api',       // proxy local → evita CORS en desarrollo
   apiKey: 'TU_API_KEY',
   useLocalStorage: false,
 };
 ```
 
-### Proxy (desarrollo)
-
-El fichero `proxy.conf.json` redirige las llamadas a través del servidor de desarrollo de Angular para evitar errores de CORS:
-
-```
-Navegador → localhost:4200/api/* → proxy → backend en Render
-```
-
-```bash
-cp proxy.conf.example.json proxy.conf.json
-# → Edita con tu API key
-```
-
-> En producción el proxy no es necesario — el backend debe tener configurado `CORSMiddleware`.
+El fichero `proxy.conf.json` redirige `localhost:4200/api/*` al backend para evitar CORS en desarrollo. En producción el backend gestiona CORS directamente.
 
 ---
 
-## Comandos disponibles
+## Comandos
 
 ```bash
-# Desarrollo
-npm start                                        # ng serve con proxy
-
-# Build
-npm run build                                    # producción
-npm run build -- --configuration development     # desarrollo
-
-# Tests
-npm test                                         # modo watch
-npm test -- --watch=false --browsers=ChromeHeadless --no-progress  # CI
-
-# Generar componente
-ng generate component features/nombre
+npm start                                                                    # servidor de desarrollo con proxy
+npm run build                                                                # build de producción
+npm run build -- --configuration development                                 # build de desarrollo
+npm test -- --watch=false --browsers=ChromeHeadless --no-progress            # tests en CI
 ```
 
 ---
 
-## Estructura de carpetas
+## Arquitectura
 
 ```
-traveling-memories/
-├── .github/workflows/           # Pipelines CI/CD
-│   ├── ci-dev.yml               # Tests + build en push a dev
-│   └── ci-main.yml              # Tests + build + deploy en push a main
-├── src/
-│   ├── app/
-│   ├── assets/
-│   │   ├── earth.png            # Textura del globo 3D
-│   │   ├── icons/               # Iconos para marcadores del mapa
-│   │   └── textures/
-│   └── environments/
-├── proxy.conf.json              # Proxy dev (NO en el repo)
-├── proxy.conf.example.json      # Plantilla del proxy
-└── angular.json
+src/app/
+├── core/
+│   ├── api.service.ts           # Todas las llamadas al backend
+│   ├── auth.service.ts          # Autenticación
+│   ├── trip-store.service.ts    # Estado en memoria (viajes y entradas)
+│   ├── toast.service.ts         # Notificaciones globales
+│   ├── api-key.interceptor.ts   # Inyecta X-API-KEY en cada request
+│   └── models/api.models.ts     # Interfaces del backend
+├── shared/
+│   └── toast/
+└── features/
+    ├── landing/                 # Página principal + lista usuarios
+    ├── login/                   # Formulario de acceso
+    ├── mapa-global/             # Globo 3D con todos los viajes
+    └── usuario-perfil/
+        ├── perfil-header/
+        ├── perfil-mapa/
+        ├── perfil-viajes/
+        ├── viaje-form/          # Modal crear viaje
+        └── viajes/
+            ├── viaje-detalle/
+            └── viaje-entrada/
 ```
 
 ---
@@ -184,79 +100,45 @@ traveling-memories/
 ## Flujo de datos
 
 ```
-Usuario crea viaje
-      ↓
 ViajeFormComponent
-      ↓
-ApiService.createTrip()  →  POST /trips  →  Backend
-      ↓
-TripStoreService.addOrUpdateTrip()   ← guarda en memoria la sesión
-      ↓
-Router navega a /user/:id/viaje/:viajeId
-      ↓
-ViajeDetalleComponent carga desde TripStoreService
+  → ApiService.createTrip()  →  POST /trips  →  Backend
+  → TripStoreService.addOrUpdateTrip()        ← estado en sesión
+  → Router navega a /user/:id/viaje/:viajeId
+  → ViajeDetalleComponent carga desde TripStoreService
 ```
 
-> **Nota:** El backend aún no expone `GET /trips?user_id=X` ni `GET /trip-entries?trip_id=X`. Cuando los exponga, `TripStoreService` se actualizará para llamar a la API en lugar de mantener estado en memoria.
+> `TripStoreService` mantiene estado en memoria porque el backend aún no expone `GET /trips?user_id` ni `GET /trip-entries?trip_id`. Cuando estén disponibles, se sustituirá por llamadas directas a la API.
 
 ---
 
 ## Autenticación
 
-El acceso para añadir y editar viajes está restringido a los dos usuarios del proyecto. El login actual es temporal (hardcodeado) hasta que el backend implemente un endpoint de autenticación.
-
-| Usuario | Contraseña |
-|---------|-----------|
-| alejandro | alex2024 |
-| arturo | artu2024 |
-
-> En producción se sustituirá `AuthService.login()` por una llamada a `POST /auth/login`.
+El acceso para crear y editar viajes está restringido a los usuarios del proyecto. El login actual es temporal (hardcodeado en `AuthService`) hasta que el backend implemente `POST /auth/login`.
 
 ---
 
 ## Tests
 
-**70 tests, 70 pasando.**
-
-```bash
-# Correr todos los tests
-CHROME_BIN="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-  npm test -- --watch=false --browsers=ChromeHeadless --no-progress
-```
-
-### Cobertura
+70 tests, todos pasando.
 
 | Servicio | Tests | Qué cubre |
 |----------|-------|-----------|
 | `AuthService` | 11 | login, logout, persistencia, canEditUser |
 | `TripStoreService` | 13 | CRUD viajes y entradas, filtros, casos borde |
-| `ToastService` | 10 | tipos, auto-cierre, timing exacto |
-| `ApiService` | 9 | mappers, HTTP mock (sin llamadas reales) |
-| Componentes | 27 | creación, inputs requeridos, renders |
+| `ToastService` | 10 | tipos, auto-cierre, timing |
+| `ApiService` | 9 | mappers, HTTP mock |
+| Componentes | 27 | creación, inputs, renders |
 
 ---
 
 ## CI/CD
 
-### Pipeline `dev` (`ci-dev.yml`)
+Dos pipelines en `.github/workflows/`:
 
-Se dispara en cada **push o PR a `dev`**:
+- **`ci-dev.yml`** — se dispara en push/PR a `dev`: tests + build staging
+- **`ci-main.yml`** — se dispara en push/PR a `main`: tests + build producción
 
-```
-Checkout → Node 20 → npm ci → crear env desde secrets → tests → build staging → artifact
-```
-
-### Pipeline `main` (`ci-main.yml`)
-
-Se dispara en cada **push o PR a `main`**:
-
-```
-Checkout → Node 20 → npm ci → crear env desde secrets → tests → build producción → artifact
-```
-
-> El deploy está preparado pero comentado. Al elegir plataforma (Netlify/Vercel/Firebase), se descomenta el bloque correspondiente.
-
-### Secrets necesarios en GitHub
+Secrets necesarios en GitHub Actions:
 
 | Secret | Descripción |
 |--------|-------------|
@@ -264,25 +146,45 @@ Checkout → Node 20 → npm ci → crear env desde secrets → tests → build 
 | `STAGING_API_URL` | URL del backend de staging |
 | `PROD_API_URL` | URL del backend de producción |
 
-Se configuran en: **GitHub → Settings → Secrets and variables → Actions**
+El bloque de deploy está preparado pero comentado. Se descomenta al elegir plataforma (Vercel/Netlify/Firebase).
 
 ---
 
-## Ramas y flujo de trabajo
+## Ramas
 
 ```
-main          ← producción estable
-  └── dev     ← integración de features
-        ├── feature/nombre-feature
-        ├── fix/nombre-fix
-        └── feature/tests / feature/ci-cd / ...
+main  ← producción estable
+  └── dev  ← integración
+        ├── feature/...
+        └── fix/...
 ```
 
-**Flujo estándar:**
-1. Crear rama desde `dev`: `git checkout -b feature/mi-feature`
-2. Desarrollar y commitear
-3. Push y PR hacia `dev`
-4. Cuando `dev` está estable → PR de `dev` → `main`
+Flujo: rama desde `dev` → PR a `dev` → cuando `dev` está estable → PR a `main`.
+
+---
+
+## Futuras implementaciones
+
+**Funcionalidad pendiente**
+- Autenticación real mediante `POST /auth/login` en el backend
+- Cargar viajes y entradas desde la API, eliminando el estado en memoria
+- Editar y eliminar viajes y entradas
+
+**Mejoras de experiencia**
+- Galería de fotos por viaje o entrada
+- Estadísticas del perfil: países visitados, kilómetros recorridos, tiempo total
+- Búsqueda y filtrado de viajes por fecha, país o etiqueta
+- Vista de línea de tiempo de todos los viajes
+
+**Social**
+- Perfiles públicos compartibles por URL
+- Explorar viajes de otros usuarios desde el globo 3D
+- Valoraciones o comentarios entre usuarios
+
+**Técnico**
+- PWA con soporte offline
+- Modo oscuro
+- Internacionalización (i18n)
 
 ---
 
@@ -300,7 +202,7 @@ main          ← producción estable
 | GET | `/users/{id}` | Usuario por ID |
 | POST | `/trips` | Crear viaje |
 | GET | `/trips/{id}` | Viaje por ID |
-| POST | `/trip-entries` | Crear entrada de viaje |
+| POST | `/trip-entries` | Crear entrada |
 
 ### Endpoints pendientes
 

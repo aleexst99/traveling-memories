@@ -1,8 +1,9 @@
 .perfil-container {
   padding: 2rem;
-  color: #fff;
-  background: linear-gradient(180deg, #111 0%, #1c1c1e 100%);
+  color: var(--color-text);
+  background: var(--gradient-page);
   min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
 
   .perfil-actions {
     display: flex;
@@ -25,9 +26,9 @@
     }
 
     select {
-      background: #222;
-      color: #fff;
-      border: 1px solid #444;
+      background: var(--bg-surface);
+      color: var(--color-text);
+      border: 1px solid var(--color-border-alt);
       border-radius: 6px;
       padding: 0.5rem;
     }
@@ -40,7 +41,7 @@
     margin-bottom: 2rem;
 
     p {
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--bg-hover);
       padding: 0.8rem 1.2rem;
       border-radius: 12px;
       font-weight: 500;
@@ -68,5 +69,26 @@
 
   @keyframes spin {
     to { transform: rotate(360deg); }
+  }
+}
+
+@media (max-width: 640px) {
+  .perfil-container {
+    padding: 1rem;
+
+    .perfil-actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+
+      select { width: 100%; }
+    }
+
+    .perfil-stats {
+      flex-wrap: wrap;
+      gap: 0.75rem;
+
+      p { flex: 1 1 120px; text-align: center; font-size: 0.85rem; }
+    }
   }
 }

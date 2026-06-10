@@ -5,6 +5,7 @@ import { ApiService } from '@core/services/api.service';
 import { CloudinaryService } from '@core/services/cloudinary.service';
 import { ToastService } from '@core/services/toast.service';
 import { AuthService } from '@core/services/auth.service';
+import { ThemeService } from '@core/services/theme.service';
 
 @Component({
   selector: 'app-perfil-header',
@@ -18,29 +19,30 @@ export class PerfilHeaderComponent {
   userUpdated = output<User>();
 
   private api        = inject(ApiService);
-  private cloudinary = inject(CloudinaryService);
+          cloudinary = inject(CloudinaryService);
   private toast      = inject(ToastService);
-  auth               = inject(AuthService);
+          auth       = inject(AuthService);
+          theme      = inject(ThemeService);
   private fb         = inject(FormBuilder);
 
-  displayName  = computed(() => this.user().name.toUpperCase());
-  modoOscuro   = signal(localStorage.getItem('tm_modo_oscuro') === 'true');
-  editando     = signal(false);
+  displayName    = computed(() => this.user().name.toUpperCase());
+  editando       = signal(false);
   subiendoAvatar = signal(false);
   previewAvatar  = signal<string | null>(null);
+
+  avatarSrc = computed(() =>
+    this.previewAvatar() ?? this.cloudinary.avatarUrl(this.user().photo)
+  );
+
+  onAvatarError(event: Event) {
+    (event.target as HTMLImageElement).src = 'assets/icons/default-avatar.svg';
+  }
 
   editForm = this.fb.group({
     name:       [''],
     bio:        [''],
     avatar_url: [''],
   });
-
-  toggleModoOscuro() {
-    this.modoOscuro.update(v => {
-      localStorage.setItem('tm_modo_oscuro', String(!v));
-      return !v;
-    });
-  }
 
   abrirEdicion() {
     const u = this.user();
