@@ -1,7 +1,7 @@
 <section class="perfil-header" [class.dark]="modoOscuro()">
 
   <div class="avatar">
-    <img [src]="previewAvatar() ?? user().photo" [alt]="user().name" />
+    <img [src]="avatarSrc()" [alt]="user().name" (error)="onAvatarError($event)" />
   </div>
 
   <div class="info">

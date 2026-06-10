@@ -18,7 +18,7 @@ export class PerfilHeaderComponent {
   userUpdated = output<User>();
 
   private api        = inject(ApiService);
-  private cloudinary = inject(CloudinaryService);
+          cloudinary = inject(CloudinaryService);
   private toast      = inject(ToastService);
   auth               = inject(AuthService);
   private fb         = inject(FormBuilder);
@@ -28,6 +28,14 @@ export class PerfilHeaderComponent {
   editando     = signal(false);
   subiendoAvatar = signal(false);
   previewAvatar  = signal<string | null>(null);
+
+  avatarSrc = computed(() =>
+    this.previewAvatar() ?? this.cloudinary.avatarUrl(this.user().photo)
+  );
+
+  onAvatarError(event: Event) {
+    (event.target as HTMLImageElement).src = 'assets/icons/default-avatar.svg';
+  }
 
   editForm = this.fb.group({
     name:       [''],
