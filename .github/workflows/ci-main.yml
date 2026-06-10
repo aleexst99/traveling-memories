@@ -26,26 +26,21 @@ jobs:
         working-directory: traveling-memories
         run: npm ci
 
-      - name: Create environment files
+      - name: Create environment file (dev — para tests)
         working-directory: traveling-memories
         env:
           API_KEY: ${{ secrets.API_KEY }}
-          API_URL: ${{ secrets.PROD_API_URL }}
+          API_URL: ${{ secrets.API_URL }}
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
         run: |
           cat > src/environments/environment.ts << EOF
           export const environment = {
             production: false,
             apiUrl: '${API_URL}',
             apiKey: '${API_KEY}',
-            useLocalStorage: false,
-          };
-          EOF
-          cat > src/environments/environment.prod.ts << EOF
-          export const environment = {
-            production: true,
-            apiUrl: '${API_URL}',
-            apiKey: '${API_KEY}',
-            useLocalStorage: false,
+            cloudinaryCloudName: '${CLOUDINARY_CLOUD_NAME}',
+            cloudinaryUploadPreset: '${CLOUDINARY_UPLOAD_PRESET}',
           };
           EOF
 
@@ -57,7 +52,12 @@ jobs:
 
       - name: Build (producción)
         working-directory: traveling-memories
-        run: npm run build -- --configuration production
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          API_URL: ${{ secrets.API_URL }}
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
+        run: npm run build:vercel
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -65,37 +65,3 @@ jobs:
           name: production-build
           path: traveling-memories/dist/travel-blog/
           retention-days: 30
-
-  # ──────────────────────────────────────────────────────────
-  # DEPLOY PRODUCCIÓN — descomentar cuando se elija plataforma
-  # ──────────────────────────────────────────────────────────
-  # deploy-production:
-  #   name: Deploy to Production
-  #   needs: ci
-  #   runs-on: ubuntu-latest
-  #   if: github.event_name == 'push'   # solo en push, no en PR
-  #   environment: production           # requiere aprobación manual en GitHub
-  #
-  #   steps:
-  #     - name: Download build artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: production-build
-  #         path: dist/
-  #
-  #     ## NETLIFY
-  #     # - uses: netlify/actions/cli@master
-  #     #   with:
-  #     #     args: deploy --dir=dist --prod --site=${{ secrets.NETLIFY_SITE_ID }}
-  #     #   env:
-  #     #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-  #
-  #     ## VERCEL
-  #     # - run: npx vercel --token=${{ secrets.VERCEL_TOKEN }} --prod dist/
-  #
-  #     ## FIREBASE
-  #     # - uses: FirebaseExtended/action-hosting-deploy@v0
-  #     #   with:
-  #     #     repoToken: ${{ secrets.GITHUB_TOKEN }}
-  #     #     firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-  #     #     channelId: live

@@ -26,21 +26,23 @@ jobs:
         working-directory: traveling-memories
         run: npm ci
 
-      - name: Create environment files
+      - name: Create environment file (dev)
         working-directory: traveling-memories
         env:
           API_KEY: ${{ secrets.API_KEY }}
-          API_URL: ${{ secrets.STAGING_API_URL }}
+          API_URL: ${{ secrets.API_URL }}
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
         run: |
           cat > src/environments/environment.ts << EOF
           export const environment = {
             production: false,
             apiUrl: '${API_URL}',
             apiKey: '${API_KEY}',
-            useLocalStorage: false,
+            cloudinaryCloudName: '${CLOUDINARY_CLOUD_NAME}',
+            cloudinaryUploadPreset: '${CLOUDINARY_UPLOAD_PRESET}',
           };
           EOF
-          cp src/environments/environment.ts src/environments/environment.dev.ts
 
       - name: Run tests
         working-directory: traveling-memories
@@ -48,7 +50,7 @@ jobs:
         env:
           CHROME_FLAGS: "--no-sandbox --disable-gpu"
 
-      - name: Build (staging)
+      - name: Build (dev)
         working-directory: traveling-memories
         run: npm run build -- --configuration development
 
@@ -58,36 +60,3 @@ jobs:
           name: staging-build
           path: traveling-memories/dist/travel-blog/
           retention-days: 7
-
-  # ──────────────────────────────────────────────────────────
-  # DEPLOY STAGING — descomentar cuando se elija plataforma
-  # ──────────────────────────────────────────────────────────
-  # deploy-staging:
-  #   name: Deploy to Staging
-  #   needs: ci
-  #   runs-on: ubuntu-latest
-  #   if: github.event_name == 'push'   # solo en push, no en PR
-  #
-  #   steps:
-  #     - name: Download build artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: staging-build
-  #         path: dist/
-  #
-  #     ## NETLIFY
-  #     # - uses: netlify/actions/cli@master
-  #     #   with:
-  #     #     args: deploy --dir=dist --site=${{ secrets.NETLIFY_SITE_ID }}
-  #     #   env:
-  #     #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-  #
-  #     ## VERCEL
-  #     # - run: npx vercel --token=${{ secrets.VERCEL_TOKEN }} dist/
-  #
-  #     ## FIREBASE
-  #     # - uses: FirebaseExtended/action-hosting-deploy@v0
-  #     #   with:
-  #     #     repoToken: ${{ secrets.GITHUB_TOKEN }}
-  #     #     firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-  #     #     channelId: staging
