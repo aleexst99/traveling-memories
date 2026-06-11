@@ -6,7 +6,39 @@
   <form [formGroup]="form" (ngSubmit)="guardar()" class="entrada-form">
 
     <label>Título *</label>
-    <input type="text" formControlName="title" placeholder="Ej: Amsterdam" />
+    <input type="text" formControlName="title" placeholder="Ej: Visita al Rijksmuseum" />
+
+    <label>Ciudad</label>
+    <div class="city-selector">
+      <div class="city-input-wrapper">
+        <input
+          type="text"
+          class="city-input"
+          placeholder="Buscar ciudad..."
+          [value]="citySearch()"
+          (input)="onCityInput($any($event.target).value)"
+          (focus)="mostrarSugerencias.set(citySuggestions().length > 0)"
+          autocomplete="off"
+        />
+        @if (buscandoCiudad()) {
+          <span class="city-spinner"></span>
+        }
+        @if (citySearch() && !buscandoCiudad()) {
+          <button type="button" class="city-clear" (click)="limpiarCiudad()">✕</button>
+        }
+      </div>
+
+      @if (mostrarSugerencias() && citySuggestions().length > 0) {
+        <ul class="city-list">
+          @for (city of citySuggestions(); track city.id) {
+            <li (click)="seleccionarCiudad(city)">
+              <span class="city-name">{{ city.name }}</span>
+              <span class="city-country">{{ city.country }}</span>
+            </li>
+          }
+        </ul>
+      }
+    </div>
 
     <div class="row">
       <div class="field">
