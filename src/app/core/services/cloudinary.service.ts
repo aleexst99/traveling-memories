@@ -12,6 +12,24 @@ export class CloudinaryService {
   private readonly uploadUrl =
     `https://api.cloudinary.com/v1_1/${environment.cloudinaryCloudName}/image/upload`;
 
+  private readonly ALLOWED_TYPES = ['image/jpeg', 'image/png'];
+  private readonly MAX_SIZE_MB   = 5;
+  private readonly MAX_SIZE_BYTES = this.MAX_SIZE_MB * 1024 * 1024;
+
+  /**
+   * Valida tipo y tamaño antes de subir.
+   * Devuelve el mensaje de error o null si es válida.
+   */
+  validate(file: File): string | null {
+    if (!this.ALLOWED_TYPES.includes(file.type)) {
+      return 'Solo se permiten imágenes JPEG o PNG.';
+    }
+    if (file.size > this.MAX_SIZE_BYTES) {
+      return `La imagen no puede superar ${this.MAX_SIZE_MB}MB.`;
+    }
+    return null;
+  }
+
   /**
    * Sube una imagen a Cloudinary y devuelve la URL pública.
    * Usa unsigned upload — no requiere credenciales secretas en el frontend.

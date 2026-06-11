@@ -2,6 +2,42 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CloudinaryService } from './cloudinary.service';
 
+describe('CloudinaryService — validate', () => {
+  let service: CloudinaryService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({ imports: [HttpClientTestingModule] });
+    service = TestBed.inject(CloudinaryService);
+  });
+
+  const makeFile = (type: string, sizeMB: number) =>
+    new File([new ArrayBuffer(sizeMB * 1024 * 1024)], 'test.jpg', { type });
+
+  it('acepta JPEG dentro del límite', () => {
+    expect(service.validate(makeFile('image/jpeg', 1))).toBeNull();
+  });
+
+  it('acepta PNG dentro del límite', () => {
+    expect(service.validate(makeFile('image/png', 3))).toBeNull();
+  });
+
+  it('rechaza tipo no permitido (webp)', () => {
+    expect(service.validate(makeFile('image/webp', 1))).toContain('JPEG o PNG');
+  });
+
+  it('rechaza tipo no permitido (gif)', () => {
+    expect(service.validate(makeFile('image/gif', 1))).toContain('JPEG o PNG');
+  });
+
+  it('rechaza archivos mayores de 5MB', () => {
+    expect(service.validate(makeFile('image/jpeg', 6))).toContain('5MB');
+  });
+
+  it('acepta exactamente 5MB', () => {
+    expect(service.validate(makeFile('image/png', 5))).toBeNull();
+  });
+});
+
 describe('CloudinaryService — avatarUrl', () => {
   let service: CloudinaryService;
 
