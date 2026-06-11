@@ -15,6 +15,10 @@
       <a routerLink="/" (click)="cerrarMenu()">Inicio</a>
       <a routerLink="/mapa-global" (click)="cerrarMenu()">Mapa Global</a>
 
+      <button class="btn-theme" (click)="theme.toggle()" [title]="theme.isDark() ? 'Modo claro' : 'Modo oscuro'">
+        {{ theme.isDark() ? '☀️' : '🌙' }}
+      </button>
+
       @if (auth.isLoggedIn()) {
         <span class="user-badge">👤 {{ auth.currentUser()?.username }}</span>
         <button class="btn-logout" (click)="logout()">Salir</button>
