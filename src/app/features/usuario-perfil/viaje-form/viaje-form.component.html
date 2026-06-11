@@ -6,14 +6,20 @@
   <!-- País con Selector Custom -->
   <label>País *</label>
   <div class="selector-container">
-    <input
-      type="text"
-      placeholder="Buscar país..."
-      [value]="searchText()"
-      (input)="filtrar($any($event.target).value)"
-      (focus)="mostrarLista.set(true)"
-      class="input-selector"
-    />
+    <div class="input-wrapper">
+      @if (paisSeleccionado()?.flag_url) {
+        <img class="flag-selected" [src]="paisSeleccionado()!.flag_url" [alt]="paisSeleccionado()!.name.common" />
+      }
+      <input
+        type="text"
+        placeholder="Buscar país..."
+        [value]="searchText()"
+        (input)="filtrar($any($event.target).value)"
+        (focus)="mostrarLista.set(true)"
+        class="input-selector"
+        [class.with-flag]="paisSeleccionado()?.flag_url"
+      />
+    </div>
 
     @if (cargandoPaises()) {
       <div class="cargando">Cargando países...</div>
@@ -23,6 +29,9 @@
       <ul class="pais-lista">
         @for (p of filtrados(); track p.ccn3) {
           <li (click)="seleccionarPais(p)">
+            @if (p.flag_url) {
+              <img class="flag-item" [src]="p.flag_url" [alt]="p.name.common" />
+            }
             <span class="pais-nombre">{{ p.name.common }}</span>
           </li>
         }
