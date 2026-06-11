@@ -13,7 +13,7 @@
   max-width: 500px;
   background: rgba(20, 20, 20, 0.6);
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(244, 169, 67, 0.2);
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   padding: 1.5rem;
@@ -31,7 +31,7 @@
       text-align: center;
       margin-bottom: 1rem;
       font-size: 1.4rem;
-      color: #fff;
+      color: #fdf0e0;
     }
 
     .photo {
@@ -52,7 +52,7 @@
     p {
       flex-grow: 1;
       line-height: 1.6;
-      color: #ddd;
+      color: #e8d8c4;
       margin-bottom: 1rem;
     }
 
@@ -67,7 +67,7 @@
         transition: color 0.3s;
 
         &:hover {
-          color: #0077b5;
+          color: #f4a943;
         }
 
         .pi-github {
