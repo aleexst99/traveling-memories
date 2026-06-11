@@ -1,9 +1,12 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, HostListener } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { ApiService } from '@core/services/api.service';
 import { ToastService } from '@core/services/toast.service';
 import { CloudinaryService } from '@core/services/cloudinary.service';
+import { GeoDbService, City } from '@core/services/geodb.service';
 import { Entrada } from '@core/models/viajes.model';
 
 @Component({
@@ -19,6 +22,7 @@ export class ViajeEntradaComponent implements OnInit {
   private api        = inject(ApiService);
   private toast      = inject(ToastService);
   private cloudinary = inject(CloudinaryService);
+  private geodb      = inject(GeoDbService);
   private fb         = inject(FormBuilder);
 
   viajeId!: number;
@@ -29,6 +33,14 @@ export class ViajeEntradaComponent implements OnInit {
   subiendoImagen = signal(false);
   previewImagen  = signal<string | null>(null);
 
+  // City autocomplete
+  citySearch     = signal('');
+  citySuggestions = signal<City[]>([]);
+  citySeleccionada = signal<City | null>(null);
+  buscandoCiudad  = signal(false);
+  mostrarSugerencias = signal(false);
+  private cityInput$ = new Subject<string>();
+
   form = this.fb.group({
     title:       ['', Validators.required],
     fecha:       [''],
@@ -37,14 +49,34 @@ export class ViajeEntradaComponent implements OnInit {
     image:       [''],
   });
 
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    if (!(event.target as HTMLElement).closest('.city-selector')) {
+      this.mostrarSugerencias.set(false);
+    }
+  }
+
   ngOnInit() {
     this.viajeId = Number(this.route.snapshot.paramMap.get('viajeId'));
     this.userId  = Number(this.route.snapshot.paramMap.get('id'));
 
+    // Debounce para no quemar peticiones a GeoDB
+    this.cityInput$.pipe(
+      debounceTime(350),
+      distinctUntilChanged(),
+      switchMap(query => {
+        this.buscandoCiudad.set(true);
+        return this.geodb.searchCities(query);
+      })
+    ).subscribe(cities => {
+      this.citySuggestions.set(cities);
+      this.buscandoCiudad.set(false);
+      this.mostrarSugerencias.set(cities.length > 0);
+    });
+
     const entradaId = Number(this.route.snapshot.queryParamMap.get('entradaId'));
     if (!entradaId) return;
 
-    // Pide siempre al backend para asegurar datos frescos
     this.api.getEntriesByTrip(this.viajeId).subscribe({
       next: (entradas) => {
         const entrada = entradas.find(e => e.id === entradaId) ?? null;
@@ -52,6 +84,29 @@ export class ViajeEntradaComponent implements OnInit {
       },
       error: () => this.toast.error('No se pudo cargar la entrada.'),
     });
+  }
+
+  onCityInput(value: string) {
+    this.citySearch.set(value);
+    this.citySeleccionada.set(null);
+    if (value.length >= 2) {
+      this.cityInput$.next(value);
+    } else {
+      this.citySuggestions.set([]);
+      this.mostrarSugerencias.set(false);
+    }
+  }
+
+  seleccionarCiudad(city: City) {
+    this.citySeleccionada.set(city);
+    this.citySearch.set(`${city.name}, ${city.country}`);
+    this.mostrarSugerencias.set(false);
+  }
+
+  limpiarCiudad() {
+    this.citySeleccionada.set(null);
+    this.citySearch.set('');
+    this.citySuggestions.set([]);
   }
 
   private cargarEntrada(entrada: Entrada) {
@@ -64,6 +119,7 @@ export class ViajeEntradaComponent implements OnInit {
       description: entrada.description ?? '',
       image:       entrada.image ?? '',
     });
+    if (entrada.city) this.citySearch.set(entrada.city);
     if (entrada.image) this.previewImagen.set(entrada.image);
   }
 
@@ -107,6 +163,7 @@ export class ViajeEntradaComponent implements OnInit {
       dias:        raw.dias  || undefined,
       description: raw.description || undefined,
       image:       raw.image || this.entradaExistente?.image || undefined,
+      city:        this.citySearch() || undefined,
     };
 
     this.guardando = true;
