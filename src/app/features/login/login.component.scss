@@ -107,3 +107,17 @@ button[type="submit"] {
   margin-top: 0.25rem;
   text-align: center;
 }
+
+.register-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.88rem;
+  color: var(--color-text-muted, #aaa);
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    &:hover { text-decoration: underline; }
+  }
+}

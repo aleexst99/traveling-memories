@@ -1,4 +1,4 @@
-import { Component, input, output, computed } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Viaje } from '@core/models/viajes.model';
 
@@ -14,10 +14,6 @@ export class ViajeCardComponent {
   wishlist = input(false);
 
   viajeClick = output<string>();
-
-  /** Número de entradas pasado por el padre — evita N+1 al store/API */
-  numEntradas  = input(0);
-  ultimaFecha  = input<string | undefined>(undefined);
 
   onCardClick() {
     this.viajeClick.emit(this.viaje().id.toString());

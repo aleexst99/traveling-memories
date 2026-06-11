@@ -31,6 +31,9 @@ export interface Viaje {
   lng?: number;
   tipo?: 'wishlist' | 'realizado';
   entradas?: Entrada[];
+  // Metadatos calculados al cargar el perfil
+  entradasCount?: number;
+  ultimaEntradaFecha?: string;
 }
 
 // INTERFAZ

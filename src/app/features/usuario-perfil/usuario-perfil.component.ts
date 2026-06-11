@@ -1,6 +1,7 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 import { User } from '@core/models/user.model';
 import { PerfilHeaderComponent } from './perfil-header/perfil-header.component';
 import { PerfilMapaComponent } from './perfil-mapa/perfil-mapa.component';
@@ -64,7 +65,21 @@ export class UsuarioPerfilComponent {
     forkJoin({
       user:   this.api.getUser(id),
       viajes: this.api.getTripsByUser(id),
-    }).subscribe({
+    }).pipe(
+      switchMap(({ user, viajes }) => {
+        if (!viajes.length) return of({ user, viajes });
+        return forkJoin(viajes.map(v => this.api.getEntriesByTrip(v.id))).pipe(
+          map(entradasPorViaje => ({
+            user,
+            viajes: viajes.map((v, i) => ({
+              ...v,
+              entradasCount:      entradasPorViaje[i].length,
+              ultimaEntradaFecha: entradasPorViaje[i].at(-1)?.fecha,
+            })),
+          }))
+        );
+      })
+    ).subscribe({
       next: ({ user, viajes }) => {
         this.user.set({
           ...user,

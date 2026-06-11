@@ -36,6 +36,12 @@ export class AuthService {
     return true;
   }
 
+  /** Establece el usuario en sesión (usado tras registro o login externo) */
+  setUser(user: AuthUser): void {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+    this.currentUser.set(user);
+  }
+
   logout(): void {
     localStorage.removeItem(STORAGE_KEY);
     this.currentUser.set(null);

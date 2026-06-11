@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '@environments/environment';
 import {
-  ApiUser, ApiUserUpdate, ApiTripCreate, ApiTripOut,
+  ApiUser, ApiUserCreate, ApiUserUpdate, ApiTripCreate, ApiTripOut,
   ApiTripEntryCreate, ApiTripEntryOut,
 } from '@core/models/api.models';
 import { Viaje, Entrada, Country } from '@core/models/viajes.model';
@@ -13,6 +13,14 @@ import { User } from '@core/models/user.model';
 export class ApiService {
   private http = inject(HttpClient);
   private base = environment.apiUrl;
+
+  // ── Auth ─────────────────────────────────────────────────
+
+  register(data: ApiUserCreate): Observable<User> {
+    return this.http.post<ApiUser>(`${this.base}/auth/register`, data).pipe(
+      map(u => this.mapUser(u))
+    );
+  }
 
   // ── Usuarios ──────────────────────────────────────────────
 
