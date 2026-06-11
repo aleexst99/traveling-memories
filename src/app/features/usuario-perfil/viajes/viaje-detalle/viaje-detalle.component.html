@@ -70,7 +70,7 @@
     <div class="entradas-section">
       <div class="entradas-header">
         <h2>Entradas ({{ entradas().length }})</h2>
-        @if (auth.canEditUser(viaje()!.id_user)) {
+        @if (auth.canEditUser(viaje()!.id_user) && entradas().length > 0) {
           <button class="btn-primary" (click)="agregarEntrada()">+ Añadir entrada</button>
         }
       </div>
