@@ -5,7 +5,7 @@
         <h2>{{ user.name }}</h2>
 
         <div class="photo">
-          <img [src]="cloudinary.avatarUrl(user.photo)" [alt]="'Foto de ' + user.name" />
+          <img [src]="cloudinary.avatarUrl(user.photo, 400)" [alt]="'Foto de ' + user.name" />
         </div>
 
         <p>{{ user.bio }}</p>
