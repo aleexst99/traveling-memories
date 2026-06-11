@@ -33,7 +33,7 @@
     input, select {
       background: rgba(40, 40, 60, 0.8);
       color: #e0e0e0;
-      border-color: #444;
+      border-color: var(--color-border-alt);
     }
 
     .legend-text, .info-label, .info-value {
@@ -123,7 +123,7 @@
 
           .stat-label {
             font-size: 0.875rem;
-            color: #666;
+            color: var(--color-text-muted);
             font-weight: 500;
           }
         }
@@ -188,10 +188,10 @@
         .search-input {
           width: 100%;
           padding: 0.75rem 1rem;
-          border: 2px solid #e0e0e0;
+          border: 2px solid var(--color-border);
           border-radius: 10px;
           font-size: 0.95rem;
-          background: white;
+          background: var(--bg-surface);
           transition: all 0.3s ease;
           font-weight: 500;
 
@@ -217,7 +217,7 @@
           gap: 0.5rem;
           font-size: 0.875rem;
           font-weight: 600;
-          color: #333;
+          color: var(--color-text);
           margin-bottom: 0.5rem;
 
           .filter-icon {
@@ -231,15 +231,15 @@
           select {
             width: 100%;
             padding: 0.75rem 2.5rem 0.75rem 1rem;
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--color-border);
             border-radius: 10px;
             font-size: 0.95rem;
-            background: white;
+            background: var(--bg-surface);
             cursor: pointer;
             transition: all 0.3s ease;
             appearance: none;
             font-weight: 500;
-            color: #333;
+            color: var(--color-text);
 
             &:hover {
               border-color: #667eea;
@@ -304,7 +304,7 @@
       .legend-title {
         font-size: 1rem;
         font-weight: 700;
-        color: #333;
+        color: var(--color-text);
         margin: 0 0 1rem 0;
         display: flex;
         align-items: center;
@@ -374,7 +374,7 @@
 
           .legend-text {
             font-size: 0.875rem;
-            color: #555;
+            color: var(--color-text-muted);
             font-weight: 500;
           }
 
@@ -396,7 +396,7 @@
         .quick-access-title {
           font-size: 0.875rem;
           font-weight: 700;
-          color: #666;
+          color: var(--color-text-muted);
           margin: 0 0 0.75rem 0;
           text-transform: uppercase;
           letter-spacing: 0.5px;
@@ -409,14 +409,14 @@
 
           .continent-btn {
             padding: 0.5rem 1rem;
-            background: white;
-            border: 2px solid #e0e0e0;
+            background: var(--bg-surface);
+            border: 2px solid var(--color-border);
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: #666;
+            color: var(--color-text-muted);
 
             &:hover {
               border-color: #667eea;
@@ -584,7 +584,7 @@
 
       .counter-label {
         font-size: 0.875rem;
-        color: #666;
+        color: var(--color-text-muted);
         font-weight: 500;
       }
     }
@@ -594,7 +594,7 @@
   .tooltip-card {
     position: fixed;
     z-index: 9999; // 🆕 Z-index mucho más alto
-    background: white;
+    background: var(--bg-surface);
     border-radius: 16px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     min-width: 320px;
@@ -719,7 +719,7 @@
 
           .info-value {
             font-size: 1rem;
-            color: #333;
+            color: var(--color-text);
             font-weight: 500;
 
             &.coordinates {
@@ -741,7 +741,7 @@
         .description-text {
           margin: 0;
           font-size: 0.9rem;
-          color: #555;
+          color: var(--color-text-muted);
           line-height: 1.6;
           font-style: italic;
         }
@@ -799,13 +799,13 @@
         font-size: 0.9rem;
 
         &.secondary {
-          background: white;
-          color: #666;
-          border: 2px solid #ddd;
+          background: var(--bg-surface);
+          color: var(--color-text-muted);
+          border: 2px solid var(--color-border);
 
           &:hover {
-            background: #f5f5f5;
-            border-color: #ccc;
+            background: var(--bg-surface-alt);
+            border-color: var(--color-border-alt);
           }
         }
 
@@ -885,7 +885,7 @@
     .tooltip-card {
       position: fixed;
       z-index: 1000;
-      background: white;
+      background: var(--bg-surface);
       border-radius: 16px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       min-width: 320px;
