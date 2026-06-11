@@ -4,7 +4,7 @@
   h2 {
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
-    color: #333;
+    color: var(--color-text);
   }
 
   .carousel-container {
@@ -110,7 +110,7 @@
   .empty {
     text-align: center;
     padding: 3rem;
-    color: #999;
+    color: var(--color-text-faint);
     font-style: italic;
   }
 }
