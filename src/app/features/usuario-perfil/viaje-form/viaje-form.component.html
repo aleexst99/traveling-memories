@@ -57,10 +57,16 @@
     <div class="field">
       <label>Fecha inicio</label>
       <input type="date" [formControl]="form.controls.start_date" />
+      @if (form.controls.start_date.errors?.['añoInvalido']) {
+        <span class="field-error">El año debe tener 4 dígitos.</span>
+      }
     </div>
     <div class="field">
       <label>Fecha fin</label>
       <input type="date" [formControl]="form.controls.end_date" />
+      @if (form.controls.end_date.errors?.['añoInvalido']) {
+        <span class="field-error">El año debe tener 4 dígitos.</span>
+      }
     </div>
   </div>
 
