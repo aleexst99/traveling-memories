@@ -6,6 +6,7 @@ export interface Country {
   ccn3: string;
   region: string;
   latlng: [number, number];
+  flag_url?: string;
 }
 
 export interface Entrada {
@@ -30,6 +31,7 @@ export interface Viaje {
   lat?: number;
   lng?: number;
   tipo?: 'wishlist' | 'realizado';
+  flag_url?: string;
   entradas?: Entrada[];
   // Metadatos calculados al cargar el perfil
   entradasCount?: number;

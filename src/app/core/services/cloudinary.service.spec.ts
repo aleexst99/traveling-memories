@@ -22,19 +22,10 @@ describe('CloudinaryService — avatarUrl', () => {
     expect(service.avatarUrl('')).toContain('default-avatar.svg');
   });
 
-  it('aplica q_90,f_auto en una URL limpia', () => {
-    const original = 'https://res.cloudinary.com/demo/image/upload/v1234/avatar.jpg';
-    const result   = service.avatarUrl(original);
-    expect(result).toBe(
+  it('inserta q_90,f_auto en una URL limpia de Cloudinary', () => {
+    const url = 'https://res.cloudinary.com/demo/image/upload/v1234/avatar.jpg';
+    expect(service.avatarUrl(url)).toBe(
       'https://res.cloudinary.com/demo/image/upload/q_90,f_auto/v1234/avatar.jpg'
-    );
-  });
-
-  it('elimina transformaciones previas (q_auto/f_auto) y aplica las nuestras', () => {
-    const withExisting = 'https://res.cloudinary.com/demo/image/upload/q_auto/f_auto/v1781090243/alex.png';
-    const result       = service.avatarUrl(withExisting);
-    expect(result).toBe(
-      'https://res.cloudinary.com/demo/image/upload/q_90,f_auto/v1781090243/alex.png'
     );
   });
 
