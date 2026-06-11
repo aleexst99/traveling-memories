@@ -17,7 +17,7 @@ const path = require('path');
 
 const envDir = path.join(__dirname, '..', 'src', 'environments');
 
-const required = ['API_URL', 'API_KEY', 'CLOUDINARY_CLOUD_NAME', 'CLOUDINARY_UPLOAD_PRESET'];
+const required = ['API_URL', 'API_KEY', 'CLOUDINARY_CLOUD_NAME', 'CLOUDINARY_UPLOAD_PRESET', 'GEODB_API_KEY'];
 const missing  = required.filter(k => !process.env[k]);
 
 if (missing.length) {
@@ -32,6 +32,7 @@ export const environment = {
   apiKey: '${process.env.API_KEY}',
   cloudinaryCloudName: '${process.env.CLOUDINARY_CLOUD_NAME}',
   cloudinaryUploadPreset: '${process.env.CLOUDINARY_UPLOAD_PRESET}',
+  geoDbApiKey: '${process.env.GEODB_API_KEY}',
 };
 `;
 
@@ -44,6 +45,7 @@ export const environment = {
   apiKey: '',
   cloudinaryCloudName: '',
   cloudinaryUploadPreset: '',
+  geoDbApiKey: '',
 };
 `;
 
