@@ -14,6 +14,17 @@ export class ApiService {
   private http = inject(HttpClient);
   private base = environment.apiUrl;
 
+  // Mapa precargado de nombre de país → flag_url (se llena la primera vez)
+  private flagMap: Record<string, string> = {};
+
+  constructor() {
+    this.http.get<Country[]>('assets/countries.json').subscribe(countries => {
+      for (const c of countries) {
+        this.flagMap[c.name.common] = c.flag_url ?? '';
+      }
+    });
+  }
+
   // ── Auth ─────────────────────────────────────────────────
 
   register(data: ApiUserCreate): Observable<User> {
@@ -189,6 +200,7 @@ export class ApiService {
       tipo: t.is_wishlist ? 'wishlist' : 'realizado',
       lat: t.lat ?? undefined,
       lng: t.lng ?? undefined,
+      flag_url: this.flagMap[t.title] ?? '',
     };
   }
 

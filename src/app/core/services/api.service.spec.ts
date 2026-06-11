@@ -13,6 +13,7 @@ describe('ApiService', () => {
     });
     service = TestBed.inject(ApiService);
     httpMock = TestBed.inject(HttpTestingController);
+    httpMock.expectOne('assets/countries.json').flush([]);
   });
 
   afterEach(() => httpMock.verify());
