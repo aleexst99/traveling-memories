@@ -16,7 +16,7 @@ import { User } from '@core/models/user.model';
 import { ViajeConUsuario } from '@core/models/viajes.model';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '@core/services/api.service';
-import { TripStoreService } from '@core/services/trip-store.service';
+
 import { ToastService } from '@core/services/toast.service';
 import { Router } from '@angular/router';
 
@@ -109,7 +109,6 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
   });
 
   private api = inject(ApiService);
-  private store = inject(TripStoreService);
   private toastSvc = inject(ToastService);
   private router = inject(Router);
 
@@ -149,15 +148,11 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
             viajesPorUsuario.forEach((viajes, i) => {
               const u = users[i];
               viajes.forEach(v => {
-                // Merge con datos en store por si tiene lat/lng de la sesión actual
-                const enStore = this.store.getTrip(v.id);
-                const conMetadata = enStore ?? v;
-                this.store.addOrUpdateTrip(conMetadata);
                 trips.push({
-                  ...conMetadata,
-                  userName: u.name,
+                  ...v,
+                  userName:  u.name,
                   userPhoto: u.photo,
-                  tipo: conMetadata.tipo ?? 'realizado',
+                  tipo:      v.tipo ?? 'realizado',
                 });
               });
             });
@@ -698,7 +693,6 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   verDetalles(viaje: ViajeConUsuario): void {
-    this.store.addOrUpdateTrip(viaje);
     this.router.navigate(['/user', viaje.id_user, 'viaje', viaje.id]);
   }
 
