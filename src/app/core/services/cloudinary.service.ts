@@ -31,7 +31,7 @@ export class CloudinaryService {
    * sin recortar — el navegador gestiona el display con object-fit.
    * Si la URL no es de Cloudinary, la devuelve sin modificar.
    */
-  avatarUrl(url: string | null | undefined, _sizePx = 280): string {
+  avatarUrl(url: string | null | undefined): string {
     if (!url) return 'assets/icons/default-avatar.svg';
 
     const idx = url.indexOf(CLOUDINARY_UPLOAD_MARKER);
