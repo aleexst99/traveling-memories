@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '@core/services/api.service';
+import { CloudinaryService } from '@core/services/cloudinary.service';
 import { ToastService } from '@core/services/toast.service';
 import { User } from '@core/models/user.model';
 
@@ -12,9 +13,10 @@ import { User } from '@core/models/user.model';
   styleUrl: './usuarios.component.scss'
 })
 export class UsuariosComponent implements OnInit {
-  private api = inject(ApiService);
+  private api    = inject(ApiService);
   private router = inject(Router);
-  private toast = inject(ToastService);
+  private toast  = inject(ToastService);
+  cloudinary     = inject(CloudinaryService);
 
   users: User[] = [];
 
