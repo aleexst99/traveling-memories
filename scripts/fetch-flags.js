@@ -50,9 +50,24 @@ const ALIASES = {
   'Åland Islands':                                'Finland',
   // Sin bandera conocida
   'Antarctica':                                   null,
-  'Libya':                                        null,
   'Pitcairn Islands':                             null,
-  'Western Sahara':                               null,
+};
+
+// Banderas obtenidas de Wikimedia para países no disponibles en CountriesNow
+const MANUAL_FLAGS = {
+  'Bolivia':        'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Flag_of_Bolivia.svg/800px-Flag_of_Bolivia.svg.png',
+  'DR Congo':       'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Flag_of_the_Democratic_Republic_of_the_Congo.svg/800px-Flag_of_the_Democratic_Republic_of_the_Congo.svg.png',
+  'Ivory Coast':    'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_C%C3%B4te_d%27Ivoire.svg/800px-Flag_of_C%C3%B4te_d%27Ivoire.svg.png',
+  'Kosovo':         'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Flag_of_Kosovo.svg/800px-Flag_of_Kosovo.svg.png',
+  'Libya':          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Libya.svg/800px-Flag_of_Libya.svg.png',
+  'Micronesia':     'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Flag_of_the_Federated_States_of_Micronesia.svg/800px-Flag_of_the_Federated_States_of_Micronesia.svg.png',
+  'Moldova':        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Flag_of_Moldova.svg/800px-Flag_of_Moldova.svg.png',
+  'North Korea':    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Flag_of_North_Korea.svg/800px-Flag_of_North_Korea.svg.png',
+  'North Macedonia':'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Flag_of_North_Macedonia.svg/800px-Flag_of_North_Macedonia.svg.png',
+  'Palestine':      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Flag_of_Palestine.svg/800px-Flag_of_Palestine.svg.png',
+  'South Korea':    'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_South_Korea.svg/800px-Flag_of_South_Korea.svg.png',
+  'Tanzania':       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Flag_of_Tanzania.svg/800px-Flag_of_Tanzania.svg.png',
+  'Western Sahara': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Flag_of_the_Sahrawi_Arab_Democratic_Republic.svg/800px-Flag_of_the_Sahrawi_Arab_Democratic_Republic.svg.png',
 };
 
 async function fetchFlags() {
@@ -83,6 +98,11 @@ async function fetchFlags() {
     if (!flagUrl && name in ALIASES) {
       const alias = ALIASES[name];
       flagUrl = alias ? (flagMap[alias] ?? '') : '';
+    }
+
+    // Fallback con URL manual de Wikimedia
+    if (!flagUrl && name in MANUAL_FLAGS) {
+      flagUrl = MANUAL_FLAGS[name] ?? '';
     }
 
     flagUrl = flagUrl ?? '';
