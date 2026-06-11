@@ -161,7 +161,7 @@
         @for (u of usuarios(); track u.id; let idx = $index) {
           <div class="legend-item clickable" (click)="filtroUsuario.set(u.name); onFilterChange()">
             <span class="legend-color" [style.background-color]="getColorHex(u.name)"></span>
-            <img [src]="u.photo" [alt]="u.name" class="legend-avatar">
+            <img [src]="cloudinary.avatarUrl(u.photo)" [alt]="u.name" class="legend-avatar">
             <span class="legend-text">{{ u.name }}</span>
             <span class="legend-count">({{ getViajesPorUsuario(u.name) }})</span>
           </div>
@@ -234,7 +234,7 @@
     >
       @if (tooltipData(); as viaje) {
         <div class="tooltip-header" [class.wishlist-header]="viaje.tipo === 'wishlist'">
-          <img [src]="viaje.userPhoto" [alt]="viaje.userName" class="user-avatar">
+          <img [src]="cloudinary.avatarUrl(viaje.userPhoto)" [alt]="viaje.userName" class="user-avatar">
           <div class="tooltip-title">
             <h3>{{ viaje.title }}</h3>
             <p class="user-name">

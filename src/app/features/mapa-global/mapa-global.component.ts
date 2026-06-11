@@ -16,7 +16,7 @@ import { User } from '@core/models/user.model';
 import { ViajeConUsuario } from '@core/models/viajes.model';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '@core/services/api.service';
-
+import { CloudinaryService } from '@core/services/cloudinary.service';
 import { ToastService } from '@core/services/toast.service';
 import { Router } from '@angular/router';
 
@@ -108,8 +108,9 @@ export class MapaGlobalComponent implements OnInit, AfterViewInit, OnDestroy {
     return continentes.size;
   });
 
-  private api = inject(ApiService);
-  private toastSvc = inject(ToastService);
+  private api       = inject(ApiService);
+  cloudinary        = inject(CloudinaryService);
+  private toastSvc  = inject(ToastService);
   private router = inject(Router);
 
   ngOnInit(): void {
