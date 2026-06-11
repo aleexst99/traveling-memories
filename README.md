@@ -185,23 +185,18 @@ Flujo: rama desde `dev` → PR a `dev` → cuando `dev` está estable → PR a `
 
 ## Futuras implementaciones
 
-**Funcionalidad pendiente**
-- Autenticación real mediante `POST /auth/login` y `POST /auth/register`
+**En desarrollo**
+- Rutas interactivas — recorrido entre ciudades trazado sobre el globo 3D
+- Compañeros de viaje — vincular usuarios reales a cada viaje, ver con quién viajas más
+- Exportar a PDF — diario de viaje completo con fotos y entradas
+
+**Próximamente**
+- Autenticación real mediante `POST /auth/login`
+- Línea de tiempo cronológica de todos los viajes
+- Recomendaciones de destinos basadas en los países visitados
+- Modo offline / PWA
 - Internacionalización (i18n) ES/EN
-- Keep-alive del backend (cron en GitHub Actions para evitar que Render se duerma)
-
-**Mejoras de experiencia**
-- Galería de fotos por viaje o entrada
-- Estadísticas del perfil: países visitados, kilómetros recorridos, tiempo total
-- Búsqueda y filtrado de viajes por fecha, país o etiqueta
-- Vista de línea de tiempo de todos los viajes
-
-**Social**
-- Perfiles públicos compartibles por URL
-- Valoraciones o comentarios entre usuarios
-
-**Técnico**
-- PWA con soporte offline
+- Keep-alive del backend (cron en GitHub Actions)
 
 ---
 
