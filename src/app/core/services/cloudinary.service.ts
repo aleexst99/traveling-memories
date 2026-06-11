@@ -27,24 +27,19 @@ export class CloudinaryService {
   }
 
   /**
-   * Devuelve una URL de Cloudinary optimizada en calidad y formato,
-   * sin recortar — el navegador gestiona el display con object-fit.
+   * Añade optimización de calidad y formato a una URL de Cloudinary.
+   * No recorta — el navegador gestiona el display con object-fit.
    * Si la URL no es de Cloudinary, la devuelve sin modificar.
    */
   avatarUrl(url: string | null | undefined): string {
     if (!url) return 'assets/icons/default-avatar.svg';
 
     const idx = url.indexOf(CLOUDINARY_UPLOAD_MARKER);
-    if (idx === -1) return url; // URL externa, no tocamos
+    if (idx === -1) return url;
 
-    const base        = url.slice(0, idx + CLOUDINARY_UPLOAD_MARKER.length);
-    const afterUpload = url.slice(idx + CLOUDINARY_UPLOAD_MARKER.length);
+    const base = url.slice(0, idx + CLOUDINARY_UPLOAD_MARKER.length);
+    const rest = url.slice(idx + CLOUDINARY_UPLOAD_MARKER.length);
 
-    // Extraemos solo v{version}/{public_id} descartando transformaciones previas
-    const versionMatch = afterUpload.match(/(v\d+\/.+)$/);
-    const publicPath   = versionMatch ? versionMatch[1] : afterUpload;
-
-    // Solo optimizamos calidad y formato — sin recorte
-    return `${base}q_90,f_auto/${publicPath}`;
+    return `${base}q_90,f_auto/${rest}`;
   }
 }
