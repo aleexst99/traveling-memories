@@ -17,6 +17,7 @@ export interface Entrada {
   dias?: number;
   description?: string;
   image?: string;
+  city?: string;
 }
 
 export interface Viaje {
