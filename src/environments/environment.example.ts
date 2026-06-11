@@ -13,4 +13,5 @@ export const environment = {
   apiKey: 'YOUR_API_KEY_HERE',
   cloudinaryCloudName: 'YOUR_CLOUD_NAME',
   cloudinaryUploadPreset: 'YOUR_UPLOAD_PRESET',
+  geoDbApiKey: 'YOUR_RAPIDAPI_KEY_HERE',  // GeoDB Cities — rapidapi.com
 };

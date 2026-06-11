@@ -52,6 +52,7 @@ export const environment = {
   apiKey: 'TU_API_KEY',
   cloudinaryCloudName: 'TU_CLOUD',
   cloudinaryUploadPreset: 'TU_PRESET',
+  geoDbApiKey: 'TU_RAPIDAPI_KEY',   // GeoDB Cities — rapidapi.com (plan Basic gratuito)
 };
 ```
 
@@ -131,21 +132,31 @@ El acceso para crear y editar viajes está restringido a los usuarios del proyec
 
 ## Modo oscuro
 
-El `ThemeService` aplica la clase `dark` o `light` en `<html>` y persiste la preferencia en `localStorage`. Todos los componentes usan CSS variables (`--bg-page`, `--color-text`, etc.) definidas en `styles.css`. El toggle está en el header del perfil.
+El `ThemeService` aplica la clase `dark` o `light` en `<html>` y persiste la preferencia en `localStorage`. Todos los componentes usan CSS variables (`--bg-page`, `--color-text`, etc.) definidas en `styles.css`. El toggle está en el navbar, accesible desde cualquier página.
+
+---
+
+## Imágenes
+
+Las imágenes se suben a **Cloudinary** con unsigned upload. Restricciones aplicadas en el frontend:
+- Formatos permitidos: JPEG y PNG
+- Tamaño máximo: 5MB por imagen
+
+`CloudinaryService.validate(file)` centraliza la validación antes de cualquier subida.
 
 ---
 
 ## Tests
 
-**82 tests, todos pasando.**
+**86 tests, todos pasando.**
 
 | Servicio / Componente | Tests | Qué cubre |
 |-----------------------|-------|-----------|
 | `AuthService` | 11 | login, logout, persistencia, canEditUser |
-| `CloudinaryService` | 6 | avatarUrl, transformaciones, fallback, URLs externas |
+| `CloudinaryService` | 11 | avatarUrl, validate (tipo, tamaño), fallback |
 | `ToastService` | 10 | tipos, auto-cierre, timing |
 | `ApiService` | 9 | mappers, HTTP mock |
-| Componentes | 46 | creación, inputs, renders |
+| Componentes | 45 | creación, inputs, renders |
 
 ---
 
@@ -165,6 +176,7 @@ Secrets necesarios en GitHub Actions:
 | `PROD_API_URL` | URL del backend de producción |
 | `CLOUDINARY_CLOUD_NAME` | Cloud name de Cloudinary |
 | `CLOUDINARY_UPLOAD_PRESET` | Upload preset de Cloudinary |
+| `GEODB_API_KEY` | X-RapidAPI-Key para GeoDB Cities |
 
 El bloque de deploy está preparado pero comentado. Se descomenta al elegir plataforma (Vercel/Netlify/Firebase).
 

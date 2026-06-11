@@ -35,6 +35,7 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
           CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
+          GEODB_API_KEY: ${{ secrets.GEODB_API_KEY }}
         run: |
           cat > src/environments/environment.ts << EOF
           export const environment = {
@@ -77,6 +78,7 @@ jobs:
           API_URL: ${{ secrets.API_URL }}
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
           CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
+          GEODB_API_KEY: ${{ secrets.GEODB_API_KEY }}
         run: npm run build:vercel
 
       - name: Upload artifact
