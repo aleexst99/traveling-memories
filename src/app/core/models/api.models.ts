@@ -1,5 +1,10 @@
 // ── Modelos exactos del backend ───────────────────────────
 
+export interface ApiToken {
+  access_token: string;
+  token_type:   string;
+}
+
 export interface ApiUserCreate {
   name: string;
   password: string;
