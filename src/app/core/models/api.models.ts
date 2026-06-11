@@ -1,5 +1,12 @@
 // ── Modelos exactos del backend ───────────────────────────
 
+export interface ApiUserCreate {
+  name: string;
+  password: string;
+  avatar_url?: string | null;
+  bio?: string | null;
+}
+
 export interface ApiUser {
   id: number;
   name: string;

@@ -9,18 +9,20 @@
 
   <div class="card-image">
     <img [src]="viaje().image" [alt]="viaje().title" />
-    @if (numEntradas() > 0) {
-      <span class="entradas-badge">{{ numEntradas() }} {{ numEntradas() === 1 ? 'entrada' : 'entradas' }}</span>
+    @if ((viaje().entradasCount ?? 0) > 0) {
+      <span class="entradas-badge">
+        {{ viaje().entradasCount }} {{ viaje().entradasCount === 1 ? 'entrada' : 'entradas' }}
+      </span>
     }
   </div>
 
   <div class="info">
     <h3>{{ viaje().title }}</h3>
 
-    @if (ultimaFecha()) {
+    @if (viaje().ultimaEntradaFecha) {
       <p class="ultima-entrada">
         <span class="dot"></span>
-        {{ ultimaFecha() | date:'MMM yyyy' }}
+        {{ viaje().ultimaEntradaFecha | date:'MMM yyyy' }}
       </p>
     } @else if (viaje().description) {
       <p>{{ viaje().description }}</p>

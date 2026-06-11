@@ -47,6 +47,13 @@ export const appConfig = {
           import('./features/login/login.component').then(m => m.LoginComponent)
       },
 
+      // Registro
+      {
+        path: 'register',
+        loadComponent: () =>
+          import('./features/register/register.component').then(m => m.RegisterComponent)
+      },
+
       // 404
       {
         path: '**',
