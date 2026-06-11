@@ -142,9 +142,10 @@ export class ViajeFormComponent implements OnInit {
       description: raw.description ?? '',
       start_date: raw.start_date || undefined,
       end_date: raw.end_date || undefined,
-      lat: raw.lat ?? undefined,
-      lng: raw.lng ?? undefined,
-      tipo: raw.tipo as 'wishlist' | 'realizado'
+      lat:      raw.lat ?? undefined,
+      lng:      raw.lng ?? undefined,
+      tipo:     raw.tipo as 'wishlist' | 'realizado',
+      flag_url: this.paisSeleccionado()?.flag_url ?? '',
     };
 
     this.guardar.emit(viaje);

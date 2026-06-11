@@ -8,8 +8,10 @@
   (keydown.space)="onCardClick()">
 
   <div class="card-image">
-    <img [src]="viaje().image" [alt]="viaje().title" />
-    @if (viaje().continent) {
+    <img [src]="viaje().image || 'assets/icons/default-trip.svg'" [alt]="viaje().title" />
+    @if (viaje().flag_url) {
+      <img class="flag-badge" [src]="viaje().flag_url" [alt]="viaje().continent" />
+    } @else if (viaje().continent) {
       <span class="entradas-badge">{{ viaje().continent }}</span>
     }
   </div>
