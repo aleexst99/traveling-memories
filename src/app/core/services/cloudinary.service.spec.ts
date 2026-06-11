@@ -22,7 +22,7 @@ describe('CloudinaryService — avatarUrl', () => {
     expect(service.avatarUrl('')).toContain('default-avatar.svg');
   });
 
-  it('inserta las transformaciones en una URL de Cloudinary', () => {
+  it('inserta las transformaciones en una URL limpia', () => {
     const original = 'https://res.cloudinary.com/demo/image/upload/v1234/avatar.jpg';
     const result   = service.avatarUrl(original, 280);
 
@@ -31,8 +31,17 @@ describe('CloudinaryService — avatarUrl', () => {
     );
   });
 
+  it('elimina transformaciones previas (q_auto/f_auto) y aplica las nuestras', () => {
+    const withExisting = 'https://res.cloudinary.com/demo/image/upload/q_auto/f_auto/v1781090243/alex.png';
+    const result       = service.avatarUrl(withExisting, 280);
+
+    expect(result).toBe(
+      'https://res.cloudinary.com/demo/image/upload/c_fill,g_face,w_280,h_280,q_90,f_auto/v1781090243/alex.png'
+    );
+  });
+
   it('respeta el tamaño personalizado', () => {
-    const original = 'https://res.cloudinary.com/demo/image/upload/avatar.jpg';
+    const original = 'https://res.cloudinary.com/demo/image/upload/v1234/avatar.jpg';
     const result   = service.avatarUrl(original, 100);
 
     expect(result).toContain('w_100,h_100');
@@ -43,11 +52,10 @@ describe('CloudinaryService — avatarUrl', () => {
     expect(service.avatarUrl(external)).toBe(external);
   });
 
-  it('no reaplica transformaciones si la URL ya las lleva', () => {
-    const already = 'https://res.cloudinary.com/demo/image/upload/c_fill,g_face,w_280,h_280,q_90,f_auto/avatar.jpg';
+  it('no duplica c_fill si la URL ya tiene nuestras transformaciones', () => {
+    const already = 'https://res.cloudinary.com/demo/image/upload/c_fill,g_face,w_280,h_280,q_90,f_auto/v1234/avatar.jpg';
     const result  = service.avatarUrl(already, 280);
 
-    // No debe duplicar el bloque de transformaciones
     const count = (result.match(/c_fill/g) || []).length;
     expect(count).toBe(1);
   });

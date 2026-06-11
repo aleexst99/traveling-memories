@@ -40,13 +40,16 @@ export class CloudinaryService {
     const idx = url.indexOf(CLOUDINARY_UPLOAD_MARKER);
     if (idx === -1) return url; // URL externa, no tocamos
 
-    const base = url.slice(0, idx + CLOUDINARY_UPLOAD_MARKER.length);
-    const rest = url.slice(idx + CLOUDINARY_UPLOAD_MARKER.length);
+    const base     = url.slice(0, idx + CLOUDINARY_UPLOAD_MARKER.length);
+    const afterUpload = url.slice(idx + CLOUDINARY_UPLOAD_MARKER.length);
 
-    // Evita duplicar transformaciones si la URL ya las lleva
-    if (rest.startsWith('c_fill')) return url;
+    // Extraemos solo v{version}/{public_id} descartando cualquier
+    // transformación previa que pueda estar en la URL (ej: q_auto/f_auto/...)
+    // Si no hay versión explícita, tomamos el segmento final directamente.
+    const versionMatch = afterUpload.match(/(v\d+\/.+)$/);
+    const publicPath   = versionMatch ? versionMatch[1] : afterUpload;
 
     const transforms = `c_fill,g_face,w_${sizePx},h_${sizePx},q_90,f_auto`;
-    return `${base}${transforms}/${rest}`;
+    return `${base}${transforms}/${publicPath}`;
   }
 }
