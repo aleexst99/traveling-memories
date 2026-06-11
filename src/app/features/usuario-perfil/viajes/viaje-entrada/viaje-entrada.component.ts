@@ -71,6 +71,12 @@ export class ViajeEntradaComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
+    const error = this.cloudinary.validate(file);
+    if (error) {
+      this.toast.error(error);
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = () => this.previewImagen.set(reader.result as string);
     reader.readAsDataURL(file);
