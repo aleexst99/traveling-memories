@@ -27,7 +27,7 @@ describe('CloudinaryService — avatarUrl', () => {
     const result   = service.avatarUrl(original, 280);
 
     expect(result).toBe(
-      'https://res.cloudinary.com/demo/image/upload/c_fill,g_face,w_280,h_280,q_auto,f_auto/v1234/avatar.jpg'
+      'https://res.cloudinary.com/demo/image/upload/c_fill,g_face,w_280,h_280,q_90,f_auto/v1234/avatar.jpg'
     );
   });
 
@@ -44,7 +44,7 @@ describe('CloudinaryService — avatarUrl', () => {
   });
 
   it('no reaplica transformaciones si la URL ya las lleva', () => {
-    const already = 'https://res.cloudinary.com/demo/image/upload/c_fill,g_face,w_280,h_280,q_auto,f_auto/avatar.jpg';
+    const already = 'https://res.cloudinary.com/demo/image/upload/c_fill,g_face,w_280,h_280,q_90,f_auto/avatar.jpg';
     const result  = service.avatarUrl(already, 280);
 
     // No debe duplicar el bloque de transformaciones

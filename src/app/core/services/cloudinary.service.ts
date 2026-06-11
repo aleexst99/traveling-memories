@@ -46,7 +46,7 @@ export class CloudinaryService {
     // Evita duplicar transformaciones si la URL ya las lleva
     if (rest.startsWith('c_fill')) return url;
 
-    const transforms = `c_fill,g_face,w_${sizePx},h_${sizePx},q_auto,f_auto`;
+    const transforms = `c_fill,g_face,w_${sizePx},h_${sizePx},q_90,f_auto`;
     return `${base}${transforms}/${rest}`;
   }
 }
