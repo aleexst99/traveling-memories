@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
+import { ThemeService } from '@core/services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,8 @@ import { AuthService } from '@core/services/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  auth = inject(AuthService);
+  auth   = inject(AuthService);
+  theme  = inject(ThemeService);
   private router = inject(Router);
 
   menuAbierto = signal(false);

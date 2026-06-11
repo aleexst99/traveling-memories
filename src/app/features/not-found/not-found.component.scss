@@ -5,8 +5,8 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  background: linear-gradient(180deg, #111 0%, #1c1c1e 100%);
-  color: #fff;
+  background: var(--gradient-page);
+  color: var(--color-text);
   text-align: center;
   padding: 2rem;
 
@@ -24,14 +24,14 @@
   }
 
   p {
-    color: #888;
+    color: var(--color-text-faint);
     font-size: 1rem;
   }
 
   .btn-home {
     margin-top: 1rem;
     background: #007bff;
-    color: #fff;
+    color: var(--color-text);
     padding: 0.7rem 1.5rem;
     border-radius: 10px;
     text-decoration: none;
