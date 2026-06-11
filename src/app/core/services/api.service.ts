@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '@environments/environment';
 import {
-  ApiUser, ApiUserCreate, ApiUserUpdate, ApiTripCreate, ApiTripOut,
-  ApiTripEntryCreate, ApiTripEntryOut,
+  ApiUser, ApiUserCreate, ApiUserUpdate, ApiToken,
+  ApiTripCreate, ApiTripOut, ApiTripEntryCreate, ApiTripEntryOut,
 } from '@core/models/api.models';
 import { Viaje, Entrada, Country } from '@core/models/viajes.model';
 import { User } from '@core/models/user.model';
@@ -26,6 +26,14 @@ export class ApiService {
   }
 
   // ── Auth ─────────────────────────────────────────────────
+
+  login(username: string, password: string): Observable<ApiToken> {
+    // El backend espera application/x-www-form-urlencoded (OAuth2 Password flow)
+    const body = new URLSearchParams({ username, password }).toString();
+    return this.http.post<ApiToken>(`${this.base}/auth/login`, body, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    });
+  }
 
   register(data: ApiUserCreate): Observable<User> {
     return this.http.post<ApiUser>(`${this.base}/auth/register`, data).pipe(
