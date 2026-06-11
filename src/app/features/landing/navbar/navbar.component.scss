@@ -33,6 +33,17 @@
       &:hover { color: #f4a943; }
     }
 
+    .btn-theme {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 0.3rem 0.5rem;
+      border-radius: 8px;
+      transition: background 0.2s;
+      &:hover { background: rgba(255,255,255,0.1); }
+    }
+
     .btn-login {
       background: #007bff;
       color: #fff !important;

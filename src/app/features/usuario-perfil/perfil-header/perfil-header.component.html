@@ -24,14 +24,11 @@
         </div>
       }
 
-      <div class="acciones">
-        <button class="modo" (click)="theme.toggle()">
-          {{ theme.isDark() ? '☀️ Modo claro' : '🌙 Modo oscuro' }}
-        </button>
-        @if (auth.canEditUser(user().id)) {
+      @if (auth.canEditUser(user().id)) {
+        <div class="acciones">
           <button class="btn-edit" (click)="abrirEdicion()">✏️ Editar perfil</button>
-        }
-      </div>
+        </div>
+      }
 
     } @else {
       <form [formGroup]="editForm" class="edit-form">

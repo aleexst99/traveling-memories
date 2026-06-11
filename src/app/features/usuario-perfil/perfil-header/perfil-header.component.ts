@@ -5,7 +5,6 @@ import { ApiService } from '@core/services/api.service';
 import { CloudinaryService } from '@core/services/cloudinary.service';
 import { ToastService } from '@core/services/toast.service';
 import { AuthService } from '@core/services/auth.service';
-import { ThemeService } from '@core/services/theme.service';
 
 @Component({
   selector: 'app-perfil-header',
@@ -22,7 +21,6 @@ export class PerfilHeaderComponent {
           cloudinary = inject(CloudinaryService);
   private toast      = inject(ToastService);
           auth       = inject(AuthService);
-          theme      = inject(ThemeService);
   private fb         = inject(FormBuilder);
 
   displayName    = computed(() => this.user().name.toUpperCase());
