@@ -86,6 +86,8 @@ describe('ApiService — todos los endpoints', () => {
     });
     service = TestBed.inject(ApiService);
     http = TestBed.inject(HttpTestingController);
+    // El servicio precarga countries.json en el constructor
+    http.expectOne('assets/countries.json').flush([]);
   });
 
   afterEach(() => http.verify()); // asegura que no quedan peticiones sin atender

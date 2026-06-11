@@ -6,9 +6,10 @@
     "ccn3": "004",
     "region": "Asia",
     "latlng": [
-      33.0,
-      65.0
-    ]
+      33,
+      65
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Afghanistan_%28Colored_Emblem%29.svg"
   },
   {
     "name": {
@@ -17,9 +18,10 @@
     "ccn3": "008",
     "region": "Europe",
     "latlng": [
-      41.0,
-      20.0
-    ]
+      41,
+      20
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg"
   },
   {
     "name": {
@@ -28,9 +30,10 @@
     "ccn3": "012",
     "region": "Africa",
     "latlng": [
-      28.0,
-      3.0
-    ]
+      28,
+      3
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Algeria.svg"
   },
   {
     "name": {
@@ -40,8 +43,9 @@
     "region": "Oceania",
     "latlng": [
       -14.33333333,
-      -170.0
-    ]
+      -170
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
   },
   {
     "name": {
@@ -52,7 +56,8 @@
     "latlng": [
       42.5,
       1.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Andorra.svg"
   },
   {
     "name": {
@@ -63,7 +68,8 @@
     "latlng": [
       -12.5,
       18.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Angola.svg"
   },
   {
     "name": {
@@ -74,7 +80,8 @@
     "latlng": [
       18.25,
       -63.16666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Anguilla.svg"
   },
   {
     "name": {
@@ -83,9 +90,10 @@
     "ccn3": "010",
     "region": "Antarctic",
     "latlng": [
-      -90.0,
-      0.0
-    ]
+      -90,
+      0
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -96,7 +104,8 @@
     "latlng": [
       17.05,
       -61.8
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Antigua_and_Barbuda.svg"
   },
   {
     "name": {
@@ -105,9 +114,10 @@
     "ccn3": "032",
     "region": "Americas",
     "latlng": [
-      -34.0,
-      -64.0
-    ]
+      -34,
+      -64
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg"
   },
   {
     "name": {
@@ -116,9 +126,10 @@
     "ccn3": "051",
     "region": "Asia",
     "latlng": [
-      40.0,
-      45.0
-    ]
+      40,
+      45
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Flag_of_Armenia.svg"
   },
   {
     "name": {
@@ -129,7 +140,8 @@
     "latlng": [
       12.5,
       -69.96666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Aruba.svg"
   },
   {
     "name": {
@@ -138,9 +150,10 @@
     "ccn3": "036",
     "region": "Oceania",
     "latlng": [
-      -27.0,
-      133.0
-    ]
+      -27,
+      133
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg"
   },
   {
     "name": {
@@ -151,7 +164,8 @@
     "latlng": [
       47.33333333,
       13.33333333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg"
   },
   {
     "name": {
@@ -162,7 +176,8 @@
     "latlng": [
       40.5,
       47.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Azerbaijan.svg"
   },
   {
     "name": {
@@ -173,7 +188,8 @@
     "latlng": [
       25.0343,
       -77.3963
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/93/Flag_of_the_Bahamas.svg"
   },
   {
     "name": {
@@ -182,9 +198,10 @@
     "ccn3": "048",
     "region": "Asia",
     "latlng": [
-      26.0,
+      26,
       50.55
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Bahrain.svg"
   },
   {
     "name": {
@@ -193,9 +210,10 @@
     "ccn3": "050",
     "region": "Asia",
     "latlng": [
-      24.0,
-      90.0
-    ]
+      24,
+      90
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Flag_of_Bangladesh.svg"
   },
   {
     "name": {
@@ -206,7 +224,8 @@
     "latlng": [
       13.16666666,
       -59.53333333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Flag_of_Barbados.svg"
   },
   {
     "name": {
@@ -215,9 +234,10 @@
     "ccn3": "112",
     "region": "Europe",
     "latlng": [
-      53.0,
-      28.0
-    ]
+      53,
+      28
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/8/85/Flag_of_Belarus.svg"
   },
   {
     "name": {
@@ -227,8 +247,9 @@
     "region": "Europe",
     "latlng": [
       50.83333333,
-      4.0
-    ]
+      4
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg"
   },
   {
     "name": {
@@ -239,7 +260,8 @@
     "latlng": [
       17.25,
       -88.75
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Flag_of_Belize.svg"
   },
   {
     "name": {
@@ -250,7 +272,8 @@
     "latlng": [
       9.5,
       2.25
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Benin.svg"
   },
   {
     "name": {
@@ -261,7 +284,8 @@
     "latlng": [
       32.33333333,
       -64.75
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bermuda.svg"
   },
   {
     "name": {
@@ -272,7 +296,8 @@
     "latlng": [
       27.5,
       90.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Flag_of_Bhutan.svg"
   },
   {
     "name": {
@@ -281,9 +306,10 @@
     "ccn3": "068",
     "region": "Americas",
     "latlng": [
-      -17.0,
-      -65.0
-    ]
+      -17,
+      -65
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -292,9 +318,10 @@
     "ccn3": "070",
     "region": "Europe",
     "latlng": [
-      44.0,
-      18.0
-    ]
+      44,
+      18
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bosnia_and_Herzegovina.svg"
   },
   {
     "name": {
@@ -303,9 +330,10 @@
     "ccn3": "072",
     "region": "Africa",
     "latlng": [
-      -22.0,
-      24.0
-    ]
+      -22,
+      24
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Botswana.svg"
   },
   {
     "name": {
@@ -316,7 +344,8 @@
     "latlng": [
       -54.4208,
       3.3464
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg"
   },
   {
     "name": {
@@ -325,9 +354,10 @@
     "ccn3": "076",
     "region": "Americas",
     "latlng": [
-      -10.0,
-      -55.0
-    ]
+      -10,
+      -55
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg"
   },
   {
     "name": {
@@ -336,9 +366,10 @@
     "ccn3": "086",
     "region": "Africa",
     "latlng": [
-      -6.0,
+      -6,
       71.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_the_Commissioner_of_the_British_Indian_Ocean_Territory.svg"
   },
   {
     "name": {
@@ -349,7 +380,8 @@
     "latlng": [
       18.431383,
       -64.62305
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
   },
   {
     "name": {
@@ -360,7 +392,8 @@
     "latlng": [
       4.5,
       114.66666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Brunei.svg"
   },
   {
     "name": {
@@ -369,9 +402,10 @@
     "ccn3": "100",
     "region": "Europe",
     "latlng": [
-      43.0,
-      25.0
-    ]
+      43,
+      25
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Bulgaria.svg"
   },
   {
     "name": {
@@ -380,9 +414,10 @@
     "ccn3": "854",
     "region": "Africa",
     "latlng": [
-      13.0,
-      -2.0
-    ]
+      13,
+      -2
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Burkina_Faso.svg"
   },
   {
     "name": {
@@ -392,8 +427,9 @@
     "region": "Africa",
     "latlng": [
       -3.5,
-      30.0
-    ]
+      30
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Flag_of_Burundi.svg"
   },
   {
     "name": {
@@ -402,9 +438,10 @@
     "ccn3": "116",
     "region": "Asia",
     "latlng": [
-      13.0,
-      105.0
-    ]
+      13,
+      105
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_Cambodia.svg"
   },
   {
     "name": {
@@ -413,9 +450,10 @@
     "ccn3": "120",
     "region": "Africa",
     "latlng": [
-      6.0,
-      12.0
-    ]
+      6,
+      12
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Cameroon.svg"
   },
   {
     "name": {
@@ -424,9 +462,10 @@
     "ccn3": "124",
     "region": "Americas",
     "latlng": [
-      60.0,
-      -95.0
-    ]
+      60,
+      -95
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/c/cf/Flag_of_Canada.svg"
   },
   {
     "name": {
@@ -437,7 +476,8 @@
     "latlng": [
       16.5388,
       -23.0418
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Cape_Verde.svg"
   },
   {
     "name": {
@@ -448,7 +488,8 @@
     "latlng": [
       12.18,
       -68.25
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
   },
   {
     "name": {
@@ -459,7 +500,8 @@
     "latlng": [
       19.3133,
       -81.2546
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_the_Cayman_Islands.svg"
   },
   {
     "name": {
@@ -468,9 +510,10 @@
     "ccn3": "140",
     "region": "Africa",
     "latlng": [
-      7.0,
-      21.0
-    ]
+      7,
+      21
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_the_Central_African_Republic.svg"
   },
   {
     "name": {
@@ -479,9 +522,10 @@
     "ccn3": "148",
     "region": "Africa",
     "latlng": [
-      15.0,
-      19.0
-    ]
+      15,
+      19
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Flag_of_Chad.svg"
   },
   {
     "name": {
@@ -490,9 +534,10 @@
     "ccn3": "152",
     "region": "Americas",
     "latlng": [
-      -30.0,
-      -71.0
-    ]
+      -30,
+      -71
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/78/Flag_of_Chile.svg"
   },
   {
     "name": {
@@ -501,9 +546,10 @@
     "ccn3": "156",
     "region": "Asia",
     "latlng": [
-      35.0,
-      105.0
-    ]
+      35,
+      105
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg"
   },
   {
     "name": {
@@ -514,7 +560,8 @@
     "latlng": [
       -10.5,
       105.66666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/67/Flag_of_Christmas_Island.svg"
   },
   {
     "name": {
@@ -525,7 +572,8 @@
     "latlng": [
       -12.1642,
       96.871
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Cocos_%28Keeling%29_Islands.svg"
   },
   {
     "name": {
@@ -534,9 +582,10 @@
     "ccn3": "170",
     "region": "Americas",
     "latlng": [
-      4.0,
-      -72.0
-    ]
+      4,
+      -72
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Colombia.svg"
   },
   {
     "name": {
@@ -547,7 +596,8 @@
     "latlng": [
       -12.16666666,
       44.25
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/94/Flag_of_the_Comoros.svg"
   },
   {
     "name": {
@@ -558,7 +608,8 @@
     "latlng": [
       -21.23333333,
       -159.76666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/35/Flag_of_the_Cook_Islands.svg"
   },
   {
     "name": {
@@ -567,9 +618,10 @@
     "ccn3": "188",
     "region": "Americas",
     "latlng": [
-      10.0,
-      -84.0
-    ]
+      10,
+      -84
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Costa_Rica_%28state%29.svg"
   },
   {
     "name": {
@@ -580,7 +632,8 @@
     "latlng": [
       45.16666666,
       15.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Croatia.svg"
   },
   {
     "name": {
@@ -590,8 +643,9 @@
     "region": "Americas",
     "latlng": [
       21.5,
-      -80.0
-    ]
+      -80
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Flag_of_Cuba.svg"
   },
   {
     "name": {
@@ -602,7 +656,8 @@
     "latlng": [
       12.116667,
       -68.933333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
   },
   {
     "name": {
@@ -611,9 +666,10 @@
     "ccn3": "196",
     "region": "Europe",
     "latlng": [
-      35.0,
-      33.0
-    ]
+      35,
+      33
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Cyprus.svg"
   },
   {
     "name": {
@@ -624,7 +680,8 @@
     "latlng": [
       49.75,
       15.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_Czech_Republic.svg"
   },
   {
     "name": {
@@ -633,9 +690,10 @@
     "ccn3": "180",
     "region": "Africa",
     "latlng": [
-      0.0,
-      25.0
-    ]
+      0,
+      25
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -644,9 +702,10 @@
     "ccn3": "208",
     "region": "Europe",
     "latlng": [
-      56.0,
-      10.0
-    ]
+      56,
+      10
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Denmark.svg"
   },
   {
     "name": {
@@ -656,8 +715,9 @@
     "region": "Africa",
     "latlng": [
       11.5,
-      43.0
-    ]
+      43
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_Djibouti.svg"
   },
   {
     "name": {
@@ -668,7 +728,8 @@
     "latlng": [
       15.41666666,
       -61.33333333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Flag_of_Dominica.svg"
   },
   {
     "name": {
@@ -677,9 +738,10 @@
     "ccn3": "214",
     "region": "Americas",
     "latlng": [
-      19.0,
+      19,
       -70.66666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_the_Dominican_Republic.svg"
   },
   {
     "name": {
@@ -688,9 +750,10 @@
     "ccn3": "218",
     "region": "Americas",
     "latlng": [
-      -2.0,
+      -2,
       -77.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Flag_of_Ecuador.svg"
   },
   {
     "name": {
@@ -699,9 +762,10 @@
     "ccn3": "818",
     "region": "Africa",
     "latlng": [
-      27.0,
-      30.0
-    ]
+      27,
+      30
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg"
   },
   {
     "name": {
@@ -712,7 +776,8 @@
     "latlng": [
       13.83333333,
       -88.91666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_El_Salvador.svg"
   },
   {
     "name": {
@@ -721,9 +786,10 @@
     "ccn3": "226",
     "region": "Africa",
     "latlng": [
-      2.0,
-      10.0
-    ]
+      2,
+      10
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Equatorial_Guinea.svg"
   },
   {
     "name": {
@@ -732,9 +798,10 @@
     "ccn3": "232",
     "region": "Africa",
     "latlng": [
-      15.0,
-      39.0
-    ]
+      15,
+      39
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_Eritrea.svg"
   },
   {
     "name": {
@@ -743,9 +810,10 @@
     "ccn3": "233",
     "region": "Europe",
     "latlng": [
-      59.0,
-      26.0
-    ]
+      59,
+      26
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Flag_of_Estonia.svg"
   },
   {
     "name": {
@@ -756,7 +824,8 @@
     "latlng": [
       -26.5,
       31.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Flag_of_Eswatini.svg"
   },
   {
     "name": {
@@ -765,9 +834,10 @@
     "ccn3": "231",
     "region": "Africa",
     "latlng": [
-      8.0,
-      38.0
-    ]
+      8,
+      38
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg"
   },
   {
     "name": {
@@ -777,8 +847,9 @@
     "region": "Americas",
     "latlng": [
       -51.75,
-      -59.0
-    ]
+      -59
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_Falkland_Islands.svg"
   },
   {
     "name": {
@@ -787,9 +858,10 @@
     "ccn3": "234",
     "region": "Europe",
     "latlng": [
-      62.0,
-      -7.0
-    ]
+      62,
+      -7
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Flag_of_the_Faroe_Islands.svg"
   },
   {
     "name": {
@@ -800,7 +872,8 @@
     "latlng": [
       -17.7134,
       178.065
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Fiji.svg"
   },
   {
     "name": {
@@ -809,9 +882,10 @@
     "ccn3": "246",
     "region": "Europe",
     "latlng": [
-      64.0,
-      26.0
-    ]
+      64,
+      26
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Finland.svg"
   },
   {
     "name": {
@@ -820,9 +894,10 @@
     "ccn3": "250",
     "region": "Europe",
     "latlng": [
-      46.0,
-      2.0
-    ]
+      46,
+      2
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
   },
   {
     "name": {
@@ -831,9 +906,10 @@
     "ccn3": "254",
     "region": "Americas",
     "latlng": [
-      4.0,
-      -53.0
-    ]
+      4,
+      -53
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
   },
   {
     "name": {
@@ -844,7 +920,8 @@
     "latlng": [
       -17.6797,
       -149.4068
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Flag_of_French_Polynesia.svg"
   },
   {
     "name": {
@@ -855,7 +932,8 @@
     "latlng": [
       -49.25,
       69.167
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
   },
   {
     "name": {
@@ -864,9 +942,10 @@
     "ccn3": "266",
     "region": "Africa",
     "latlng": [
-      -1.0,
+      -1,
       11.75
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/04/Flag_of_Gabon.svg"
   },
   {
     "name": {
@@ -877,7 +956,8 @@
     "latlng": [
       13.46666666,
       -16.56666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_The_Gambia.svg"
   },
   {
     "name": {
@@ -886,9 +966,10 @@
     "ccn3": "268",
     "region": "Asia",
     "latlng": [
-      42.0,
+      42,
       43.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Georgia.svg"
   },
   {
     "name": {
@@ -897,9 +978,10 @@
     "ccn3": "276",
     "region": "Europe",
     "latlng": [
-      51.0,
-      9.0
-    ]
+      51,
+      9
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg"
   },
   {
     "name": {
@@ -908,9 +990,10 @@
     "ccn3": "288",
     "region": "Africa",
     "latlng": [
-      8.0,
-      -2.0
-    ]
+      8,
+      -2
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Ghana.svg"
   },
   {
     "name": {
@@ -921,7 +1004,8 @@
     "latlng": [
       36.13333333,
       -5.35
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/02/Flag_of_Gibraltar.svg"
   },
   {
     "name": {
@@ -930,9 +1014,10 @@
     "ccn3": "300",
     "region": "Europe",
     "latlng": [
-      39.0,
-      22.0
-    ]
+      39,
+      22
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Greece.svg"
   },
   {
     "name": {
@@ -941,9 +1026,10 @@
     "ccn3": "304",
     "region": "Americas",
     "latlng": [
-      72.0,
-      -40.0
-    ]
+      72,
+      -40
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_Greenland.svg"
   },
   {
     "name": {
@@ -954,7 +1040,8 @@
     "latlng": [
       12.11666666,
       -61.66666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Grenada.svg"
   },
   {
     "name": {
@@ -965,7 +1052,8 @@
     "latlng": [
       16.25,
       -61.583333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Flag_of_Guadeloupe_%28local%29_variant.svg"
   },
   {
     "name": {
@@ -976,7 +1064,8 @@
     "latlng": [
       13.46666666,
       144.78333333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/07/Flag_of_Guam.svg"
   },
   {
     "name": {
@@ -987,7 +1076,8 @@
     "latlng": [
       15.5,
       -90.25
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Flag_of_Guatemala.svg"
   },
   {
     "name": {
@@ -998,7 +1088,8 @@
     "latlng": [
       49.46666666,
       -2.58333333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Guernsey.svg"
   },
   {
     "name": {
@@ -1007,9 +1098,10 @@
     "ccn3": "324",
     "region": "Africa",
     "latlng": [
-      11.0,
-      -10.0
-    ]
+      11,
+      -10
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Flag_of_Guinea.svg"
   },
   {
     "name": {
@@ -1018,9 +1110,10 @@
     "ccn3": "624",
     "region": "Africa",
     "latlng": [
-      12.0,
-      -15.0
-    ]
+      12,
+      -15
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Guinea-Bissau.svg"
   },
   {
     "name": {
@@ -1029,9 +1122,10 @@
     "ccn3": "328",
     "region": "Americas",
     "latlng": [
-      5.0,
-      -59.0
-    ]
+      5,
+      -59
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_Guyana.svg"
   },
   {
     "name": {
@@ -1040,9 +1134,10 @@
     "ccn3": "332",
     "region": "Americas",
     "latlng": [
-      19.0,
+      19,
       -72.41666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Haiti.svg"
   },
   {
     "name": {
@@ -1053,7 +1148,8 @@
     "latlng": [
       -53.0818,
       73.5042
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg"
   },
   {
     "name": {
@@ -1062,9 +1158,10 @@
     "ccn3": "340",
     "region": "Americas",
     "latlng": [
-      15.0,
+      15,
       -86.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Naval_Ensign_of_Honduras.svg"
   },
   {
     "name": {
@@ -1075,7 +1172,8 @@
     "latlng": [
       22.267,
       114.188
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Flag_of_Hong_Kong.svg"
   },
   {
     "name": {
@@ -1084,9 +1182,10 @@
     "ccn3": "348",
     "region": "Europe",
     "latlng": [
-      47.0,
-      20.0
-    ]
+      47,
+      20
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg"
   },
   {
     "name": {
@@ -1095,9 +1194,10 @@
     "ccn3": "352",
     "region": "Europe",
     "latlng": [
-      65.0,
-      -18.0
-    ]
+      65,
+      -18
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Iceland.svg"
   },
   {
     "name": {
@@ -1106,9 +1206,10 @@
     "ccn3": "356",
     "region": "Asia",
     "latlng": [
-      20.0,
-      77.0
-    ]
+      20,
+      77
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg"
   },
   {
     "name": {
@@ -1117,9 +1218,10 @@
     "ccn3": "360",
     "region": "Asia",
     "latlng": [
-      -5.0,
-      120.0
-    ]
+      -5,
+      120
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg"
   },
   {
     "name": {
@@ -1128,9 +1230,10 @@
     "ccn3": "364",
     "region": "Asia",
     "latlng": [
-      32.0,
-      53.0
-    ]
+      32,
+      53
+    ],
+    "flag_url": " https://upload.wikimedia.org/wikipedia/commons/c/ca/Flag_of_Iran.svg"
   },
   {
     "name": {
@@ -1139,9 +1242,10 @@
     "ccn3": "368",
     "region": "Asia",
     "latlng": [
-      33.0,
-      44.0
-    ]
+      33,
+      44
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg"
   },
   {
     "name": {
@@ -1150,9 +1254,10 @@
     "ccn3": "372",
     "region": "Europe",
     "latlng": [
-      53.0,
-      -8.0
-    ]
+      53,
+      -8
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg"
   },
   {
     "name": {
@@ -1163,7 +1268,8 @@
     "latlng": [
       54.25,
       -4.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_the_Isle_of_Man.svg"
   },
   {
     "name": {
@@ -1174,7 +1280,8 @@
     "latlng": [
       31.47,
       35.13
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg"
   },
   {
     "name": {
@@ -1185,7 +1292,8 @@
     "latlng": [
       42.83333333,
       12.83333333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg"
   },
   {
     "name": {
@@ -1194,9 +1302,10 @@
     "ccn3": "384",
     "region": "Africa",
     "latlng": [
-      8.0,
-      -5.0
-    ]
+      8,
+      -5
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -1207,7 +1316,8 @@
     "latlng": [
       18.25,
       -77.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Jamaica.svg"
   },
   {
     "name": {
@@ -1216,9 +1326,10 @@
     "ccn3": "392",
     "region": "Asia",
     "latlng": [
-      36.0,
-      138.0
-    ]
+      36,
+      138
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg"
   },
   {
     "name": {
@@ -1229,7 +1340,8 @@
     "latlng": [
       49.25,
       -2.16666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Flag_of_Jersey.svg"
   },
   {
     "name": {
@@ -1238,9 +1350,10 @@
     "ccn3": "400",
     "region": "Asia",
     "latlng": [
-      31.0,
-      36.0
-    ]
+      31,
+      36
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Flag_of_Jordan.svg"
   },
   {
     "name": {
@@ -1251,7 +1364,8 @@
     "latlng": [
       48.0196,
       66.9237
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kazakhstan.svg"
   },
   {
     "name": {
@@ -1260,9 +1374,10 @@
     "ccn3": "404",
     "region": "Africa",
     "latlng": [
-      1.0,
-      38.0
-    ]
+      1,
+      38
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Kenya.svg"
   },
   {
     "name": {
@@ -1272,8 +1387,9 @@
     "region": "Oceania",
     "latlng": [
       1.41666666,
-      173.0
-    ]
+      173
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kiribati.svg"
   },
   {
     "name": {
@@ -1284,7 +1400,8 @@
     "latlng": [
       42.666667,
       21.166667
-    ]
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -1295,7 +1412,8 @@
     "latlng": [
       29.5,
       45.75
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Flag_of_Kuwait.svg"
   },
   {
     "name": {
@@ -1304,9 +1422,10 @@
     "ccn3": "417",
     "region": "Asia",
     "latlng": [
-      41.0,
-      75.0
-    ]
+      41,
+      75
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Flag_of_Kyrgyzstan.svg"
   },
   {
     "name": {
@@ -1315,9 +1434,10 @@
     "ccn3": "418",
     "region": "Asia",
     "latlng": [
-      18.0,
-      105.0
-    ]
+      18,
+      105
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Laos.svg"
   },
   {
     "name": {
@@ -1326,9 +1446,10 @@
     "ccn3": "428",
     "region": "Europe",
     "latlng": [
-      57.0,
-      25.0
-    ]
+      57,
+      25
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Latvia.svg"
   },
   {
     "name": {
@@ -1339,7 +1460,8 @@
     "latlng": [
       33.83333333,
       35.83333333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Flag_of_Lebanon.svg"
   },
   {
     "name": {
@@ -1350,7 +1472,8 @@
     "latlng": [
       -29.5,
       28.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Flag_of_Lesotho.svg"
   },
   {
     "name": {
@@ -1361,7 +1484,8 @@
     "latlng": [
       6.5,
       -9.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Flag_of_Liberia.svg"
   },
   {
     "name": {
@@ -1370,9 +1494,10 @@
     "ccn3": "434",
     "region": "Africa",
     "latlng": [
-      25.0,
-      17.0
-    ]
+      25,
+      17
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -1383,7 +1508,8 @@
     "latlng": [
       47.26666666,
       9.53333333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/47/Flag_of_Liechtenstein.svg"
   },
   {
     "name": {
@@ -1392,9 +1518,10 @@
     "ccn3": "440",
     "region": "Europe",
     "latlng": [
-      56.0,
-      24.0
-    ]
+      56,
+      24
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Lithuania.svg"
   },
   {
     "name": {
@@ -1405,7 +1532,8 @@
     "latlng": [
       49.75,
       6.16666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/da/Flag_of_Luxembourg.svg"
   },
   {
     "name": {
@@ -1416,7 +1544,8 @@
     "latlng": [
       22.16666666,
       113.55
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/63/Flag_of_Macau.svg"
   },
   {
     "name": {
@@ -1425,9 +1554,10 @@
     "ccn3": "450",
     "region": "Africa",
     "latlng": [
-      -20.0,
-      47.0
-    ]
+      -20,
+      47
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Madagascar.svg"
   },
   {
     "name": {
@@ -1437,8 +1567,9 @@
     "region": "Africa",
     "latlng": [
       -13.5,
-      34.0
-    ]
+      34
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Flag_of_Malawi.svg"
   },
   {
     "name": {
@@ -1449,7 +1580,8 @@
     "latlng": [
       2.5,
       112.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Malaysia.svg"
   },
   {
     "name": {
@@ -1459,8 +1591,9 @@
     "region": "Asia",
     "latlng": [
       3.25,
-      73.0
-    ]
+      73
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Maldives.svg"
   },
   {
     "name": {
@@ -1469,9 +1602,10 @@
     "ccn3": "466",
     "region": "Africa",
     "latlng": [
-      17.0,
-      -4.0
-    ]
+      17,
+      -4
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_Mali.svg"
   },
   {
     "name": {
@@ -1482,7 +1616,8 @@
     "latlng": [
       35.9375,
       14.3754
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Malta.svg"
   },
   {
     "name": {
@@ -1491,9 +1626,10 @@
     "ccn3": "584",
     "region": "Oceania",
     "latlng": [
-      9.0,
-      168.0
-    ]
+      9,
+      168
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Flag_of_the_Marshall_Islands.svg"
   },
   {
     "name": {
@@ -1503,8 +1639,9 @@
     "region": "Americas",
     "latlng": [
       14.666667,
-      -61.0
-    ]
+      -61
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/64/Snake_Flag_of_Martinique.svg"
   },
   {
     "name": {
@@ -1513,9 +1650,10 @@
     "ccn3": "478",
     "region": "Africa",
     "latlng": [
-      20.0,
-      -12.0
-    ]
+      20,
+      -12
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/Flag_of_Mauritania.svg"
   },
   {
     "name": {
@@ -1526,7 +1664,8 @@
     "latlng": [
       -20.28333333,
       57.55
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Mauritius.svg"
   },
   {
     "name": {
@@ -1537,7 +1676,8 @@
     "latlng": [
       -12.83333333,
       45.16666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
   },
   {
     "name": {
@@ -1546,9 +1686,10 @@
     "ccn3": "484",
     "region": "Americas",
     "latlng": [
-      23.0,
-      -102.0
-    ]
+      23,
+      -102
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg"
   },
   {
     "name": {
@@ -1559,7 +1700,8 @@
     "latlng": [
       6.91666666,
       158.25
-    ]
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -1568,9 +1710,10 @@
     "ccn3": "498",
     "region": "Europe",
     "latlng": [
-      47.0,
-      29.0
-    ]
+      47,
+      29
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -1581,7 +1724,8 @@
     "latlng": [
       43.73333333,
       7.4
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Flag_of_Monaco.svg"
   },
   {
     "name": {
@@ -1590,9 +1734,10 @@
     "ccn3": "496",
     "region": "Asia",
     "latlng": [
-      46.0,
-      105.0
-    ]
+      46,
+      105
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Flag_of_Mongolia.svg"
   },
   {
     "name": {
@@ -1603,7 +1748,8 @@
     "latlng": [
       42.5,
       19.3
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg"
   },
   {
     "name": {
@@ -1614,7 +1760,8 @@
     "latlng": [
       16.75,
       -62.2
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Montserrat.svg"
   },
   {
     "name": {
@@ -1623,9 +1770,10 @@
     "ccn3": "504",
     "region": "Africa",
     "latlng": [
-      32.0,
-      -5.0
-    ]
+      32,
+      -5
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Morocco.svg"
   },
   {
     "name": {
@@ -1635,8 +1783,9 @@
     "region": "Africa",
     "latlng": [
       -18.25,
-      35.0
-    ]
+      35
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Mozambique.svg"
   },
   {
     "name": {
@@ -1645,9 +1794,10 @@
     "ccn3": "104",
     "region": "Asia",
     "latlng": [
-      22.0,
-      98.0
-    ]
+      22,
+      98
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Flag_of_Myanmar.svg"
   },
   {
     "name": {
@@ -1656,9 +1806,10 @@
     "ccn3": "516",
     "region": "Africa",
     "latlng": [
-      -22.0,
-      17.0
-    ]
+      -22,
+      17
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Namibia.svg"
   },
   {
     "name": {
@@ -1669,7 +1820,8 @@
     "latlng": [
       -0.53333333,
       166.91666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/30/Flag_of_Nauru.svg"
   },
   {
     "name": {
@@ -1678,9 +1830,10 @@
     "ccn3": "524",
     "region": "Asia",
     "latlng": [
-      28.0,
-      84.0
-    ]
+      28,
+      84
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg"
   },
   {
     "name": {
@@ -1691,7 +1844,8 @@
     "latlng": [
       52.5,
       5.75
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
   },
   {
     "name": {
@@ -1702,7 +1856,8 @@
     "latlng": [
       -21.5,
       165.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Flags_of_New_Caledonia.svg"
   },
   {
     "name": {
@@ -1711,9 +1866,10 @@
     "ccn3": "554",
     "region": "Oceania",
     "latlng": [
-      -41.0,
-      174.0
-    ]
+      -41,
+      174
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg"
   },
   {
     "name": {
@@ -1722,9 +1878,10 @@
     "ccn3": "558",
     "region": "Americas",
     "latlng": [
-      13.0,
-      -85.0
-    ]
+      13,
+      -85
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Nicaragua.svg"
   },
   {
     "name": {
@@ -1733,9 +1890,10 @@
     "ccn3": "562",
     "region": "Africa",
     "latlng": [
-      16.0,
-      8.0
-    ]
+      16,
+      8
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Flag_of_Niger.svg"
   },
   {
     "name": {
@@ -1744,9 +1902,10 @@
     "ccn3": "566",
     "region": "Africa",
     "latlng": [
-      10.0,
-      8.0
-    ]
+      10,
+      8
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg"
   },
   {
     "name": {
@@ -1757,7 +1916,8 @@
     "latlng": [
       -19.03333333,
       -169.86666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Niue.svg"
   },
   {
     "name": {
@@ -1768,7 +1928,8 @@
     "latlng": [
       -29.03333333,
       167.95
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Norfolk_Island.svg"
   },
   {
     "name": {
@@ -1777,9 +1938,10 @@
     "ccn3": "408",
     "region": "Asia",
     "latlng": [
-      40.0,
-      127.0
-    ]
+      40,
+      127
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -1789,8 +1951,9 @@
     "region": "Europe",
     "latlng": [
       41.83333333,
-      22.0
-    ]
+      22
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -1801,7 +1964,8 @@
     "latlng": [
       15.2,
       145.75
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Flag_of_the_Northern_Mariana_Islands.svg"
   },
   {
     "name": {
@@ -1810,9 +1974,10 @@
     "ccn3": "578",
     "region": "Europe",
     "latlng": [
-      62.0,
-      10.0
-    ]
+      62,
+      10
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg"
   },
   {
     "name": {
@@ -1821,9 +1986,10 @@
     "ccn3": "512",
     "region": "Asia",
     "latlng": [
-      21.0,
-      57.0
-    ]
+      21,
+      57
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Oman.svg"
   },
   {
     "name": {
@@ -1832,9 +1998,10 @@
     "ccn3": "586",
     "region": "Asia",
     "latlng": [
-      30.0,
-      70.0
-    ]
+      30,
+      70
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg"
   },
   {
     "name": {
@@ -1845,7 +2012,8 @@
     "latlng": [
       7.5,
       134.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Palau.svg"
   },
   {
     "name": {
@@ -1856,7 +2024,8 @@
     "latlng": [
       31.9,
       35.2
-    ]
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -1865,9 +2034,10 @@
     "ccn3": "591",
     "region": "Americas",
     "latlng": [
-      9.0,
-      -80.0
-    ]
+      9,
+      -80
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg"
   },
   {
     "name": {
@@ -1876,9 +2046,10 @@
     "ccn3": "598",
     "region": "Oceania",
     "latlng": [
-      -6.0,
-      147.0
-    ]
+      -6,
+      147
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Flag_of_Papua_New_Guinea.svg"
   },
   {
     "name": {
@@ -1887,9 +2058,10 @@
     "ccn3": "600",
     "region": "Americas",
     "latlng": [
-      -23.0,
-      -58.0
-    ]
+      -23,
+      -58
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg"
   },
   {
     "name": {
@@ -1898,9 +2070,10 @@
     "ccn3": "604",
     "region": "Americas",
     "latlng": [
-      -10.0,
-      -76.0
-    ]
+      -10,
+      -76
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Peru.svg"
   },
   {
     "name": {
@@ -1909,9 +2082,10 @@
     "ccn3": "608",
     "region": "Asia",
     "latlng": [
-      13.0,
-      122.0
-    ]
+      13,
+      122
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_the_Philippines.svg"
   },
   {
     "name": {
@@ -1922,7 +2096,8 @@
     "latlng": [
       -25.06666666,
       -130.1
-    ]
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -1931,9 +2106,10 @@
     "ccn3": "616",
     "region": "Europe",
     "latlng": [
-      52.0,
-      20.0
-    ]
+      52,
+      20
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/1/12/Flag_of_Poland.svg"
   },
   {
     "name": {
@@ -1943,8 +2119,9 @@
     "region": "Europe",
     "latlng": [
       39.5,
-      -8.0
-    ]
+      -8
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg"
   },
   {
     "name": {
@@ -1955,7 +2132,8 @@
     "latlng": [
       18.25,
       -66.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/28/Flag_of_Puerto_Rico.svg"
   },
   {
     "name": {
@@ -1966,7 +2144,8 @@
     "latlng": [
       25.5,
       51.25
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg"
   },
   {
     "name": {
@@ -1975,9 +2154,10 @@
     "ccn3": "178",
     "region": "Africa",
     "latlng": [
-      -1.0,
-      15.0
-    ]
+      -1,
+      15
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_the_Republic_of_the_Congo.svg"
   },
   {
     "name": {
@@ -1986,9 +2166,10 @@
     "ccn3": "642",
     "region": "Europe",
     "latlng": [
-      46.0,
-      25.0
-    ]
+      46,
+      25
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg"
   },
   {
     "name": {
@@ -1997,9 +2178,10 @@
     "ccn3": "643",
     "region": "Europe",
     "latlng": [
-      60.0,
-      100.0
-    ]
+      60,
+      100
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Russia.svg"
   },
   {
     "name": {
@@ -2008,9 +2190,10 @@
     "ccn3": "646",
     "region": "Africa",
     "latlng": [
-      -2.0,
-      30.0
-    ]
+      -2,
+      30
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Rwanda.svg"
   },
   {
     "name": {
@@ -2021,7 +2204,8 @@
     "latlng": [
       -21.15,
       55.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
   },
   {
     "name": {
@@ -2032,7 +2216,8 @@
     "latlng": [
       18.5,
       -63.41666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
   },
   {
     "name": {
@@ -2043,7 +2228,8 @@
     "latlng": [
       -15.95,
       -5.72
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
   },
   {
     "name": {
@@ -2054,7 +2240,8 @@
     "latlng": [
       17.33333333,
       -62.75
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Saint_Kitts_and_Nevis.svg"
   },
   {
     "name": {
@@ -2065,7 +2252,8 @@
     "latlng": [
       13.88333333,
       -60.96666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Saint_Lucia.svg"
   },
   {
     "name": {
@@ -2076,7 +2264,8 @@
     "latlng": [
       18.0708,
       -63.0501
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
   },
   {
     "name": {
@@ -2087,7 +2276,8 @@
     "latlng": [
       46.83333333,
       -56.33333333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_Saint-Pierre_and_Miquelon.svg"
   },
   {
     "name": {
@@ -2098,7 +2288,8 @@
     "latlng": [
       13.25,
       -61.2
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Flag_of_Saint_Vincent_and_the_Grenadines.svg"
   },
   {
     "name": {
@@ -2109,7 +2300,8 @@
     "latlng": [
       -13.58333333,
       -172.33333333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Samoa.svg"
   },
   {
     "name": {
@@ -2120,7 +2312,8 @@
     "latlng": [
       43.76666666,
       12.41666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_San_Marino.svg"
   },
   {
     "name": {
@@ -2129,9 +2322,10 @@
     "ccn3": "682",
     "region": "Asia",
     "latlng": [
-      25.0,
-      45.0
-    ]
+      25,
+      45
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg"
   },
   {
     "name": {
@@ -2140,9 +2334,10 @@
     "ccn3": "686",
     "region": "Africa",
     "latlng": [
-      14.0,
-      -14.0
-    ]
+      14,
+      -14
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Flag_of_Senegal.svg"
   },
   {
     "name": {
@@ -2151,9 +2346,10 @@
     "ccn3": "688",
     "region": "Europe",
     "latlng": [
-      44.0,
-      21.0
-    ]
+      44,
+      21
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Flag_of_Serbia.svg"
   },
   {
     "name": {
@@ -2164,7 +2360,8 @@
     "latlng": [
       -4.58333333,
       55.66666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Seychelles.svg"
   },
   {
     "name": {
@@ -2175,7 +2372,8 @@
     "latlng": [
       8.5,
       -11.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Sierra_Leone.svg"
   },
   {
     "name": {
@@ -2186,7 +2384,8 @@
     "latlng": [
       1.36666666,
       103.8
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Singapore.svg"
   },
   {
     "name": {
@@ -2197,7 +2396,8 @@
     "latlng": [
       18.033333,
       -63.05
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
   },
   {
     "name": {
@@ -2208,7 +2408,8 @@
     "latlng": [
       48.66666666,
       19.5
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Flag_of_Slovakia.svg"
   },
   {
     "name": {
@@ -2219,7 +2420,8 @@
     "latlng": [
       46.11666666,
       14.81666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Flag_of_Slovenia.svg"
   },
   {
     "name": {
@@ -2228,9 +2430,10 @@
     "ccn3": "090",
     "region": "Oceania",
     "latlng": [
-      -8.0,
-      159.0
-    ]
+      -8,
+      159
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Solomon_Islands.svg"
   },
   {
     "name": {
@@ -2239,9 +2442,10 @@
     "ccn3": "706",
     "region": "Africa",
     "latlng": [
-      10.0,
-      49.0
-    ]
+      10,
+      49
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_Somalia.svg"
   },
   {
     "name": {
@@ -2250,9 +2454,10 @@
     "ccn3": "710",
     "region": "Africa",
     "latlng": [
-      -29.0,
-      24.0
-    ]
+      -29,
+      24
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg"
   },
   {
     "name": {
@@ -2262,8 +2467,9 @@
     "region": "Antarctic",
     "latlng": [
       -54.5,
-      -37.0
-    ]
+      -37
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
   },
   {
     "name": {
@@ -2272,9 +2478,10 @@
     "ccn3": "410",
     "region": "Asia",
     "latlng": [
-      37.0,
+      37,
       127.5
-    ]
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -2283,9 +2490,10 @@
     "ccn3": "728",
     "region": "Africa",
     "latlng": [
-      7.0,
-      30.0
-    ]
+      7,
+      30
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Sudan.svg"
   },
   {
     "name": {
@@ -2294,9 +2502,10 @@
     "ccn3": "724",
     "region": "Europe",
     "latlng": [
-      40.0,
-      -4.0
-    ]
+      40,
+      -4
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/9/9a/Flag_of_Spain.svg"
   },
   {
     "name": {
@@ -2305,9 +2514,10 @@
     "ccn3": "144",
     "region": "Asia",
     "latlng": [
-      7.0,
-      81.0
-    ]
+      7,
+      81
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg"
   },
   {
     "name": {
@@ -2316,9 +2526,10 @@
     "ccn3": "729",
     "region": "Africa",
     "latlng": [
-      15.0,
-      30.0
-    ]
+      15,
+      30
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Sudan.svg"
   },
   {
     "name": {
@@ -2327,9 +2538,10 @@
     "ccn3": "740",
     "region": "Americas",
     "latlng": [
-      4.0,
-      -56.0
-    ]
+      4,
+      -56
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/60/Flag_of_Suriname.svg"
   },
   {
     "name": {
@@ -2338,9 +2550,10 @@
     "ccn3": "744",
     "region": "Europe",
     "latlng": [
-      78.0,
-      20.0
-    ]
+      78,
+      20
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg"
   },
   {
     "name": {
@@ -2349,9 +2562,10 @@
     "ccn3": "752",
     "region": "Europe",
     "latlng": [
-      62.0,
-      15.0
-    ]
+      62,
+      15
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Sweden.svg"
   },
   {
     "name": {
@@ -2360,9 +2574,10 @@
     "ccn3": "756",
     "region": "Europe",
     "latlng": [
-      47.0,
-      8.0
-    ]
+      47,
+      8
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Flag_of_Switzerland_%28Pantone%29.svg"
   },
   {
     "name": {
@@ -2371,9 +2586,10 @@
     "ccn3": "760",
     "region": "Asia",
     "latlng": [
-      35.0,
-      38.0
-    ]
+      35,
+      38
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Flag_of_Syria_%282025-%29.svg"
   },
   {
     "name": {
@@ -2382,9 +2598,10 @@
     "ccn3": "678",
     "region": "Africa",
     "latlng": [
-      1.0,
-      7.0
-    ]
+      1,
+      7
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Flag_of_S%C3%A3o_Tom%C3%A9_and_Pr%C3%ADncipe.svg/1080px-Flag_of_S%C3%A3o_Tom%C3%A9_and_Pr%C3%ADncipe.svg.png"
   },
   {
     "name": {
@@ -2394,8 +2611,9 @@
     "region": "Asia",
     "latlng": [
       23.5,
-      121.0
-    ]
+      121
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/7/72/Flag_of_the_Republic_of_China.svg"
   },
   {
     "name": {
@@ -2404,9 +2622,10 @@
     "ccn3": "762",
     "region": "Asia",
     "latlng": [
-      39.0,
-      71.0
-    ]
+      39,
+      71
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Tajikistan.svg"
   },
   {
     "name": {
@@ -2415,9 +2634,10 @@
     "ccn3": "834",
     "region": "Africa",
     "latlng": [
-      -6.0,
-      35.0
-    ]
+      -6,
+      35
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -2426,9 +2646,10 @@
     "ccn3": "764",
     "region": "Asia",
     "latlng": [
-      15.0,
-      100.0
-    ]
+      15,
+      100
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_Thailand.svg"
   },
   {
     "name": {
@@ -2439,7 +2660,8 @@
     "latlng": [
       -8.83333333,
       125.91666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_East_Timor.svg"
   },
   {
     "name": {
@@ -2448,9 +2670,10 @@
     "ccn3": "768",
     "region": "Africa",
     "latlng": [
-      8.0,
+      8,
       1.16666666
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/68/Flag_of_Togo.svg"
   },
   {
     "name": {
@@ -2459,9 +2682,10 @@
     "ccn3": "772",
     "region": "Oceania",
     "latlng": [
-      -9.0,
-      -172.0
-    ]
+      -9,
+      -172
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Flag_of_Tokelau.svg"
   },
   {
     "name": {
@@ -2470,9 +2694,10 @@
     "ccn3": "776",
     "region": "Oceania",
     "latlng": [
-      -20.0,
-      -175.0
-    ]
+      -20,
+      -175
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Tonga.svg"
   },
   {
     "name": {
@@ -2483,7 +2708,8 @@
     "latlng": [
       10.6918,
       -61.2225
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Trinidad_and_Tobago.svg"
   },
   {
     "name": {
@@ -2492,9 +2718,10 @@
     "ccn3": "788",
     "region": "Africa",
     "latlng": [
-      34.0,
-      9.0
-    ]
+      34,
+      9
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Tunisia.svg"
   },
   {
     "name": {
@@ -2503,9 +2730,10 @@
     "ccn3": "792",
     "region": "Asia",
     "latlng": [
-      39.0,
-      35.0
-    ]
+      39,
+      35
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg"
   },
   {
     "name": {
@@ -2514,9 +2742,10 @@
     "ccn3": "795",
     "region": "Asia",
     "latlng": [
-      40.0,
-      60.0
-    ]
+      40,
+      60
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Turkmenistan.svg"
   },
   {
     "name": {
@@ -2527,7 +2756,8 @@
     "latlng": [
       21.75,
       -71.58333333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_the_Turks_and_Caicos_Islands.svg"
   },
   {
     "name": {
@@ -2536,9 +2766,10 @@
     "ccn3": "798",
     "region": "Oceania",
     "latlng": [
-      -8.0,
-      178.0
-    ]
+      -8,
+      178
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Tuvalu.svg"
   },
   {
     "name": {
@@ -2547,9 +2778,10 @@
     "ccn3": "800",
     "region": "Africa",
     "latlng": [
-      1.0,
-      32.0
-    ]
+      1,
+      32
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Flag_of_Uganda.svg"
   },
   {
     "name": {
@@ -2558,9 +2790,10 @@
     "ccn3": "804",
     "region": "Europe",
     "latlng": [
-      49.0,
-      32.0
-    ]
+      49,
+      32
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg"
   },
   {
     "name": {
@@ -2569,9 +2802,10 @@
     "ccn3": "784",
     "region": "Asia",
     "latlng": [
-      24.0,
-      54.0
-    ]
+      24,
+      54
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg"
   },
   {
     "name": {
@@ -2580,9 +2814,10 @@
     "ccn3": "826",
     "region": "Europe",
     "latlng": [
-      54.0,
-      -2.0
-    ]
+      54,
+      -2
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
   },
   {
     "name": {
@@ -2591,9 +2826,10 @@
     "ccn3": "840",
     "region": "Americas",
     "latlng": [
-      38.0,
-      -97.0
-    ]
+      38,
+      -97
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
   },
   {
     "name": {
@@ -2604,7 +2840,8 @@
     "latlng": [
       19.3,
       166.633333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
   },
   {
     "name": {
@@ -2615,7 +2852,8 @@
     "latlng": [
       18.35,
       -64.933333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
   },
   {
     "name": {
@@ -2624,9 +2862,10 @@
     "ccn3": "858",
     "region": "Americas",
     "latlng": [
-      -33.0,
-      -56.0
-    ]
+      -33,
+      -56
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Uruguay.svg"
   },
   {
     "name": {
@@ -2635,9 +2874,10 @@
     "ccn3": "860",
     "region": "Asia",
     "latlng": [
-      41.0,
-      64.0
-    ]
+      41,
+      64
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Uzbekistan.svg"
   },
   {
     "name": {
@@ -2646,9 +2886,10 @@
     "ccn3": "548",
     "region": "Oceania",
     "latlng": [
-      -16.0,
-      167.0
-    ]
+      -16,
+      167
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Vanuatu.svg"
   },
   {
     "name": {
@@ -2659,7 +2900,8 @@
     "latlng": [
       41.9,
       12.45
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Vatican_City_%282023%E2%80%93present%29.svg/800px-Flag_of_Vatican_City_%282023%E2%80%93present%29.svg.png"
   },
   {
     "name": {
@@ -2668,9 +2910,10 @@
     "ccn3": "862",
     "region": "Americas",
     "latlng": [
-      8.0,
-      -66.0
-    ]
+      8,
+      -66
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/06/Flag_of_Venezuela.svg"
   },
   {
     "name": {
@@ -2681,7 +2924,8 @@
     "latlng": [
       16.16666666,
       107.83333333
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg"
   },
   {
     "name": {
@@ -2692,7 +2936,8 @@
     "latlng": [
       -13.3,
       -176.2
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Flag_of_Wallis_and_Futuna.svg"
   },
   {
     "name": {
@@ -2702,8 +2947,9 @@
     "region": "Africa",
     "latlng": [
       24.5,
-      -13.0
-    ]
+      -13
+    ],
+    "flag_url": ""
   },
   {
     "name": {
@@ -2712,9 +2958,10 @@
     "ccn3": "887",
     "region": "Asia",
     "latlng": [
-      15.0,
-      48.0
-    ]
+      15,
+      48
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Yemen.svg"
   },
   {
     "name": {
@@ -2723,9 +2970,10 @@
     "ccn3": "894",
     "region": "Africa",
     "latlng": [
-      -15.0,
-      30.0
-    ]
+      -15,
+      30
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/0/06/Flag_of_Zambia.svg"
   },
   {
     "name": {
@@ -2734,9 +2982,10 @@
     "ccn3": "716",
     "region": "Africa",
     "latlng": [
-      -20.0,
-      30.0
-    ]
+      -20,
+      30
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Flag_of_Zimbabwe.svg"
   },
   {
     "name": {
@@ -2747,6 +2996,7 @@
     "latlng": [
       60.116667,
       19.9
-    ]
+    ],
+    "flag_url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Finland.svg"
   }
 ]

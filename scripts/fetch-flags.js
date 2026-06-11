@@ -6,11 +6,6 @@
  *
  * Uso:
  *   node scripts/fetch-flags.js
- *
- * Resultado:
- *   Sobreescribe src/assets/countries.json añadiendo el campo flag_url a
- *   cada país. Si un país no se encuentra en CountriesNow, flag_url queda
- *   como cadena vacía.
  */
 
 const fs   = require('fs');
@@ -18,6 +13,47 @@ const path = require('path');
 
 const COUNTRIES_PATH = path.join(__dirname, '../src/assets/countries.json');
 const FLAGS_API      = 'https://countriesnow.space/api/v0.1/countries/flag/images';
+
+// Nombres que difieren entre nuestro countries.json y CountriesNow
+const ALIASES = {
+  'Bolivia':                                      'Bolivia (Plurinational State of)',
+  'Czechia':                                      'Czech Republic',
+  'DR Congo':                                     'Democratic Republic of the Congo',
+  'Eswatini':                                     'Swaziland',
+  'Ivory Coast':                                  "Côte d'Ivoire",
+  'Kosovo':                                       'Republic of Kosovo',
+  'Micronesia':                                   'Federated States of Micronesia',
+  'Moldova':                                      'Republic of Moldova',
+  'North Korea':                                  "Korea, Democratic People's Republic of",
+  'North Macedonia':                              'Macedonia',
+  'Palestine':                                    'Palestinian Territory',
+  'Republic of the Congo':                        'Congo',
+  'South Korea':                                  'Republic of Korea',
+  'South Sudan':                                  'Sudan',
+  'Tanzania':                                     'United Republic of Tanzania',
+  'Vatican City':                                 'Vatican City State (Holy See)',
+  'São Tomé and Príncipe':                        'Sao Tome and Principe',
+  // Territorios sin bandera propia — usamos la del país al que pertenecen
+  'American Samoa':                               'United States',
+  'British Virgin Islands':                       'United Kingdom',
+  'Caribbean Netherlands':                        'Netherlands',
+  'Curaçao':                                      'Netherlands',
+  'French Guiana':                                'France',
+  'French Southern and Antarctic Lands':          'France',
+  'Saint Barthélemy':                             'France',
+  'Saint Helena, Ascension and Tristan da Cunha': 'United Kingdom',
+  'Saint Martin':                                 'France',
+  'Sint Maarten':                                 'Netherlands',
+  'South Georgia':                                'United Kingdom',
+  'Svalbard and Jan Mayen':                       'Norway',
+  'United States Virgin Islands':                 'United States',
+  'Åland Islands':                                'Finland',
+  // Sin bandera conocida
+  'Antarctica':                                   null,
+  'Libya':                                        null,
+  'Pitcairn Islands':                             null,
+  'Western Sahara':                               null,
+};
 
 async function fetchFlags() {
   console.log('Obteniendo banderas de CountriesNow...');
@@ -28,7 +64,6 @@ async function fetchFlags() {
   const json = await res.json();
   if (json.error) throw new Error(`API error: ${json.msg}`);
 
-  // Construimos un mapa { nombrePaís → flagUrl }
   const flagMap = {};
   for (const item of json.data) {
     flagMap[item.name] = item.flag;
@@ -36,7 +71,6 @@ async function fetchFlags() {
 
   console.log(`Banderas recibidas: ${Object.keys(flagMap).length}`);
 
-  // Leemos countries.json actual
   const countries = JSON.parse(fs.readFileSync(COUNTRIES_PATH, 'utf-8'));
 
   let found   = 0;
@@ -44,11 +78,17 @@ async function fetchFlags() {
 
   const enriched = countries.map(country => {
     const name    = country.name.common;
-    const flagUrl = flagMap[name] ?? '';
+    let   flagUrl = flagMap[name];
 
-    if (flagUrl) {
-      found++;
-    } else {
+    if (!flagUrl && name in ALIASES) {
+      const alias = ALIASES[name];
+      flagUrl = alias ? (flagMap[alias] ?? '') : '';
+    }
+
+    flagUrl = flagUrl ?? '';
+
+    if (flagUrl) found++;
+    else {
       missing++;
       console.warn(`  ⚠ Sin bandera: ${name}`);
     }
