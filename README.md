@@ -14,6 +14,7 @@ Aplicación web para registrar recuerdos de viaje. Los usuarios pueden añadir p
 | Framework | Angular 19 (standalone components) |
 | Lenguaje | TypeScript |
 | Estilos | SCSS + Tailwind CSS |
+| Imágenes | Cloudinary (upload + transformaciones) |
 | Mapa 3D | Three.js + OrbitControls |
 | Mapa 2D | Leaflet |
 | HTTP | Angular HttpClient + interceptor |
@@ -32,7 +33,7 @@ cd traveling-memories/traveling-memories
 npm install
 cp src/environments/environment.example.ts src/environments/environment.ts
 cp proxy.conf.example.json proxy.conf.json
-# Edita ambos ficheros con tu API key
+# Edita ambos ficheros con tu API key y configuración de Cloudinary
 npm start
 ```
 
@@ -47,9 +48,10 @@ Los ficheros de entorno no están en el repositorio. Usa `environment.example.ts
 ```ts
 export const environment = {
   production: false,
-  apiUrl: '/api',       // proxy local → evita CORS en desarrollo
+  apiUrl: '/api',                    // proxy local → evita CORS en desarrollo
   apiKey: 'TU_API_KEY',
-  useLocalStorage: false,
+  cloudinaryCloudName: 'TU_CLOUD',
+  cloudinaryUploadPreset: 'TU_PRESET',
 };
 ```
 
@@ -73,61 +75,77 @@ npm test -- --watch=false --browsers=ChromeHeadless --no-progress            # t
 ```
 src/app/
 ├── core/
-│   ├── api.service.ts           # Todas las llamadas al backend
-│   ├── auth.service.ts          # Autenticación
-│   ├── trip-store.service.ts    # Estado en memoria (viajes y entradas)
-│   ├── toast.service.ts         # Notificaciones globales
-│   ├── api-key.interceptor.ts   # Inyecta X-API-KEY en cada request
-│   └── models/api.models.ts     # Interfaces del backend
+│   ├── services/
+│   │   ├── api.service.ts           # Todas las llamadas al backend
+│   │   ├── auth.service.ts          # Autenticación (temporal, hardcodeada)
+│   │   ├── cloudinary.service.ts    # Upload y transformación de imágenes
+│   │   ├── theme.service.ts         # Modo oscuro/claro global
+│   │   └── toast.service.ts         # Notificaciones globales
+│   ├── interceptors/
+│   │   └── api-key.interceptor.ts   # Inyecta X-API-KEY en cada request
+│   └── models/
+│       ├── api.models.ts            # Interfaces exactas del backend
+│       ├── viajes.model.ts          # Modelos del dominio
+│       └── user.model.ts
 ├── shared/
-│   └── toast/
+│   ├── toast/
+│   └── back-button/
 └── features/
-    ├── landing/                 # Página principal + lista usuarios
-    ├── login/                   # Formulario de acceso
-    ├── mapa-global/             # Globo 3D con todos los viajes
+    ├── landing/                     # Página principal + lista usuarios
+    ├── login/                       # Formulario de acceso
+    ├── mapa-global/                 # Globo 3D con todos los viajes
     └── usuario-perfil/
-        ├── perfil-header/
-        ├── perfil-mapa/
-        ├── perfil-viajes/
-        ├── viaje-form/          # Modal crear viaje
+        ├── perfil-header/           # Avatar, bio, toggle tema
+        ├── perfil-mapa/             # Mapa 2D Leaflet del perfil
+        ├── perfil-viajes/           # Carrusel de viajes
+        ├── viaje-form/              # Modal crear viaje
         └── viajes/
-            ├── viaje-detalle/
-            └── viaje-entrada/
+            ├── viaje-detalle/       # Detalle del viaje + entradas
+            └── viaje-entrada/       # Formulario de entrada
 ```
 
 ---
 
 ## Flujo de datos
 
-```
-ViajeFormComponent
-  → ApiService.createTrip()  →  POST /trips  →  Backend
-  → TripStoreService.addOrUpdateTrip()        ← estado en sesión
-  → Router navega a /user/:id/viaje/:viajeId
-  → ViajeDetalleComponent carga desde TripStoreService
-```
+Todos los datos se leen directamente de la API en cada carga — no hay estado en memoria entre rutas.
 
-> `TripStoreService` mantiene estado en memoria porque el backend aún no expone `GET /trips?user_id` ni `GET /trip-entries?trip_id`. Cuando estén disponibles, se sustituirá por llamadas directas a la API.
+```
+Perfil carga
+  → forkJoin(getUser, getTripsByUser)
+  → forkJoin(getEntriesByTrip × N)    ← enriquece cada viaje con su conteo
+  → señal user actualizada → componentes re-renderizan
+
+Viaje detalle carga
+  → forkJoin(getTrip, getEntriesByTrip)
+  → señales viaje + entradas actualizadas
+```
 
 ---
 
 ## Autenticación
 
-El acceso para crear y editar viajes está restringido a los usuarios del proyecto. El login actual es temporal (hardcodeado en `AuthService`) hasta que el backend implemente `POST /auth/login`.
+El acceso para crear y editar viajes está restringido a los usuarios del proyecto. El login actual es temporal (hardcodeado en `AuthService`) hasta que se integre `POST /auth/login`.
+
+---
+
+## Modo oscuro
+
+El `ThemeService` aplica la clase `dark` o `light` en `<html>` y persiste la preferencia en `localStorage`. Todos los componentes usan CSS variables (`--bg-page`, `--color-text`, etc.) definidas en `styles.css`. El toggle está en el header del perfil.
 
 ---
 
 ## Tests
 
-70 tests, todos pasando.
+**82 tests, todos pasando.**
 
-| Servicio | Tests | Qué cubre |
-|----------|-------|-----------|
+| Servicio / Componente | Tests | Qué cubre |
+|-----------------------|-------|-----------|
 | `AuthService` | 11 | login, logout, persistencia, canEditUser |
-| `TripStoreService` | 13 | CRUD viajes y entradas, filtros, casos borde |
+| `CloudinaryService` | 6 | avatarUrl, transformaciones, fallback, URLs externas |
 | `ToastService` | 10 | tipos, auto-cierre, timing |
 | `ApiService` | 9 | mappers, HTTP mock |
-| Componentes | 27 | creación, inputs, renders |
+| Componentes | 46 | creación, inputs, renders |
 
 ---
 
@@ -145,6 +163,8 @@ Secrets necesarios en GitHub Actions:
 | `API_KEY` | Clave de la API del backend |
 | `STAGING_API_URL` | URL del backend de staging |
 | `PROD_API_URL` | URL del backend de producción |
+| `CLOUDINARY_CLOUD_NAME` | Cloud name de Cloudinary |
+| `CLOUDINARY_UPLOAD_PRESET` | Upload preset de Cloudinary |
 
 El bloque de deploy está preparado pero comentado. Se descomenta al elegir plataforma (Vercel/Netlify/Firebase).
 
@@ -166,9 +186,9 @@ Flujo: rama desde `dev` → PR a `dev` → cuando `dev` está estable → PR a `
 ## Futuras implementaciones
 
 **Funcionalidad pendiente**
-- Autenticación real mediante `POST /auth/login` en el backend
-- Cargar viajes y entradas desde la API, eliminando el estado en memoria
-- Editar y eliminar viajes y entradas
+- Autenticación real mediante `POST /auth/login` y `POST /auth/register`
+- Internacionalización (i18n) ES/EN
+- Keep-alive del backend (cron en GitHub Actions para evitar que Render se duerma)
 
 **Mejoras de experiencia**
 - Galería de fotos por viaje o entrada
@@ -178,13 +198,10 @@ Flujo: rama desde `dev` → PR a `dev` → cuando `dev` está estable → PR a `
 
 **Social**
 - Perfiles públicos compartibles por URL
-- Explorar viajes de otros usuarios desde el globo 3D
 - Valoraciones o comentarios entre usuarios
 
 **Técnico**
 - PWA con soporte offline
-- Modo oscuro
-- Internacionalización (i18n)
 
 ---
 
@@ -194,22 +211,25 @@ Flujo: rama desde `dev` → PR a `dev` → cuando `dev` está estable → PR a `
 - **Docs:** `https://traveling-memories-backend.onrender.com/docs`
 - **Autenticación:** header `X-API-KEY`
 
-### Endpoints disponibles
+### Endpoints
 
 | Método | Ruta | Descripción |
 |--------|------|-------------|
+| POST | `/auth/register` | Registro de usuario |
+| POST | `/auth/login` | Login |
 | GET | `/users` | Lista de usuarios |
 | GET | `/users/{id}` | Usuario por ID |
+| PUT | `/users/{id}` | Actualizar usuario |
+| DELETE | `/users/{id}` | Eliminar usuario |
 | POST | `/trips` | Crear viaje |
+| GET | `/trips/user/{user_id}` | Viajes de un usuario |
 | GET | `/trips/{id}` | Viaje por ID |
-| POST | `/trip-entries` | Crear entrada |
-
-### Endpoints pendientes
-
-| Método | Ruta | Necesario para |
-|--------|------|----------------|
-| GET | `/trips?user_id=X` | Cargar viajes del perfil |
-| GET | `/trip-entries?trip_id=X` | Cargar entradas del viaje |
 | PUT | `/trips/{id}` | Editar viaje |
 | DELETE | `/trips/{id}` | Eliminar viaje |
+| GET | `/trip-entries/trip/{trip_id}` | Entradas de un viaje |
+| POST | `/trip-entries` | Crear entrada |
+| GET | `/trip-entries/{id}` | Entrada por ID |
+| PUT | `/trip-entries/{id}` | Editar entrada |
 | DELETE | `/trip-entries/{id}` | Eliminar entrada |
+| GET | `/countries` | Lista de países |
+| GET | `/cities` | Lista de ciudades |

@@ -1,0 +1,65 @@
+<div class="register-page">
+  <div class="register-card">
+    <h1>Crear cuenta</h1>
+    <p class="subtitle">Únete y empieza a registrar tus aventuras</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+      <div class="field">
+        <label for="name">Nombre de usuario</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder="Tu nombre"
+          autocomplete="username" />
+        @if (nameError) {
+          <span class="field-error">{{ nameError }}</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">Contraseña</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Mínimo 6 caracteres"
+          autocomplete="new-password" />
+        @if (passwordError) {
+          <span class="field-error">{{ passwordError }}</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="confirmPassword">Confirmar contraseña</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+          placeholder="Repite la contraseña"
+          autocomplete="new-password" />
+        @if (confirmError) {
+          <span class="field-error">{{ confirmError }}</span>
+        }
+      </div>
+
+      @if (errorMsg) {
+        <p class="error-global">{{ errorMsg }}</p>
+      }
+
+      <button type="submit" class="btn-submit" [disabled]="form.invalid || cargando">
+        @if (cargando) {
+          <span class="spinner"></span> Creando cuenta...
+        } @else {
+          Crear cuenta
+        }
+      </button>
+
+    </form>
+
+    <p class="login-link">
+      ¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a>
+    </p>
+  </div>
+</div>
