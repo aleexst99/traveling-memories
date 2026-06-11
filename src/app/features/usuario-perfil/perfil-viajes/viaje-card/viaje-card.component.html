@@ -9,26 +9,25 @@
 
   <div class="card-image">
     <img [src]="viaje().image" [alt]="viaje().title" />
-    @if ((viaje().entradasCount ?? 0) > 0) {
-      <span class="entradas-badge">
-        {{ viaje().entradasCount }} {{ viaje().entradasCount === 1 ? 'entrada' : 'entradas' }}
-      </span>
+    @if (viaje().continent) {
+      <span class="entradas-badge">{{ viaje().continent }}</span>
     }
   </div>
 
   <div class="info">
     <h3>{{ viaje().title }}</h3>
 
-    @if (viaje().ultimaEntradaFecha) {
+    @if (viaje().start_date) {
       <p class="ultima-entrada">
         <span class="dot"></span>
-        {{ viaje().ultimaEntradaFecha | date:'MMM yyyy' }}
+        {{ viaje().start_date | date:'MMM yyyy' }}
+        @if (viaje().end_date) { · {{ viaje().end_date | date:'MMM yyyy' }} }
       </p>
     } @else if (viaje().description) {
       <p>{{ viaje().description }}</p>
     }
 
-    <small>{{ viaje().continent }}</small>
+    <small>{{ viaje().tipo === 'wishlist' ? 'Pendiente' : 'Visitado' }}</small>
   </div>
 
 </article>
