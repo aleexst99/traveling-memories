@@ -27,29 +27,24 @@ export class CloudinaryService {
   }
 
   /**
-   * Inserta transformaciones en una URL de Cloudinary para obtener un avatar
-   * cuadrado recortado con detección facial.
+   * Devuelve una URL de Cloudinary optimizada en calidad y formato,
+   * sin recortar — el navegador gestiona el display con object-fit.
    * Si la URL no es de Cloudinary, la devuelve sin modificar.
-   *
-   * @param url      URL original devuelta por Cloudinary
-   * @param sizePx   Lado del cuadrado en píxeles (por defecto 280 para pantallas retina)
    */
-  avatarUrl(url: string | null | undefined, sizePx = 280): string {
+  avatarUrl(url: string | null | undefined, _sizePx = 280): string {
     if (!url) return 'assets/icons/default-avatar.svg';
 
     const idx = url.indexOf(CLOUDINARY_UPLOAD_MARKER);
     if (idx === -1) return url; // URL externa, no tocamos
 
-    const base     = url.slice(0, idx + CLOUDINARY_UPLOAD_MARKER.length);
+    const base        = url.slice(0, idx + CLOUDINARY_UPLOAD_MARKER.length);
     const afterUpload = url.slice(idx + CLOUDINARY_UPLOAD_MARKER.length);
 
-    // Extraemos solo v{version}/{public_id} descartando cualquier
-    // transformación previa que pueda estar en la URL (ej: q_auto/f_auto/...)
-    // Si no hay versión explícita, tomamos el segmento final directamente.
+    // Extraemos solo v{version}/{public_id} descartando transformaciones previas
     const versionMatch = afterUpload.match(/(v\d+\/.+)$/);
     const publicPath   = versionMatch ? versionMatch[1] : afterUpload;
 
-    const transforms = `c_fill,g_face,w_${sizePx},h_${sizePx},q_90,f_auto`;
-    return `${base}${transforms}/${publicPath}`;
+    // Solo optimizamos calidad y formato — sin recorte
+    return `${base}q_90,f_auto/${publicPath}`;
   }
 }
