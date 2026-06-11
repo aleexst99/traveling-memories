@@ -4,35 +4,32 @@
   padding: 2rem 1.5rem;
   text-align: center;
 
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  border-radius: 12px;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(20, 12, 5, 0.45);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(244, 169, 67, 0.2);
 
   h1, p, .subtitle {
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 1px 2px 6px rgba(0, 0, 0, 0.7);
   }
-
-
 
   h1 {
     font-size: 2.2rem;
     margin-bottom: 1rem;
     font-weight: 700;
-    color: #f1f1f1;
+    color: #fdf0e0;
   }
 
   .subtitle {
     font-size: 1.2rem;
     margin-bottom: 1rem;
-    color: #87cefa;
+    color: #f4a943;
     font-style: italic;
   }
 
   p {
     font-size: 1rem;
     line-height: 1.6;
-    color: #ddd;
+    color: #e8d8c4;
   }
 }
