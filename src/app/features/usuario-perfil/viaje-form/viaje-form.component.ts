@@ -1,6 +1,17 @@
 import { Component, EventEmitter, Input, Output, signal, OnInit, HostListener } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Viaje, Country } from '@core/models/viajes.model';
+
+/** Valida que el año de una fecha (YYYY-MM-DD) tenga exactamente 4 dígitos */
+function validarAño(control: AbstractControl): ValidationErrors | null {
+  const value = control.value as string;
+  if (!value) return null;
+  const year = Number(value.split('-')[0]);
+  if (year < 1000 || year > 9999) {
+    return { añoInvalido: true };
+  }
+  return null;
+}
 import { ApiService } from '@core/services/api.service';
 import { ToastService } from '@core/services/toast.service';
 import { CloudinaryService } from '@core/services/cloudinary.service';
@@ -35,8 +46,8 @@ export class ViajeFormComponent implements OnInit {
     cover_photo_url: [''],
     description: [''],
     tipo: ['wishlist', Validators.required],
-    start_date: [''],
-    end_date: [''],
+    start_date: ['', validarAño],
+    end_date:   ['', validarAño],
     lat: [null as number | null],
     lng: [null as number | null],
   });
@@ -125,8 +136,12 @@ export class ViajeFormComponent implements OnInit {
   }
 
   guardarViaje() {
-    if (this.form.invalid || !this.paisSeleccionado()) {
+    if (!this.paisSeleccionado()) {
       this.errorValidacion.set('Selecciona un país antes de guardar.');
+      return;
+    }
+    if (this.form.invalid) {
+      this.errorValidacion.set('Revisa las fechas introducidas.');
       return;
     }
     this.errorValidacion.set('');
