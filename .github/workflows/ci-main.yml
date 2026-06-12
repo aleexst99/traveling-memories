@@ -44,6 +44,7 @@ jobs:
             apiKey: '${API_KEY}',
             cloudinaryCloudName: '${CLOUDINARY_CLOUD_NAME}',
             cloudinaryUploadPreset: '${CLOUDINARY_UPLOAD_PRESET}',
+            geoDbApiKey: '${GEODB_API_KEY}',
           };
           EOF
 
