@@ -8,10 +8,23 @@
   (keydown.space)="onCardClick()">
 
   <div class="card-image">
-    <img [src]="viaje().image || 'assets/icons/default-trip.svg'" [alt]="viaje().title" />
-    @if (viaje().flag_url) {
+    @if (viaje().image) {
+      <img [src]="viaje().image" [alt]="viaje().title" />
+    } @else {
+      <!-- Placeholder cuando no hay foto de portada -->
+      <div class="card-placeholder" [class.wishlist-bg]="viaje().tipo === 'wishlist'">
+        @if (viaje().flag_url) {
+          <img class="placeholder-flag" [src]="viaje().flag_url" [alt]="viaje().title" />
+        } @else {
+          <span class="placeholder-emoji">🌍</span>
+        }
+        <span class="placeholder-title">{{ viaje().title }}</span>
+      </div>
+    }
+
+    @if (viaje().flag_url && viaje().image) {
       <img class="flag-badge" [src]="viaje().flag_url" [alt]="viaje().continent" />
-    } @else if (viaje().continent) {
+    } @else if (!viaje().flag_url && viaje().continent) {
       <span class="entradas-badge">{{ viaje().continent }}</span>
     }
   </div>
