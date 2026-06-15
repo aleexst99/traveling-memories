@@ -14,13 +14,17 @@ export class ApiService {
   private http = inject(HttpClient);
   private base = environment.apiUrl;
 
-  // Mapa precargado de nombre de país → flag_url (se llena la primera vez)
-  private flagMap: Record<string, string> = {};
+  // Mapas precargados de nombre de país → datos (se llenan la primera vez)
+  private flagMap:   Record<string, string>             = {};
+  private latLngMap: Record<string, [number, number]>   = {};
+  private regionMap: Record<string, string>             = {};
 
   constructor() {
     this.http.get<Country[]>('assets/countries.json').subscribe(countries => {
       for (const c of countries) {
-        this.flagMap[c.name.common] = c.flag_url ?? '';
+        this.flagMap[c.name.common]   = c.flag_url ?? '';
+        this.latLngMap[c.name.common] = c.latlng;
+        this.regionMap[c.name.common] = c.region;
       }
     });
   }
@@ -196,19 +200,24 @@ export class ApiService {
   }
 
   mapTrip(t: ApiTripOut): Viaje {
+    // Si el backend no devuelve lat/lng/continent los deducimos del título
+    // usando los mapas locales (countries.json con nombres en español)
+    const localLatLng = this.latLngMap[t.title];
+    const localRegion = this.regionMap[t.title];
+
     return {
-      id: t.id,
-      id_user: t.user_id,
-      title: t.title,
-      continent: t.continent ?? '',
-      image: t.cover_photo_url ?? '',
+      id:          t.id,
+      id_user:     t.user_id,
+      title:       t.title,
+      continent:   t.continent   ?? localRegion  ?? '',
+      image:       t.cover_photo_url ?? '',
       description: t.summary,
-      start_date: t.start_date,
-      end_date: t.end_date,
-      tipo: t.is_wishlist ? 'wishlist' : 'realizado',
-      lat: t.lat ?? undefined,
-      lng: t.lng ?? undefined,
-      flag_url: this.flagMap[t.title] ?? '',
+      start_date:  t.start_date,
+      end_date:    t.end_date,
+      tipo:        t.is_wishlist ? 'wishlist' : 'realizado',
+      lat:         t.lat ?? localLatLng?.[0] ?? undefined,
+      lng:         t.lng ?? localLatLng?.[1] ?? undefined,
+      flag_url:    this.flagMap[t.title] ?? '',
     };
   }
 
