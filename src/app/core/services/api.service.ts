@@ -5,6 +5,7 @@ import { environment } from '@environments/environment';
 import {
   ApiUser, ApiUserCreate, ApiUserUpdate, ApiToken,
   ApiTripCreate, ApiTripOut, ApiTripEntryCreate, ApiTripEntryOut,
+  ApiCountry,
 } from '@core/models/api.models';
 import { Viaje, Entrada, Country } from '@core/models/viajes.model';
 import { User } from '@core/models/user.model';
@@ -20,11 +21,18 @@ export class ApiService {
   private regionMap: Record<string, string>             = {};
 
   constructor() {
+    // Banderas desde el asset local (Wikipedia SVG URLs)
     this.http.get<Country[]>('assets/countries.json').subscribe(countries => {
       for (const c of countries) {
-        this.flagMap[c.name.common]   = c.flag_url ?? '';
-        this.latLngMap[c.name.common] = c.latlng;
-        this.regionMap[c.name.common] = c.region;
+        this.flagMap[c.name.common] = c.flag_url ?? '';
+      }
+    });
+
+    // Coordenadas y región desde el backend (nombres en español, fuente autoritativa)
+    this.http.get<ApiCountry[]>(`${this.base}/countries`).subscribe(countries => {
+      for (const c of countries) {
+        this.latLngMap[c.name] = [c.lat, c.lng];
+        this.regionMap[c.name] = c.region;
       }
     });
   }
@@ -157,10 +165,30 @@ export class ApiService {
     return this.http.delete<void>(`${this.base}/trip-entries/${entradaId}`);
   }
 
-  // ── Países (asset local) ──────────────────────────────────
+  // ── Países ────────────────────────────────────────────────
 
   getPaises(): Observable<Country[]> {
-    return this.http.get<Country[]>('assets/countries.json');
+    return this.http.get<ApiCountry[]>(`${this.base}/countries`).pipe(
+      map(countries => countries.map(c => ({
+        name:     { common: c.name },
+        ccn3:     String(c.id),
+        region:   c.region,
+        latlng:   [c.lat, c.lng] as [number, number],
+        flag_url: this.flagMap[c.name] ?? '',
+      })))
+    );
+  }
+
+  getCountry(id: number): Observable<Country> {
+    return this.http.get<ApiCountry>(`${this.base}/countries/${id}`).pipe(
+      map(c => ({
+        name:     { common: c.name },
+        ccn3:     String(c.id),
+        region:   c.region,
+        latlng:   [c.lat, c.lng] as [number, number],
+        flag_url: this.flagMap[c.name] ?? '',
+      }))
+    );
   }
 
   // ── Mappers frontend ↔ backend ────────────────────────────
