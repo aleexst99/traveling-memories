@@ -14,6 +14,7 @@ describe('ApiService', () => {
     service = TestBed.inject(ApiService);
     httpMock = TestBed.inject(HttpTestingController);
     httpMock.expectOne('assets/countries.json').flush([]);
+    httpMock.expectOne(r => r.url.includes('/countries')).flush([]);
   });
 
   afterEach(() => httpMock.verify());

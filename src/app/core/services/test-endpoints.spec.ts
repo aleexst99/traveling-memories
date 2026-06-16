@@ -86,8 +86,9 @@ describe('ApiService — todos los endpoints', () => {
     });
     service = TestBed.inject(ApiService);
     http = TestBed.inject(HttpTestingController);
-    // El servicio precarga countries.json en el constructor
+    // El servicio precarga banderas del asset local y lat/lng del backend
     http.expectOne('assets/countries.json').flush([]);
+    http.expectOne(`${BASE}/countries`).flush([]);
   });
 
   afterEach(() => http.verify()); // asegura que no quedan peticiones sin atender
@@ -342,26 +343,24 @@ describe('ApiService — todos los endpoints', () => {
     });
   });
 
-  // ── GET assets/countries.json (países) ───────────────────────────────
+  // ── GET /countries (países) ───────────────────────────────
 
-  describe('GET assets/countries.json (getPaises)', () => {
-    it('carga el JSON local y devuelve los países', () => {
-      const mockCountries: Country[] = [
-        { name: { common: 'Alemania' }, ccn3: '276', region: 'Europe', latlng: [51, 10] },
-        { name: { common: 'España' }, ccn3: '724', region: 'Europe', latlng: [40, -4] },
-        { name: { common: 'Francia' }, ccn3: '250', region: 'Europe', latlng: [46, 2] },
-      ];
-
+  describe('GET /countries (getPaises)', () => {
+    it('llama al backend y devuelve los países mapeados al modelo Country', () => {
       service.getPaises().subscribe(paises => {
         expect(paises.length).toBe(3);
         expect(paises[0].name.common).toBe('Alemania');
         expect(paises[0].latlng).toEqual([51, 10]);
-        expect(paises[0].region).toBe('Europe');
+        expect(paises[0].region).toBe('Europa');
       });
 
-      const req = http.expectOne('assets/countries.json');
+      const req = http.expectOne(`${BASE}/countries`);
       expect(req.request.method).toBe('GET');
-      req.flush(mockCountries);
+      req.flush([
+        { id: 1, name: 'Alemania', region: 'Europa', lat: 51, lng: 10 },
+        { id: 2, name: 'España',   region: 'Europa', lat: 40, lng: -4 },
+        { id: 3, name: 'Francia',  region: 'Europa', lat: 46, lng: 2  },
+      ]);
     });
   });
 });
