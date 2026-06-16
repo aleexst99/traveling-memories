@@ -3,29 +3,32 @@
 [![CI — Main](https://github.com/aleexst99/traveling-memories/actions/workflows/ci-main.yml/badge.svg)](https://github.com/aleexst99/traveling-memories/actions/workflows/ci-main.yml)
 [![CI — Dev](https://github.com/aleexst99/traveling-memories/actions/workflows/ci-dev.yml/badge.svg)](https://github.com/aleexst99/traveling-memories/actions/workflows/ci-dev.yml)
 
-Aplicación web para registrar recuerdos de viaje. Los usuarios pueden añadir países visitados, crear entradas por visita y explorar destinos en un globo 3D interactivo.
+A web app for logging travel memories. Users can add visited countries, write journal entries per trip, and explore destinations on an interactive 3D globe.
 
 ---
 
 ## Stack
 
-| Capa | Tecnología |
-|------|-----------|
+| Layer | Technology |
+|-------|-----------|
 | Framework | Angular 19 (standalone components) |
-| Lenguaje | TypeScript |
-| Estilos | SCSS + Tailwind CSS |
-| Imágenes | Cloudinary (upload + transformaciones) |
-| Mapa 3D | Three.js + OrbitControls |
-| Mapa 2D | Leaflet |
+| Language | TypeScript |
+| Styles | SCSS + Tailwind CSS |
+| Animations | GSAP |
+| Images | Cloudinary (upload + transformations) |
+| 3D Map | Three.js + three-globe + OrbitControls |
+| 2D Map | Leaflet + leaflet.markercluster |
+| Icons | Font Awesome |
 | HTTP | Angular HttpClient + interceptor |
 | Tests | Jasmine + Karma |
 | CI/CD | GitHub Actions |
+| Deploy | Vercel |
 
 ---
 
-## Instalación
+## Installation
 
-**Requisitos:** Node.js 20+, npm 9+
+**Requirements:** Node.js 20+, npm 9+
 
 ```bash
 git clone https://github.com/aleexst99/traveling-memories.git
@@ -33,182 +36,257 @@ cd traveling-memories/traveling-memories
 npm install
 cp src/environments/environment.example.ts src/environments/environment.ts
 cp proxy.conf.example.json proxy.conf.json
-# Edita ambos ficheros con tu API key y configuración de Cloudinary
+# Fill in both files with your API key and Cloudinary config
 npm start
 ```
 
-La app estará disponible en `http://localhost:4200`.
+App will be available at `http://localhost:4200`.
 
 ---
 
-## Variables de entorno
+## Environment variables
 
-Los ficheros de entorno no están en el repositorio. Usa `environment.example.ts` como plantilla:
+Environment files are not included in the repository. Use `environment.example.ts` as a template:
 
 ```ts
 export const environment = {
   production: false,
-  apiUrl: '/api',                    // proxy local → evita CORS en desarrollo
-  apiKey: 'TU_API_KEY',
-  cloudinaryCloudName: 'TU_CLOUD',
-  cloudinaryUploadPreset: 'TU_PRESET',
-  geoDbApiKey: 'TU_RAPIDAPI_KEY',   // GeoDB Cities — rapidapi.com (plan Basic gratuito)
+  apiUrl: '/api',                    // local proxy → avoids CORS in development
+  apiKey: 'YOUR_API_KEY',
+  cloudinaryCloudName: 'YOUR_CLOUD',
+  cloudinaryUploadPreset: 'YOUR_PRESET',
+  geoDbApiKey: 'YOUR_RAPIDAPI_KEY',  // GeoDB Cities — rapidapi.com (free Basic plan)
 };
 ```
 
-El fichero `proxy.conf.json` redirige `localhost:4200/api/*` al backend para evitar CORS en desarrollo. En producción el backend gestiona CORS directamente.
+`proxy.conf.json` redirects `localhost:4200/api/*` to the backend to avoid CORS in development. In production, CORS is handled directly by the backend.
 
 ---
 
-## Comandos
+## Commands
 
 ```bash
-npm start                                                                    # servidor de desarrollo con proxy
-npm run build                                                                # build de producción
-npm run build -- --configuration development                                 # build de desarrollo
-npm test -- --watch=false --browsers=ChromeHeadless --no-progress            # tests en CI
+npm start                                                                    # dev server with proxy
+npm run build                                                                # production build
+npm run build -- --configuration development                                 # development build
+npm test -- --watch=false --browsers=ChromeHeadless --no-progress            # tests in CI
 ```
 
 ---
 
-## Arquitectura
+## Architecture
 
 ```
 src/app/
 ├── core/
 │   ├── services/
-│   │   ├── api.service.ts           # Todas las llamadas al backend
-│   │   ├── auth.service.ts          # Autenticación (temporal, hardcodeada)
-│   │   ├── cloudinary.service.ts    # Upload y transformación de imágenes
-│   │   ├── theme.service.ts         # Modo oscuro/claro global
-│   │   └── toast.service.ts         # Notificaciones globales
+│   │   ├── api.service.ts           # All backend calls + response mappers
+│   │   ├── auth.service.ts          # Auth state (temporary hardcoded login)
+│   │   ├── cloudinary.service.ts    # Image upload and transformation
+│   │   ├── geodb.service.ts         # City autocomplete via GeoDB RapidAPI
+│   │   ├── theme.service.ts         # Global dark/light mode
+│   │   └── toast.service.ts         # Global notifications
 │   ├── interceptors/
-│   │   └── api-key.interceptor.ts   # Inyecta X-API-KEY en cada request
+│   │   └── api-key.interceptor.ts   # Injects X-API-KEY on every request
 │   └── models/
-│       ├── api.models.ts            # Interfaces exactas del backend
-│       ├── viajes.model.ts          # Modelos del dominio
+│       ├── api.models.ts            # Exact backend interfaces
+│       ├── viajes.model.ts          # Domain models (Trip, Entry, Country)
 │       └── user.model.ts
 ├── shared/
-│   ├── toast/
-│   └── back-button/
+│   ├── toast/                       # Toast notification component
+│   └── back-button/                 # Reusable back navigation button
 └── features/
-    ├── landing/                     # Página principal + lista usuarios
-    ├── login/                       # Formulario de acceso
-    ├── mapa-global/                 # Globo 3D con todos los viajes
+    ├── landing/                     # Home page, user list, description, roadmap
+    ├── login/                       # Login form with GSAP Yeti animation
+    ├── register/                    # Registration form (route disabled)
+    ├── not-found/                   # 404 page
+    ├── mapa-global/                 # 3D globe with all trips across users
     └── usuario-perfil/
-        ├── perfil-header/           # Avatar, bio, toggle tema
-        ├── perfil-mapa/             # Mapa 2D Leaflet del perfil
-        ├── perfil-viajes/           # Carrusel de viajes
-        ├── viaje-form/              # Modal crear viaje
+        ├── perfil-header/           # Avatar, bio, edit profile, theme toggle
+        ├── perfil-mapa/             # 2D Leaflet map with trip markers
+        ├── perfil-viajes/           # Trip carousel (card list)
+        │   ├── viaje-card/          # Individual trip card
+        │   └── viajes-lista/        # Trip list container
+        ├── viaje-form/              # Modal to create a new trip
         └── viajes/
-            ├── viaje-detalle/       # Detalle del viaje + entradas
-            └── viaje-entrada/       # Formulario de entrada
+            ├── viaje-detalle/       # Trip detail + entry list + edit/delete
+            └── viaje-entrada/       # Create / edit trip entry form
+```
+
+### TypeScript path aliases
+
+```ts
+@core/*       → src/app/core/*
+@features/*   → src/app/features/*
+@shared/*     → src/app/shared/*
+@environments/* → src/environments/*
 ```
 
 ---
 
-## Flujo de datos
+## Routes
 
-Todos los datos se leen directamente de la API en cada carga — no hay estado en memoria entre rutas.
+| Path | Component | Description |
+|------|-----------|-------------|
+| `/` | `LandingComponent` | Home — user list and project overview |
+| `/login` | `LoginComponent` | Login with GSAP Yeti animation |
+| `/user/:id` | `UsuarioPerfilComponent` | User profile — map, trips, edit |
+| `/user/:id/viaje/:viajeId` | `ViajeDetalleComponent` | Trip detail and entries |
+| `/user/:id/viajes/:viajeId/entradas` | `ViajeEntradaComponent` | Add entry to a trip |
+| `/mapa-global` | `MapaGlobalComponent` | 3D globe with all trips |
+| `/**` | `NotFoundComponent` | 404 |
+
+All routes except `/` and `/mapa-global` are lazy-loaded.
+
+---
+
+## Features
+
+### Trips
+- Create a trip by selecting a country (autocomplete from backend `/countries`)
+- Attach a cover photo via Cloudinary upload
+- Mark trips as **visited** or **wishlist**
+- Edit or delete any trip
+- Convert a wishlist trip to visited
+
+### Journal entries
+- Add, edit and delete entries per trip
+- Each entry has a title, date, description and optional photo
+
+### User profile
+- Edit display name, bio and avatar photo
+- 2D Leaflet map showing all trips as pin markers (green = visited, purple = wishlist)
+- Markers include country flag and popup with trip info
+
+### 3D globe
+- Interactive globe (Three.js + three-globe) showing every trip across all users
+- Orbit, zoom and click interactions
+
+### Login animation
+- GSAP-powered Yeti SVG that follows the cursor, blinks and reacts to password field focus
+
+---
+
+## Data flow
+
+All data is fetched fresh from the API on each navigation — no shared in-memory state between routes.
 
 ```
-Perfil carga
+Profile load
   → forkJoin(getUser, getTripsByUser)
-  → forkJoin(getEntriesByTrip × N)    ← enriquece cada viaje con su conteo
-  → señal user actualizada → componentes re-renderizan
+  → forkJoin(getEntriesByTrip × N)    ← enriches each trip with entry count
+  → user signal updated → components re-render
 
-Viaje detalle carga
+Trip detail load
   → forkJoin(getTrip, getEntriesByTrip)
-  → señales viaje + entradas actualizadas
+  → trip + entries signals updated
 ```
 
 ---
 
-## Autenticación
+## Authentication
 
-El acceso para crear y editar viajes está restringido a los usuarios del proyecto. El login actual es temporal (hardcodeado en `AuthService`) hasta que se integre `POST /auth/login`.
-
----
-
-## Modo oscuro
-
-El `ThemeService` aplica la clase `dark` o `light` en `<html>` y persiste la preferencia en `localStorage`. Todos los componentes usan CSS variables (`--bg-page`, `--color-text`, etc.) definidas en `styles.css`. El toggle está en el navbar, accesible desde cualquier página.
+Access to create and edit trips is restricted to project users. The current login is temporary (hardcoded in `AuthService`) until `POST /auth/login` is fully integrated.
 
 ---
 
-## Imágenes
+## Dark mode
 
-Las imágenes se suben a **Cloudinary** con unsigned upload. Restricciones aplicadas en el frontend:
-- Formatos permitidos: JPEG y PNG
-- Tamaño máximo: 5MB por imagen
+`ThemeService` applies the `dark` or `light` class to `<html>` and persists the preference in `localStorage`. All components use CSS variables (`--bg-page`, `--color-text`, etc.) defined in `styles.css`. The toggle is in the navbar, accessible from any page.
 
-`CloudinaryService.validate(file)` centraliza la validación antes de cualquier subida.
+---
+
+## Images
+
+Images are uploaded to **Cloudinary** using unsigned upload. Restrictions enforced in the frontend:
+- Allowed formats: JPEG and PNG
+- Maximum size: 5 MB per image
+
+`CloudinaryService.validate(file)` centralises validation before any upload.
+
+---
+
+## City autocomplete
+
+`GeoDbService` queries the [GeoDB Cities RapidAPI](https://rapidapi.com/wirefreethought/api/geodb-cities) to provide city suggestions in forms. Requires a free `GEODB_API_KEY`. Falls back to an empty list on quota or network errors.
 
 ---
 
 ## Tests
 
-**86 tests, todos pasando.**
+**92 tests, all passing.**
 
-| Servicio / Componente | Tests | Qué cubre |
-|-----------------------|-------|-----------|
-| `AuthService` | 11 | login, logout, persistencia, canEditUser |
-| `CloudinaryService` | 11 | avatarUrl, validate (tipo, tamaño), fallback |
-| `ToastService` | 10 | tipos, auto-cierre, timing |
-| `ApiService` | 9 | mappers, HTTP mock |
-| Componentes | 45 | creación, inputs, renders |
+| Service / Component | Tests | Covers |
+|---------------------|-------|--------|
+| `AuthService` | 11 | login, logout, persistence, canEditUser |
+| `CloudinaryService` | 11 | avatarUrl, validate (type, size), fallback |
+| `ToastService` | 10 | types, auto-close, timing |
+| `ApiService` | 21 | mappers, HTTP mocks for all endpoints |
+| Components | 39 | creation, inputs, renders |
 
 ---
 
 ## CI/CD
 
-Dos pipelines en `.github/workflows/`:
+Two pipelines in `.github/workflows/`:
 
-- **`ci-dev.yml`** — se dispara en push/PR a `dev`: tests + build staging
-- **`ci-main.yml`** — se dispara en push/PR a `main`: tests + build producción
+- **`ci-dev.yml`** — triggers on push/PR to `dev`: tests + staging build
+- **`ci-main.yml`** — triggers on push/PR to `main`: tests + production build
 
-Secrets necesarios en GitHub Actions:
+Both pipelines generate `environment.ts` dynamically from GitHub Actions secrets via `scripts/set-env.js`.
 
-| Secret | Descripción |
+Required secrets:
+
+| Secret | Description |
 |--------|-------------|
-| `API_KEY` | Clave de la API del backend |
-| `STAGING_API_URL` | URL del backend de staging |
-| `PROD_API_URL` | URL del backend de producción |
-| `CLOUDINARY_CLOUD_NAME` | Cloud name de Cloudinary |
-| `CLOUDINARY_UPLOAD_PRESET` | Upload preset de Cloudinary |
-| `GEODB_API_KEY` | X-RapidAPI-Key para GeoDB Cities |
-
-El bloque de deploy está preparado pero comentado. Se descomenta al elegir plataforma (Vercel/Netlify/Firebase).
+| `API_KEY` | Backend API key |
+| `STAGING_API_URL` | Staging backend URL |
+| `PROD_API_URL` | Production backend URL |
+| `CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name |
+| `CLOUDINARY_UPLOAD_PRESET` | Cloudinary unsigned upload preset |
+| `GEODB_API_KEY` | X-RapidAPI-Key for GeoDB Cities |
 
 ---
 
-## Ramas
+## Deploy
+
+The app is configured for **Vercel** via `vercel.json`:
+
+```json
+{
+  "buildCommand": "npm run build:vercel",
+  "outputDirectory": "dist/travel-blog/browser",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
+```
+
+The `rewrites` rule ensures Angular's client-side routing works on direct URL access.
+
+---
+
+## Branch strategy
 
 ```
-main  ← producción estable
-  └── dev  ← integración
+main  ← stable production
+  └── dev  ← integration
         ├── feature/...
         └── fix/...
 ```
 
-Flujo: rama desde `dev` → PR a `dev` → cuando `dev` está estable → PR a `main`.
+Flow: branch from `dev` → PR to `dev` → once `dev` is stable → PR to `main`.
 
 ---
 
-## Futuras implementaciones
+## Scripts
 
-**En desarrollo**
-- Rutas interactivas — recorrido entre ciudades trazado sobre el globo 3D
-- Compañeros de viaje — vincular usuarios reales a cada viaje, ver con quién viajas más
-- Exportar a PDF — diario de viaje completo con fotos y entradas
+Utility scripts in `scripts/`:
 
-**Próximamente**
-- Autenticación real mediante `POST /auth/login`
-- Línea de tiempo cronológica de todos los viajes
-- Recomendaciones de destinos basadas en los países visitados
-- Modo offline / PWA
-- Internacionalización (i18n) ES/EN
-- Keep-alive del backend (cron en GitHub Actions)
+| Script | Purpose |
+|--------|---------|
+| `set-env.js` | Generates `environment.ts` from env vars (used in CI) |
+| `fetch-flags.js` | Fetches country flag URLs and writes to `assets/countries.json` |
+| `fetch-country-names-es.js` | Fetches country names in Spanish for the local asset |
+| `seed_countries_es.sql` | SQL seed file for populating the backend countries table |
 
 ---
 
@@ -216,27 +294,45 @@ Flujo: rama desde `dev` → PR a `dev` → cuando `dev` está estable → PR a `
 
 - **URL:** `https://traveling-memories-backend.onrender.com`
 - **Docs:** `https://traveling-memories-backend.onrender.com/docs`
-- **Autenticación:** header `X-API-KEY`
+- **Auth:** `X-API-KEY` header on every request
 
 ### Endpoints
 
-| Método | Ruta | Descripción |
+| Method | Path | Description |
 |--------|------|-------------|
-| POST | `/auth/register` | Registro de usuario |
+| POST | `/auth/register` | Register a new user |
 | POST | `/auth/login` | Login |
-| GET | `/users` | Lista de usuarios |
-| GET | `/users/{id}` | Usuario por ID |
-| PUT | `/users/{id}` | Actualizar usuario |
-| DELETE | `/users/{id}` | Eliminar usuario |
-| POST | `/trips` | Crear viaje |
-| GET | `/trips/user/{user_id}` | Viajes de un usuario |
-| GET | `/trips/{id}` | Viaje por ID |
-| PUT | `/trips/{id}` | Editar viaje |
-| DELETE | `/trips/{id}` | Eliminar viaje |
-| GET | `/trip-entries/trip/{trip_id}` | Entradas de un viaje |
-| POST | `/trip-entries` | Crear entrada |
-| GET | `/trip-entries/{id}` | Entrada por ID |
-| PUT | `/trip-entries/{id}` | Editar entrada |
-| DELETE | `/trip-entries/{id}` | Eliminar entrada |
-| GET | `/countries` | Lista de países |
-| GET | `/cities` | Lista de ciudades |
+| GET | `/users` | List all users |
+| GET | `/users/{id}` | Get user by ID |
+| PUT | `/users/{id}` | Update user |
+| DELETE | `/users/{id}` | Delete user |
+| POST | `/trips` | Create a trip |
+| GET | `/trips/user/{user_id}` | Get trips by user |
+| GET | `/trips/{id}` | Get trip by ID |
+| PUT | `/trips/{id}` | Update trip |
+| DELETE | `/trips/{id}` | Delete trip |
+| GET | `/trip-entries/trip/{trip_id}` | Get entries for a trip |
+| POST | `/trip-entries` | Create an entry |
+| GET | `/trip-entries/{id}` | Get entry by ID |
+| PUT | `/trip-entries/{id}` | Update entry |
+| DELETE | `/trip-entries/{id}` | Delete entry |
+| GET | `/countries` | List countries (with lat/lng and region) |
+| GET | `/countries/{id}` | Get country by ID |
+| GET | `/cities` | List cities |
+
+---
+
+## Roadmap
+
+**In progress**
+- Interactive routes — city-to-city path drawn on the 3D globe
+- Travel companions — link real users to each trip
+- Export to PDF — full travel diary with photos and entries
+
+**Planned**
+- Real authentication via `POST /auth/login`
+- Chronological timeline of all trips
+- Destination recommendations based on visited countries
+- Offline support / PWA
+- Internationalisation (i18n) EN/ES
+- Backend keep-alive cron (GitHub Actions)
