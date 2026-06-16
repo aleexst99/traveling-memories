@@ -70,3 +70,11 @@ export interface ApiTripEntryOut {
   image_url?: string;
 }
 
+export interface ApiCountry {
+  id:     number;
+  name:   string;
+  region: string;
+  lat:    number;
+  lng:    number;
+}
+
