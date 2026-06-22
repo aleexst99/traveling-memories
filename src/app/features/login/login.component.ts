@@ -20,7 +20,8 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   @ViewChild('usernameInput') usernameInput!: ElementRef<HTMLInputElement>;
   @ViewChild('passwordInput') passwordInput!: ElementRef<HTMLInputElement>;
 
-  error = false;
+  error    = false;
+  loading  = false;
 
   form = this.fb.group({
     username: ['', Validators.required],
@@ -251,18 +252,22 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   // ── Login ──────────────────────────────────────────────────
 
   submit() {
-    if (this.form.invalid) return;
+    if (this.form.invalid || this.loading) return;
     const { username, password } = this.form.value;
-    const ok = this.auth.login(username!, password!);
-    if (ok) {
-      this.router.navigate(['/']);
-    } else {
-      this.error = true;
-      // Shake animation on error
-      gsap.to(this.q('.login-card'), {
-        duration: 0.05, x: -8, yoyo: true, repeat: 5, ease: 'power1.inOut',
-        onComplete: () => gsap.set(this.q('.login-card'), { x: 0 })
-      });
-    }
+    this.loading = true;
+    this.error   = false;
+
+    this.auth.login(username!, password!).subscribe(ok => {
+      this.loading = false;
+      if (ok) {
+        this.router.navigate(['/']);
+      } else {
+        this.error = true;
+        gsap.to(this.q('.login-card'), {
+          duration: 0.05, x: -8, yoyo: true, repeat: 5, ease: 'power1.inOut',
+          onComplete: () => gsap.set(this.q('.login-card'), { x: 0 })
+        });
+      }
+    });
   }
 }

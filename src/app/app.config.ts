@@ -47,12 +47,12 @@ export const appConfig = {
           import('./features/login/login.component').then(m => m.LoginComponent)
       },
 
-      // Registro desactivado — descomentar cuando se quiera reabrir
-      // {
-      //   path: 'register',
-      //   loadComponent: () =>
-      //     import('./features/register/register.component').then(m => m.RegisterComponent)
-      // },
+      // Register
+      {
+        path: 'register',
+        loadComponent: () =>
+          import('./features/register/register.component').then(m => m.RegisterComponent)
+      },
 
       // 404
       {

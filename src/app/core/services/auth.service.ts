@@ -1,20 +1,19 @@
-import { Injectable, signal } from '@angular/core';
-import { environment } from '@environments/environment';
+import { Injectable, signal, inject } from '@angular/core';
+import { Observable, map, tap, catchError, of } from 'rxjs';
+import { ApiService } from './api.service';
 
 interface AuthUser {
   username: string;
-  userId: number;
+  userId:   number;
+  token:    string;
 }
-
-const USERS: { username: string; password: string; userId: number }[] = [
-  { username: 'alejandro', password: 'alex2024', userId: 1 },
-  { username: 'arturo',    password: 'artu2024', userId: 2 },
-];
 
 const STORAGE_KEY = 'tm_auth_user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private api = inject(ApiService);
+
   currentUser = signal<AuthUser | null>(this.loadFromStorage());
 
   private loadFromStorage(): AuthUser | null {
@@ -22,24 +21,40 @@ export class AuthService {
     return raw ? JSON.parse(raw) : null;
   }
 
-  get apiUrl(): string {
-    return environment.apiUrl;
+  /** Decodes the JWT payload (no verification — trust the backend) */
+  private decodeToken(token: string): { sub: string; exp: number } | null {
+    try {
+      const payload = token.split('.')[1];
+      const padded  = payload + '='.repeat((4 - payload.length % 4) % 4);
+      return JSON.parse(atob(padded));
+    } catch {
+      return null;
+    }
   }
 
-  login(username: string, password: string): boolean {
-    // Login provisional — se sustituirá por POST /auth/login cuando el backend lo exponga
-    const match = USERS.find(u => u.username === username.toLowerCase() && u.password === password);
-    if (!match) return false;
-    const user: AuthUser = { username: match.username, userId: match.userId };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-    this.currentUser.set(user);
-    return true;
+  login(username: string, password: string): Observable<boolean> {
+    return this.api.login(username, password).pipe(
+      tap(({ access_token }) => {
+        const decoded = this.decodeToken(access_token);
+        if (!decoded) return;
+        const user: AuthUser = {
+          username,
+          userId: parseInt(decoded.sub, 10),
+          token:  access_token,
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+        this.currentUser.set(user);
+      }),
+      map(() => true),
+      catchError(() => of(false)),
+    );
   }
 
-  /** Establece el usuario en sesión (usado tras registro o login externo) */
-  setUser(user: AuthUser): void {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-    this.currentUser.set(user);
+  /** Sets session after external auth (e.g. register flow) */
+  setUser(user: { username: string; userId: number; token?: string }): void {
+    const stored: AuthUser = { username: user.username, userId: user.userId, token: user.token ?? '' };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+    this.currentUser.set(stored);
   }
 
   logout(): void {
@@ -53,5 +68,9 @@ export class AuthService {
 
   canEditUser(userId: number): boolean {
     return this.currentUser()?.userId === userId;
+  }
+
+  getToken(): string | null {
+    return this.currentUser()?.token ?? null;
   }
 }

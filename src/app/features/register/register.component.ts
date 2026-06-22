@@ -65,9 +65,11 @@ export class RegisterComponent {
 
     this.api.register({ name: name!, password: password! }).subscribe({
       next: (user) => {
-        this.auth.setUser({ username: user.name, userId: user.id });
-        this.toast.success('Cuenta creada. ¡Bienvenido!');
-        this.router.navigate(['/user', user.id]);
+        // Auto-login to get the JWT immediately after registration
+        this.auth.login(name!, password!).subscribe(() => {
+          this.toast.success('Account created. Welcome!');
+          this.router.navigate(['/user', user.id]);
+        });
       },
       error: (err) => {
         this.cargando = false;
@@ -75,7 +77,7 @@ export class RegisterComponent {
         if (typeof detail === 'string') {
           this.errorMsg = detail;
         } else {
-          this.errorMsg = 'No se pudo crear la cuenta. Inténtalo de nuevo.';
+          this.errorMsg = 'Could not create account. Please try again.';
         }
       },
     });
