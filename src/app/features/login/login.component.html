@@ -117,8 +117,14 @@
         <p class="error">Usuario o contraseña incorrectos</p>
       }
 
-      <button type="submit" [disabled]="form.invalid">Entrar</button>
+      <button type="submit" [disabled]="form.invalid || loading">
+        @if (loading) { Entrando... } @else { Entrar }
+      </button>
     </form>
+
+    <p class="register-link">
+      ¿No tienes cuenta? <a routerLink="/register">Crear cuenta</a>
+    </p>
 
   </div>
 </div>
